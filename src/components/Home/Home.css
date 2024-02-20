@@ -91,6 +91,7 @@ body {
     }
 
     body {
-        padding: 0 0;
+        padding: 0px 0px 20px 0px ;
+        align-items: flex-end;
     }
 }

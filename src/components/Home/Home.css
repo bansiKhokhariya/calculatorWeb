@@ -87,6 +87,7 @@ body {
 @media (max-width:500px) {
     .main-container {
         width: 100%;
+        box-shadow: none;
     }
 
     body {

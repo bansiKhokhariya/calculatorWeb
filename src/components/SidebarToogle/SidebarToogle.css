@@ -1,7 +1,7 @@
 .menu-button {
     font-size: 50px;
-    color: #71c1f9;
-    background-color: #FFF;
+    color: var(--textColor);
+    background-color: var(--backgroundColor);
     position: fixed;
     top: 0;
     left: 2%;
@@ -9,7 +9,7 @@
 }
 
 .menu-close-button {
-    color: #71c1f9;
+    color: var(--textColor);
     font-size: 30px;
 }
 
@@ -23,7 +23,7 @@
     width: 280px;
     min-height: 100vh;
     box-shadow: 0px 4px 8px rgb(0 0 0 / 16%);
-    background-color: #fff;
+    background-color: var(--backgroundColorInnerBox);
     position: fixed;
     top: 0;
     left: -100%;
@@ -40,6 +40,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px;
+    color: var(--textColor);
 }
 
 .sidebar-overlay {
@@ -77,31 +78,27 @@
     margin-bottom: 10px;
 }
 
-.sd-body ul li .sd-link {
+.sd-body ul li {
     display: inline-block;
     width: 100%;
     padding: 10px 16px;
-    color: black;
-    background-color: #FFF;
+    color: var(--textColor);
+    background-color: var(--backgroundColorInnerBox);
     border-radius: 4px;
-    box-shadow: 2px 2px 2px 0px #71c1f9;
+    box-shadow: var(--boxShadow);
     cursor: pointer;
     text-decoration: none;
     transition: all 0.5s;
 }
 
-.sd-body ul li .sd-link:hover {
-    box-shadow: 0px 2px 2px 2px #71c1f9;
-}
-
-
 @media (max-width:500px) {
     .menu-button {
         font-size: 30px;
     }
+
     .menu-close-button {
-        color: #71c1f9;
+        color: var(--shadowColor);
         font-size: 20px;
     }
-    
+
 }

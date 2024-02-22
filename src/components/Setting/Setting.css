@@ -14,7 +14,7 @@
 }
 
 .setting-menu {
-    width: 500px;
+    width: 50vw;
 }
 
 .setting-menu .setting-inner-item {
@@ -39,7 +39,7 @@
     display: none;
 }
 
-.setting-inner-menu li{
+.setting-inner-menu li {
     list-style: none;
     font-size: 16px;
     padding: 10px 0;
@@ -48,28 +48,27 @@
 
 
 @media (max-width:1600px) {
-    .setting-menu {
-        width: 400px;
-    }
+  
 }
 
 @media (max-width:1350px) {
-    .setting-menu {
-        width: 300px;
-    }
+   
 }
 
 @media (max-width:1150px) {
+    
+}
+
+@media (max-width:500px) {
+
     .sd-inner-menu-section {
         flex-direction: column;
     }
 
     .setting-menu {
         width: 100%;
-    }
-}
 
-@media (max-width:500px) {
+    }
 
     .setting-container {
         border-radius: 0;

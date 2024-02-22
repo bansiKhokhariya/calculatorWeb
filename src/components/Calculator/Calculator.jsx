@@ -1,15 +1,22 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom';
+import SidebarToogle from '../SidebarToogle/SidebarToogle'
 import BasicCalculator from './BasicCalculator/BasicCalculator'
 import PercentageCalculator from './PercentageCalculator/PercentageCalculator'
 
-const Calculator = (props) => {
+const Calculator = () => {
+
+    const location = useLocation();
+
+
     return (
         <>
-            {props.calculatorType == 'basicCalculator' && (
+            <SidebarToogle />
+            {location.pathname == '/' && (
                 <BasicCalculator />
             )}
 
-            {props.calculatorType == 'percentageCalculator' && (
+            {location.pathname == '/calculator/percentageCalculator' && (
                 <PercentageCalculator />
             )}
         </>

@@ -4,6 +4,7 @@ import Home from './components/Home/Home'
 import ScrollToTop from './components/ScrollToTop';
 import Setting from './components/Setting/Setting'
 import AllCategory from './components/AllCategory/AllCategory'
+import Calculator from './components/Calculator/Calculator'
 
 import {
   BrowserRouter as Router,
@@ -33,7 +34,12 @@ const App = () => {
 
           <Route path="/" element={<Home />}></Route>
           <Route path="/setting" element={<Setting />}></Route>
+
+
+
           <Route path="/allCategory" element={<AllCategory />}></Route>
+          <Route path="/calculator/percentageCalculator" element={<Calculator />}></Route>
+
 
         </Routes>
       </Router>

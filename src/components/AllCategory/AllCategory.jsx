@@ -1,17 +1,10 @@
 import { React, useState } from 'react'
 import SidebarToogle from '../SidebarToogle/SidebarToogle'
-import Home from '../Home/Home'
 import './AllCategory.css'
-import Calculator from '../Calculator/Calculator'
+import { Link } from 'react-router-dom'
 
 
 const AllCategory = () => {
-
-    const [calculatorType, setCalculatorType] = useState('basicCalculator')
-
-    const handleCalculatorType = (type) => {
-        setCalculatorType(type)
-    }
 
     return (
         <>
@@ -30,7 +23,9 @@ const AllCategory = () => {
                                 General Calculator
                             </label>
                             <ul className="setting-menu-item-inner-list">
-                                <li onClick={() => handleCalculatorType('percentageCalculator')}>Percentage Calculator</li>
+                                <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
+                                    <li>Percentage Calculator</li>
+                                </Link>
                             </ul>
                         </li>
                         <li className='category-inner-item'>Loan Calculator</li>
@@ -41,7 +36,6 @@ const AllCategory = () => {
                         <li className='category-inner-item'>Date and Time</li>
                     </ul>
                 </div>
-                <Calculator calculatorType={calculatorType} />
             </div>
         </>
     )

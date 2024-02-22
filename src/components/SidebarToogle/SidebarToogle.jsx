@@ -1,11 +1,12 @@
-import { React, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { React, useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import './SidebarToogle.css'
 
 const SidebarToogle = () => {
 
     const [isOpen, setIsopen] = useState(false);
+    const [previousPath, setPreviousPath] = useState('');
 
     const ToggleSidebar = () => {
         isOpen === true ? setIsopen(false) : setIsopen(true);
@@ -16,6 +17,8 @@ const SidebarToogle = () => {
     // Check if the current URL is "/"
     const isRootHome = location.pathname === "/";
 
+    const navigate = useNavigate()
+
     return (
         <>
             <div className="container-fluid">
@@ -25,11 +28,9 @@ const SidebarToogle = () => {
                         ☰
                     </button>
                     :
-                    <Link to={'/'}>
-                        <button className="menu-button">
-                            🏠︎
-                        </button>
-                    </Link>
+                    <button onClick={() => navigate(-1)} className="menu-button">
+                        🏠︎
+                    </button>
                 }
 
                 <div className={`sidebar ${isOpen == true ? 'active' : ''}`}>

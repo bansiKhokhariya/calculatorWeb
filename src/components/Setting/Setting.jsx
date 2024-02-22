@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Setting.css';
 import SidebarToogle from '../SidebarToogle/SidebarToogle';
 import { Modal, Button } from "react-bootstrap";
-import Calculator from '../Calculator/Calculator'
+// import Calculator from '../Calculator/Calculator'
+
 
 const Setting = () => {
     const [show, setShow] = useState(false);
@@ -53,7 +54,7 @@ const Setting = () => {
                         <li className='setting-inner-item'>Confirm before exit app</li>
                     </ul>
                 </div>
-                <Calculator calculatorType='basicCalculator' />
+                {/* <Calculator calculatorType='basicCalculator' /> */}
                 <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
                     <Modal.Header >
                         <Modal.Title>Background Colour</Modal.Title>

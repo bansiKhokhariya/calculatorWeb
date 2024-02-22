@@ -1,6 +1,7 @@
 .percentage-caculator-section {
-    padding: 20px;
-    width: 400px;
+    margin-top: 150px;
+    padding: 40px 40px 40px 40px;
+    width: 700px;
     background-color: var(--backgroundColorInnerBox);
     box-shadow: 10px 10px 30px 0px #cbcbcb1a;
     border-radius: 30px;
@@ -14,17 +15,33 @@
 .percentage-caculator-lable {
     font-size: 20px;
     font-weight: 600;
-    width: 160px;
+    width: 200px;
     color: var(--textColor);
 }
 
 .percentage-caculator-title {
     color: var(--textColor);
     font-weight: 700;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--textColor);
+}
+
+.percentage-caculator-main-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--textColor);
+}
+
+.percentage-caculator-innerTitle {
+    color: var(--textColor);
+    font-weight: 400;
 }
 
 .percentage-caculator-input {
-    max-width: 200px;
+    width: 400px;
     height: 55px;
     font-size: 18px;
     border-radius: 10px;
@@ -37,8 +54,7 @@
 .percentage-input-box {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 50px;
     color: var(--textColor);
 }
 
@@ -90,7 +106,8 @@
     gap: 5px;
 }
 
-@media (max-width:500px) {
+
+@media (max-width:750px) {
     .percentage-caculator-section {
         width: 100%;
         box-shadow: none;
@@ -98,15 +115,26 @@
     }
 
     .percentage-caculator-lable {
-        font-size: 15px;
         width: 130px;
+        font-size: 15px;
+    }
+
+    .percentage-caculator-input {
+        width: 200px;
+        height: 50px;
+    }
+
+    .result-value {
+        font-size: 14px;
     }
 
     .percentage-input-box {
         gap: 2px;
     }
 
-    .result-value {
+    .percentage-button {
         font-size: 14px;
+        padding: 8px;
     }
+
 }

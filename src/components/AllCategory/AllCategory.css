@@ -1,0 +1,50 @@
+/* category page css */
+
+.setting-menu .category-inner-item {
+    padding: 10px;
+    border-bottom: 2px solid var(--textColor);
+    list-style: none;
+    cursor: pointer;
+    color: var(--textColor);
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.category-inner-item label:hover {
+    cursor: pointer;
+}
+
+.setting-menu-input:not(:checked)~.setting-menu-item-inner-list {
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+.setting-menu-input:checked~.setting-menu-item-inner-list {
+    max-height: 100rem;
+    transition: max-height 0.3s ease-in;
+}
+
+.setting-menu-item-inner-list {
+    margin-left: 35px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.down-arrow-svg path {
+    fill: var(--textColor);
+}
+
+.setting-menu-item-inner-list li {
+    padding: 10px 0 0 0;
+}
+
+
+@media (max-width:500px) {
+    .setting-menu .category-inner-item {   
+        font-size: 16px;
+    }
+}

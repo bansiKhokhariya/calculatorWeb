@@ -16,6 +16,8 @@ ul {
     --backgroundColorInnerBox: #171D20;
     --textColor: #e4e2e2;
     --boxShadow: rgba(119, 119, 178, 0.25) 0px 50px 100px -20px, rgba(44, 43, 43, 0.3) 0px 30px 60px -30px, rgba(145, 190, 235, 0.35) 0px -2px 6px 0px inset;
+    --greenColor: #04AA6D;
+    --blueColor: #3366ff
 }
 
 .light-theme {
@@ -23,6 +25,8 @@ ul {
     --backgroundColorInnerBox: #fff;
     --textColor: #504f4f;
     --boxShadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    --greenColor: #04AA6D;
+    --blueColor: #3366ff
 }
 
 
@@ -34,6 +38,10 @@ body {
     height: 100vh;
     padding: 0 20px;
     background-color: var(--backgroundColor);
+}
+
+input:focus {
+    outline: none;
 }
 
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Setting.css';
 import SidebarToogle from '../SidebarToogle/SidebarToogle';
 import { Modal, Button } from "react-bootstrap";
+import Calculator from '../Calculator/Calculator'
 
 const Setting = () => {
     const [show, setShow] = useState(false);
@@ -20,7 +21,6 @@ const Setting = () => {
     const handleThemeSelect = (theme) => {
         setSelectedTheme(theme);
         localStorage.setItem('selectedTheme', theme);
-
         handleClose();
     };
 
@@ -36,11 +36,11 @@ const Setting = () => {
 
     return (
         <>
+            <SidebarToogle />
             <div className='sd-inner-menu-section'>
-                <SidebarToogle />
                 <div className='setting-container'>
                     <ul className='setting-menu'>
-                        <li onClick={handleShow}>
+                        <li className='setting-inner-item' onClick={handleShow}>
                             <div>
                                 Background Colour
                             </div>
@@ -48,12 +48,12 @@ const Setting = () => {
                                 {selectedTheme || 'Select Theme'}
                             </div>
                         </li>
-                        <li>Currency Format</li>
-                        <li>Set up Calculator Shortcut</li>
-                        <li>Confirm before exit app</li>
+                        <li className='setting-inner-item'>Currency Format</li>
+                        <li className='setting-inner-item'>Set up Calculator Shortcut</li>
+                        <li className='setting-inner-item'>Confirm before exit app</li>
                     </ul>
                 </div>
-
+                <Calculator calculatorType='basicCalculator' />
                 <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
                     <Modal.Header >
                         <Modal.Title>Background Colour</Modal.Title>

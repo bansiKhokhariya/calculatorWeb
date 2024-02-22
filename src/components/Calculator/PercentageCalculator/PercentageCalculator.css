@@ -89,3 +89,24 @@
     align-items: flex-end;
     gap: 5px;
 }
+
+@media (max-width:500px) {
+    .percentage-caculator-section {
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .percentage-caculator-lable {
+        font-size: 15px;
+        width: 130px;
+    }
+
+    .percentage-input-box {
+        gap: 2px;
+    }
+
+    .result-value {
+        font-size: 14px;
+    }
+}

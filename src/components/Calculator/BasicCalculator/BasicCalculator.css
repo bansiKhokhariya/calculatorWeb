@@ -1,8 +1,4 @@
 .basic-caculator-section {
-    /* position: fixed;
-    top: 100px;
-    left: 0%;
-    right: 0%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,25 +58,15 @@
     font-size: 30px;
 }
 
-
-@media (max-width:1150px) {
-    .basic-caculator-section {
-        position: static;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-}
-
 @media (max-width:500px) {
     .main-container {
         width: 100%;
         box-shadow: none;
         border-radius: 0;
-        margin-top: 50px;
     }
 
     .basic-caculator-section {
         align-items: end;
+        background-color: var(--backgroundColorInnerBox);
     }
 }

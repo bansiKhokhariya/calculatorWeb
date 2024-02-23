@@ -5,6 +5,7 @@
     height: 100vh;
     width: 100%;
     margin-top: 80px;
+
 }
 
 .setting-container {
@@ -47,27 +48,21 @@
 }
 
 
-@media (max-width:1600px) {
-  
-}
+@media (max-width:1600px) {}
 
-@media (max-width:1350px) {
-   
-}
+@media (max-width:1350px) {}
 
-@media (max-width:1150px) {
-    
-}
+@media (max-width:1150px) {}
 
 @media (max-width:500px) {
 
     .sd-inner-menu-section {
         flex-direction: column;
+        background-color: var(--backgroundColorInnerBox);
     }
 
     .setting-menu {
         width: 100%;
-
     }
 
     .setting-container {
@@ -79,13 +74,4 @@
     .setting-menu .setting-inner-item {
         font-size: 16px;
     }
-}
-
-
-.bansi{
-    border: 1px solid white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }

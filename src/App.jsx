@@ -1,7 +1,6 @@
 import { React, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import Home from './components/Home/Home'
-import ScrollToTop from './components/ScrollToTop';
 import Setting from './components/Setting/Setting'
 import AllCategory from './components/AllCategory/AllCategory'
 import Calculator from './components/Calculator/Calculator'
@@ -29,7 +28,6 @@ const App = () => {
   return (
     <>
       <Router>
-        <ScrollToTop />
         <Routes>
 
 

@@ -39,6 +39,7 @@ const App = () => {
 
           <Route path="/allCategory" element={<AllCategory />}></Route>
           <Route path="/calculator/percentageCalculator" element={<Calculator />}></Route>
+          <Route path="/calculator/bmiCalculator" element={<Calculator />}></Route>
 
 
         </Routes>

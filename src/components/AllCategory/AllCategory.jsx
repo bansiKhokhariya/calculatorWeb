@@ -26,6 +26,9 @@ const AllCategory = () => {
                                 <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
                                     <li>Percentage Calculator</li>
                                 </Link>
+                                <Link className='redirect-link' to={'/calculator/bmiCalculator'}>
+                                    <li>BMI Calculator</li>
+                                </Link>
                             </ul>
                         </li>
                         <li className='category-inner-item'>Loan Calculator</li>

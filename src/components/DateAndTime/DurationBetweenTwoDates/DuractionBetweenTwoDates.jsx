@@ -4,27 +4,44 @@ const DuractionBetweenTwoDates = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [duration, setDuration] = useState('');
+  const [excludingDuration, setExcludingDuration] = useState('');
+  const [durationString, setDurationString] = useState('');
 
   const calculateDuration = () => {
+
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    let totalDays = 0;
+    // total Days With Out Excluding
+    let Difference_In_Time =
+      end.getTime() - start.getTime();
+    let Difference_In_Days =
+      Math.round
+        (Difference_In_Time / (1000 * 3600 * 24));
+
+    setDuration(Difference_In_Days)
+
+    // Calculate years, months, and days separately
+    const years = Math.floor(Difference_In_Days / 365);
+    const months = Math.floor((Difference_In_Days % 365) / 30);
+    const days = (Difference_In_Days % 30);
+
+    const durationString = `${years} years ${months} months ${days} days`;
+    setDurationString(durationString)
+
+    //  total Days With Excluding
+
+    let totalDaysWithExcluding = 0;
     for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
       const dayOfWeek = date.getDay();
       if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-        // Exclude weekends
-        totalDays++;
+        totalDaysWithExcluding++;
       }
     }
-    setDuration(totalDays);
+    setExcludingDuration(totalDaysWithExcluding - 1);
 
-
-    // const diffTime = Math.abs(start - end);
-    // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    // console.log(diffTime + " milliseconds");
-    // console.log(diffDays + " days");
   };
+
 
   return (
     <div className='percentage-caculator-section-main'>
@@ -65,11 +82,14 @@ const DuractionBetweenTwoDates = () => {
             </div>
           </div>
           <div className='percentage-result-section'>
-            {/* <div className='result-value'>
-              Difference in days:  <span className='result-value-span-green'>{duration} days</span>
-            </div> */}
             <div className='result-value'>
-              Difference in days (Excluding Weekends):  <span className='result-value-span-green'>{duration} days</span>
+              Date Period:  <span className='result-value-span-green'>{durationString}</span>
+            </div>
+            <div className='result-value'>
+              Difference in days:  <span className='result-value-span-green'>{duration} days</span>
+            </div>
+            <div className='result-value'>
+              Difference in days (Excluding Weekends):  <span className='result-value-span-green'>{excludingDuration} days</span>
             </div>
           </div>
         </div>

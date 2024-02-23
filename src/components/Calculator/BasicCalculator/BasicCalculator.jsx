@@ -16,7 +16,7 @@ const BasicCalculator = () => {
                 handleDelete();
             } else if (key === 'Enter' || key === '=') {
                 handleEqual();
-            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+            } else if (key === '+' || key === '-' || key === '*' || key === '/' || key === '%') {
                 handleClick(key);
             }
         };
@@ -48,6 +48,8 @@ const BasicCalculator = () => {
     const handleEqual = () => {
         if (inputValue.trim() !== '') {
             let expression = inputValue;
+            // Replace percentage symbol with '/100*'
+            expression = expression.replace(/%/g, '/100*');
             // Remove trailing operator if present
             if (/[+\-*/]$/.test(expression)) {
                 expression = expression.slice(0, -1);
@@ -57,6 +59,7 @@ const BasicCalculator = () => {
             setEqualPressed(true);
         }
     };
+
 
     return (
         <div className='basic-caculator-section'>

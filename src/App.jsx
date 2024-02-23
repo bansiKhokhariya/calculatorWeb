@@ -5,6 +5,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Setting from './components/Setting/Setting'
 import AllCategory from './components/AllCategory/AllCategory'
 import Calculator from './components/Calculator/Calculator'
+import DateAndTime from './components/DateAndTime/DateAndTime'
 
 import {
   BrowserRouter as Router,
@@ -33,13 +34,20 @@ const App = () => {
 
 
           <Route path="/" element={<Home />}></Route>
+
+          {/***************  setting section ***************/}
           <Route path="/setting" element={<Setting />}></Route>
 
 
-
+          {/***************  category section ***************/}
           <Route path="/allCategory" element={<AllCategory />}></Route>
+
+          {/* general */}
           <Route path="/calculator/percentageCalculator" element={<Calculator />}></Route>
           <Route path="/calculator/bmiCalculator" element={<Calculator />}></Route>
+          <Route path="/calculator/numberToWordConverter" element={<Calculator />}></Route>
+          {/* date and time */}
+          <Route path="/dateAndTime/durationBetweenTwoDates" element={<DateAndTime />}></Route>
 
 
         </Routes>

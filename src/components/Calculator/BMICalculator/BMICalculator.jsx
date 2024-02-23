@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import './BMICalculator.css'
 
 const BMICalculator = () => {
 
@@ -45,7 +44,10 @@ const BMICalculator = () => {
                                 name=""
                                 id="height"
                                 value={heightValue}
-                                onChange={(e) => setHeightValue(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value.replace(/\D/g, ''); // Remove any non-numeric characters
+                                    setHeightValue(input);
+                                }}
                             />
                             &nbsp;
                             &nbsp;
@@ -60,7 +62,10 @@ const BMICalculator = () => {
                                 name=""
                                 id="weight"
                                 value={weightValue}
-                                onChange={(e) => setWeightValue(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value.replace(/\D/g, '');
+                                    setWeightValue(input);
+                                }}
                             />
                             &nbsp;
                             &nbsp;

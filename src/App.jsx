@@ -46,6 +46,7 @@ const App = () => {
           <Route path="/calculator/numberToWordConverter" element={<Calculator />}></Route>
           {/* date and time */}
           <Route path="/dateAndTime/durationBetweenTwoDates" element={<DateAndTime />}></Route>
+          <Route path="/dateAndTime/ageCaculator" element={<DateAndTime />}></Route>
 
 
         </Routes>

@@ -53,6 +53,9 @@ const AllCategory = () => {
                                 <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'}>
                                     <li>Duration Between Two Dates</li>
                                 </Link>
+                                <Link className='redirect-link' to={'/dateAndTime/ageCaculator'}>
+                                    <li>Age Caculator</li>
+                                </Link>
                             </ul>
                         </li>
                     </ul>

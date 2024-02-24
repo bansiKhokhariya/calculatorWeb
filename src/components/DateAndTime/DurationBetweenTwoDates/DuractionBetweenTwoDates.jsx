@@ -21,16 +21,12 @@ const DuractionBetweenTwoDates = () => {
 
     setDuration(Difference_In_Days)
 
-    // Calculate years, months, and days separately
-    const years = Math.floor(Difference_In_Days / 365);
-    const months = Math.floor((Difference_In_Days % 365) / 30);
-    const days = (Difference_In_Days % 30);
-
-    const durationString = `${years} years ${months} months ${days} days`;
+    // Date period
+    var result = durationDate(start, end)
+    const durationString = `${result.years} years ${result.months} months ${result.days} days`;
     setDurationString(durationString)
 
     //  total Days With Excluding
-
     let totalDaysWithExcluding = 0;
     for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
       const dayOfWeek = date.getDay();
@@ -42,6 +38,38 @@ const DuractionBetweenTwoDates = () => {
 
   };
 
+  function durationDate(since, until) {
+
+    // Swap the dates if since is greater than until
+    if (since > until) {
+      var temp = since;
+      since = until;
+      until = temp;
+    }
+
+    var years = until.getFullYear() - since.getFullYear();
+    var months = until.getMonth() - since.getMonth();
+    var days = until.getDate() - since.getDate();
+
+    // Adjust months and years based on days
+    if (days < 0) {
+      var prevMonthLastDay = new Date(until.getFullYear(), until.getMonth(), 0).getDate();
+      months--;
+      days = prevMonthLastDay - since.getDate() + until.getDate();
+    }
+
+    // Adjust years if the months difference is negative
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    return {
+      "years": years,
+      "months": months,
+      "days": days
+    };
+  }
 
   return (
     <div className='percentage-caculator-section-main'>

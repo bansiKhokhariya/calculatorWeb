@@ -1,0 +1,37 @@
+.unitConversion-input-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.unitConversion-input {
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    box-shadow: var(--boxShadow);
+    background-color: var(--backgroundColorInnerBox);
+    color: var(--textColor);
+    padding: 0 0 0 15px;
+}
+
+.unitConversion-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--textColor);
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.conversion {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (max-width:500px) {
+
+    .unitConversion-input {
+        width: 300px;
+    }
+
+}

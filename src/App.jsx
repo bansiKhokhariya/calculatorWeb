@@ -44,6 +44,7 @@ const App = () => {
           <Route path="/calculator/percentageCalculator" element={<Calculator />}></Route>
           <Route path="/calculator/bmiCalculator" element={<Calculator />}></Route>
           <Route path="/calculator/numberToWordConverter" element={<Calculator />}></Route>
+          <Route path="/calculator/unitConverter" element={<Calculator />}></Route>
           {/* date and time */}
           <Route path="/dateAndTime/durationBetweenTwoDates" element={<DateAndTime />}></Route>
           <Route path="/dateAndTime/ageCaculator" element={<DateAndTime />}></Route>

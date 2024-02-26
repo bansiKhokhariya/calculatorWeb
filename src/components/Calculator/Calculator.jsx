@@ -5,6 +5,7 @@ import BasicCalculator from './BasicCalculator/BasicCalculator'
 import PercentageCalculator from './PercentageCalculator/PercentageCalculator'
 import BMICalculator from './BMICalculator/BMICalculator'
 import NumberToWordConverter from './NumberToWordConverter/NumberToWordConverter'
+import UnitConverter from './UnitConverter/UnitConverter'
 
 const Calculator = () => {
 
@@ -26,9 +27,13 @@ const Calculator = () => {
             {location.pathname == '/calculator/bmiCalculator' && (
                 <BMICalculator />
             )}
-            
+
             {location.pathname == '/calculator/numberToWordConverter' && (
                 <NumberToWordConverter />
+            )}
+
+            {location.pathname == '/calculator/unitConverter' && (
+                <UnitConverter />
             )}
 
 

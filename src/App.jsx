@@ -47,6 +47,8 @@ const App = () => {
           {/* date and time */}
           <Route path="/dateAndTime/durationBetweenTwoDates" element={<DateAndTime />}></Route>
           <Route path="/dateAndTime/ageCaculator" element={<DateAndTime />}></Route>
+          <Route path="/dateAndTime/weekDayCalculator" element={<DateAndTime />}></Route>
+          <Route path="/dateAndTime/dateAddSubtract" element={<DateAndTime />}></Route>
 
 
         </Routes>

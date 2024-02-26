@@ -137,4 +137,4 @@ const AgeCalculator = () => {
     );
 };
 
-export default AgeCalculator ;
+export default AgeCalculator;

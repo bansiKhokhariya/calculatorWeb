@@ -23,6 +23,9 @@ const AllCategory = () => {
                                 General Calculator
                             </label>
                             <ul className="setting-menu-item-inner-list">
+                                <Link className='redirect-link' to={'/'}>
+                                    <li>Calculator</li>
+                                </Link>
                                 <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
                                     <li>Percentage Calculator</li>
                                 </Link>
@@ -52,6 +55,12 @@ const AllCategory = () => {
                             <ul className="setting-menu-item-inner-list">
                                 <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'}>
                                     <li>Duration Between Two Dates</li>
+                                </Link>
+                                <Link className='redirect-link' to={'/dateAndTime/dateAddSubtract'}>
+                                    <li>Date Add And Subtract</li>
+                                </Link>
+                                <Link className='redirect-link' to={'/dateAndTime/weekDayCalculator'}>
+                                    <li>WeekDay Calculator</li>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/ageCaculator'}>
                                     <li>Age Caculator</li>

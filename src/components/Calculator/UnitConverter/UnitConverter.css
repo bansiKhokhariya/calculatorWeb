@@ -3,7 +3,8 @@
     flex-direction: column;
 }
 
-.unitConversion-input {
+.unitConversion-input,
+.currency-select-input {
     width: 400px;
     height: 40px;
     font-size: 18px;
@@ -28,10 +29,17 @@
     gap: 20px;
 }
 
-@media (max-width:500px) {
 
+@media (max-width:750px) {
+    .currency-select-input {
+        width: 200px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width:500px) {
     .unitConversion-input {
         width: 300px;
     }
-
 }

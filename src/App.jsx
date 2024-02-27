@@ -5,6 +5,7 @@ import Setting from './components/Setting/Setting'
 import AllCategory from './components/AllCategory/AllCategory'
 import Calculator from './components/Calculator/Calculator'
 import DateAndTime from './components/DateAndTime/DateAndTime'
+import FinanceAndInvestment from './components/FinanceAndInvestment/FinanceAndInvestment'
 
 import {
   BrowserRouter as Router,
@@ -51,6 +52,9 @@ const App = () => {
           <Route path="/dateAndTime/ageCaculator" element={<DateAndTime />}></Route>
           <Route path="/dateAndTime/weekDayCalculator" element={<DateAndTime />}></Route>
           <Route path="/dateAndTime/dateAddSubtract" element={<DateAndTime />}></Route>
+          {/* Finance And Investment */}
+          <Route path="/financeAndInvestment/currencyConverter" element={<FinanceAndInvestment />}></Route>
+
 
 
         </Routes>

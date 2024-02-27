@@ -34,7 +34,7 @@ const CurrencyConverter = () => {
     return (
         <div className='percentage-caculator-section-main'>
             <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>BMI Calculator</h2>
+                <h2 className='percentage-caculator-title'>Currency Converter </h2>
                 <div className='percentage-caculator-main-box' >
                     <div className="conversion">
 
@@ -121,3 +121,7 @@ const CurrencyConverter = () => {
 };
 
 export default CurrencyConverter;
+
+
+
+

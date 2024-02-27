@@ -38,6 +38,9 @@ const AllCategory = () => {
                                 <Link className='redirect-link' to={'/calculator/unitConverter'}>
                                     <li>Unit Converter</li>
                                 </Link>
+                                <Link className='redirect-link' to={'/calculator/cashCounter'}>
+                                    <li>Cash Counter</li>
+                                </Link>
                             </ul>
                         </li>
                         <li className='category-inner-item'>Loan Calculator</li>

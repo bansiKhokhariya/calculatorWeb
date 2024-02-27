@@ -6,6 +6,7 @@ import PercentageCalculator from './PercentageCalculator/PercentageCalculator'
 import BMICalculator from './BMICalculator/BMICalculator'
 import NumberToWordConverter from './NumberToWordConverter/NumberToWordConverter'
 import UnitConverter from './UnitConverter/UnitConverter'
+import CashCounter from './CashCounter/CashCounter'
 
 const Calculator = () => {
 
@@ -36,6 +37,9 @@ const Calculator = () => {
                 <UnitConverter />
             )}
 
+            {location.pathname == '/calculator/cashCounter' && (
+                <CashCounter />
+            )}
 
         </>
     )

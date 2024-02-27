@@ -1,0 +1,17 @@
+.cash-caculator-input{
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    box-shadow: var(--boxShadow);
+    background-color: var(--backgroundColorInnerBox);
+    color: var(--textColor);
+    padding: 20px;
+}
+
+@media (max-width:750px) {
+    .cash-caculator-input{
+        width: 100px;
+        font-size: 16px;
+    }
+}

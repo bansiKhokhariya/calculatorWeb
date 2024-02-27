@@ -15,3 +15,10 @@
         font-size: 16px;
     }
 }
+
+@media (max-width:400px) {
+    .cash-caculator-input{
+        width: 70px;
+        font-size: 14px;
+    }
+}

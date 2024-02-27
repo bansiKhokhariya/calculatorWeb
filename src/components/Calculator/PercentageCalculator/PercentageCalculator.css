@@ -32,6 +32,7 @@
     width: 100%;
     padding-bottom: 20px;
     border-bottom: 2px solid var(--textColor);
+    font-size: 40px;
 }
 
 .percentage-caculator-main-box {
@@ -113,9 +114,16 @@
     gap: 5px;
 }
 
-
-
 @media (max-width:750px) {
+
+    .percentage-caculator-title {
+        font-size: 30px;
+    }
+
+    .percentage-caculator-innerTitle {
+        font-size: 18px;
+    }
+
     .percentage-caculator-section {
         width: 100%;
         box-shadow: none;
@@ -144,5 +152,33 @@
     .percentage-button {
         font-size: 14px;
         padding: 8px;
+    }
+}
+
+@media (max-width:400px) {
+
+    .percentage-caculator-title {
+        font-size: 20px;
+    }
+    .percentage-caculator-input {
+        width: 120px;
+        height: 40px;
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .percentage-caculator-lable {
+        width: 130px;
+        font-size: 12px;
+    }
+
+    .percentage-input-box {
+        gap: 0px;
+    }
+
+    .percentage-button {
+        font-size: 12px;
+        border-radius: 5px;
+        padding: 5px;
     }
 }

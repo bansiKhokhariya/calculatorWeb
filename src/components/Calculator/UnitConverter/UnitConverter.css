@@ -43,3 +43,24 @@
         width: 300px;
     }
 }
+
+@media (max-width:400px) {
+
+    .currency-select-input {
+        width: 120px;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .unitConversion-label {
+        font-size: 16px;
+    }
+
+    .unitConversion-input {
+        width: 200px;
+        font-size: 14px;
+    }
+    .conversion{
+        gap: 10px;
+    }
+}

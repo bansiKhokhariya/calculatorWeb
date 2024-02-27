@@ -5,7 +5,7 @@
 
 .unitConversion-input,
 .currency-select-input {
-    width: 400px;
+    width: 359px;
     height: 40px;
     font-size: 18px;
     border-radius: 10px;
@@ -40,11 +40,11 @@
 
 @media (max-width:500px) {
     .unitConversion-input {
-        width: 300px;
+        width: 359px;
     }
 }
 
-@media (max-width:400px) {
+@media (max-width:359px) {
 
     .currency-select-input {
         width: 120px;

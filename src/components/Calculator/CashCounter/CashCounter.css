@@ -16,7 +16,7 @@
     }
 }
 
-@media (max-width:400px) {
+@media (max-width:359px) {
     .cash-caculator-input{
         width: 70px;
         font-size: 14px;

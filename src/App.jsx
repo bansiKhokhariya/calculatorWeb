@@ -6,6 +6,7 @@ import AllCategory from './components/AllCategory/AllCategory'
 import Calculator from './components/Calculator/Calculator'
 import DateAndTime from './components/DateAndTime/DateAndTime'
 import FinanceAndInvestment from './components/FinanceAndInvestment/FinanceAndInvestment'
+import LoanMortgage from './components/LoanMortgage/LoanMortgage'
 
 import {
   BrowserRouter as Router,
@@ -54,8 +55,8 @@ const App = () => {
           <Route path="/dateAndTime/dateAddSubtract" element={<DateAndTime />}></Route>
           {/* Finance And Investment */}
           <Route path="/financeAndInvestment/currencyConverter" element={<FinanceAndInvestment />}></Route>
-
-
+          {/* Loan And Mortgage */}
+          <Route path="/loanMortgage/loanCalculator" element={<LoanMortgage />}></Route>
 
         </Routes>
       </Router>

@@ -55,6 +55,7 @@ const App = () => {
           <Route path="/dateAndTime/dateAddSubtract" element={<DateAndTime />}></Route>
           {/* Finance And Investment */}
           <Route path="/financeAndInvestment/currencyConverter" element={<FinanceAndInvestment />}></Route>
+          <Route path="/financeAndInvestment/roiCalculator" element={<FinanceAndInvestment />}></Route>
           {/* Loan And Mortgage */}
           <Route path="/loanMortgage/loanCalculator" element={<LoanMortgage />}></Route>
 

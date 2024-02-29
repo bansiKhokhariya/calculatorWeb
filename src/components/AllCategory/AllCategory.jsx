@@ -73,6 +73,9 @@ const AllCategory = () => {
                                 <Link className='redirect-link' to={'/financeAndInvestment/currencyConverter'}>
                                     <li>Currency Converter</li>
                                 </Link>
+                                <Link className='redirect-link' to={'/financeAndInvestment/roiCalculator'}>
+                                    <li>Return on Investment (ROI) Calculator</li>
+                                </Link>
                             </ul>
                         </li>
                         <li className='category-inner-item'>Retirement</li>

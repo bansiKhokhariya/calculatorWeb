@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown, Modal, Button, Table } from 'react-bootstrap';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 function LoanCalculator() {
@@ -9,9 +13,12 @@ function LoanCalculator() {
     const [loanTermYears, setLoanTermYears] = useState(0);
     const [result, setResult] = useState({});
     const [showSaveLoanModal, setShowSaveLoanModal] = useState(false);
-    const [showLoanDataModal, SetShowLoanDataModal] = useState(false);
+    const [showLoanDataModal, setShowLoanDataModal] = useState(false);
+    const [showFullReportModal, setShowFullReportModal] = useState(false);
     const [loanName, setLoanName] = useState('');
     const [savedLoans, setSavedLoans] = useState([]);
+    const [amortizationSchedule, setAmortizationSchedule] = useState([]);
+    const [pieChartData, setPieChartData] = useState({});
 
 
     // Function to retrieve saved loan data from local storage
@@ -65,6 +72,63 @@ function LoanCalculator() {
         localStorage.setItem('savedLoans', JSON.stringify(updatedLoans));
     };
 
+    const generateAmortizationSchedule = () => {
+
+        const loanAmountNum = parseFloat(loanAmount);
+        const interestRateNum = parseFloat(interestRate) / 100 / 12;
+        const loanTermMonthsNum = parseInt(loanTermYears) * 12;
+
+        // Calculate monthly payment
+        const x = Math.pow(1 + interestRateNum, loanTermMonthsNum);
+        const monthlyPayment = (loanAmountNum * x * interestRateNum) / (x - 1);
+
+        // Initialize arrays to store the schedule data
+        const schedule = [];
+        let remainingBalance = loanAmountNum;
+
+        // Calculate payment details for each month
+        for (let month = 1; month <= loanTermMonthsNum; month++) {
+            const interestPayment = remainingBalance * interestRateNum;
+            const principalPayment = monthlyPayment - interestPayment;
+            remainingBalance -= principalPayment;
+
+            // Store payment details for the current month
+            schedule.push({
+                month,
+                monthlyPayment: monthlyPayment.toFixed(2),
+                principalPayment: principalPayment.toFixed(2),
+                interestPayment: interestPayment.toFixed(2),
+                remainingBalance: remainingBalance.toFixed(2)
+            });
+        }
+        setAmortizationSchedule(schedule);
+
+        // Calculate total interest and principal payments
+        let totalInterest = 0;
+        let totalPrincipal = 0;
+        for (let i = 0; i < schedule.length; i++) {
+            totalInterest += parseFloat((schedule[i].interestPayment));
+            totalPrincipal += parseFloat(schedule[i].principalPayment);
+        }
+
+        // Set state for amortization schedule and pie chart data
+        setAmortizationSchedule(schedule);
+        setPieChartData({
+            labels: [`Interest (${totalInterest.toFixed(2)})`, `Principal (${totalPrincipal.toFixed(2)})`],
+            datasets: [{
+                data: [totalInterest, totalPrincipal],
+                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+                hoverBackgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)']
+            }]
+        });
+
+    };
+
     return (
         <>
             <div className='percentage-caculator-section-main'>
@@ -80,7 +144,7 @@ function LoanCalculator() {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         <Dropdown.Item onClick={() => setShowSaveLoanModal(true)}>Save</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => SetShowLoanDataModal(true)}>My Loans</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => setShowLoanDataModal(true)}>My Loans</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
@@ -158,18 +222,27 @@ function LoanCalculator() {
 
                             {result.totalPayment && (
                                 <div className='percentage-button-section'>
-                                    <div className='percentage-button blue-button'>
+                                    <button className='percentage-button blue-button'
+                                        onClick={() => {
+                                            generateAmortizationSchedule(),
+                                                setShowFullReportModal(true)
+                                        }}>
                                         View Full Report
-                                    </div>
+                                    </button>
+                                    <button className='percentage-button blue-button'
+                                        onClick={() => {
+                                            generateAmortizationSchedule()
+                                        }}>
+                                        Email
+                                    </button>
                                 </div>
                             )}
 
                         </div>
                     </div>
 
-
                     {/* view Loan Data */}
-                    <Modal show={showLoanDataModal} onHide={() => SetShowLoanDataModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
+                    <Modal show={showLoanDataModal} onHide={() => setShowLoanDataModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
                         <Modal.Header closeButton>
                             <Modal.Title>{savedLoans.length > 0 ? 'My Loans' : 'Save Loan'}</Modal.Title>
                         </Modal.Header>
@@ -220,6 +293,40 @@ function LoanCalculator() {
                                 Save
                             </Button>
                         </Modal.Footer>
+                    </Modal>
+
+                    {/* modal full report */}
+                    <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
+                        <Modal.Header closeButton>
+                            <Modal.Title>Amortization Schedule</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className='pieChart-box'>
+                                <Doughnut data={pieChartData} />
+                            </div>
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Monthly Payment</th>
+                                        <th>principal Payment</th>
+                                        <th>interest Payment</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {amortizationSchedule.map((entry, index) => (
+                                        <tr key={index}>
+                                            <td>{entry.month}</td>
+                                            <td>{entry.monthlyPayment}</td>
+                                            <td>{entry.principalPayment}</td>
+                                            <td>{entry.interestPayment}</td>
+                                            <td>{entry.remainingBalance}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </Modal.Body>
                     </Modal>
 
                 </div>

@@ -129,6 +129,25 @@ function LoanCalculator() {
 
     };
 
+
+    const handleShareClick = () => {
+        // Check for Web Share API support
+        if (navigator.share) {
+            // Browser supports native share API
+            navigator.share({
+                text: 'Please read this great article:',
+                url: 'https://www.google.com/'
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            // Fallback
+            alert("The current browser does not support the share function. Please manually share the link.");
+        }
+    };
+
     return (
         <>
             <div className='percentage-caculator-section-main'>
@@ -230,9 +249,7 @@ function LoanCalculator() {
                                         View Full Report
                                     </button>
                                     <button className='percentage-button blue-button'
-                                        onClick={() => {
-                                            generateAmortizationSchedule()
-                                        }}>
+                                        onClick={handleShareClick}>
                                         Email
                                     </button>
                                 </div>

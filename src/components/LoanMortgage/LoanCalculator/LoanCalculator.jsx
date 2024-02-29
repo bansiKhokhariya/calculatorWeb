@@ -129,24 +129,56 @@ function LoanCalculator() {
 
     };
 
+    // const handleShareClick = () => {
+    //     // Check for Web Share API support
+    //     if (navigator.share) {
+    //         // Browser supports native share API
+    //         navigator.share({
+    //             text: 'Please read this great article:',
+    //             url: 'https://www.google.com/'
+    //         }).then(() => {
+    //             console.log('Thanks for sharing!');
+    //         }).catch((err) => {
+    //             console.error(err);
+    //         });
+    //     } else {
+    //         // Fallback
+    //         alert("The current browser does not support the share function. Please manually share the link.");
+    //     }
+    // };
+
 
     const handleShareClick = () => {
+        // Convert amortization schedule data to CSV format
+        const csvData = "No.,Monthly Payment,Principal Payment,Interest Payment,Balance\n" +
+                        amortizationSchedule.map((entry, index) => 
+                            `${entry.month},${entry.monthlyPayment},${entry.principalPayment},${entry.interestPayment},${entry.remainingBalance}`
+                        ).join("\n");
+    
+        // Create a Blob object containing the CSV data
+        const blob = new Blob([csvData], { type: "text/csv" });
+    
+        // Create a URL for the Blob object
+        const csvUrl = window.URL.createObjectURL(blob);
+    
         // Check for Web Share API support
         if (navigator.share) {
             // Browser supports native share API
             navigator.share({
-                text: 'Please read this great article:',
-                url: 'https://www.google.com/'
+                files: [new File([blob], "amortization_schedule.csv", { type: "text/csv" })],
+                title: "Amortization Schedule"
             }).then(() => {
                 console.log('Thanks for sharing!');
             }).catch((err) => {
                 console.error(err);
             });
         } else {
-            // Fallback
-            alert("The current browser does not support the share function. Please manually share the link.");
+            // Fallback: Provide the CSV file URL for manual sharing
+            alert("Your browser does not support the share function. Please manually share the CSV file.");
+            console.log("Amortization schedule CSV file URL:", csvUrl);
         }
     };
+    
 
     return (
         <>

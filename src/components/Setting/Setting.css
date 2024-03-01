@@ -5,7 +5,6 @@
     height: 100vh;
     width: 100%;
     margin-top: 80px;
-
 }
 
 .setting-container {
@@ -59,6 +58,7 @@
     .sd-inner-menu-section {
         flex-direction: column;
         background-color: var(--backgroundColorInnerBox);
+        margin-top: 50px;
     }
 
     .setting-menu {

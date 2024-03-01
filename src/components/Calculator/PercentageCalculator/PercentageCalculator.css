@@ -155,11 +155,18 @@
     }
 }
 
+@media (max-width:500px) {
+    .percentage-caculator-section-main {
+        margin-top: 50px;
+    }
+}
+
 @media (max-width:359px) {
 
     .percentage-caculator-title {
         font-size: 20px;
     }
+
     .percentage-caculator-input {
         width: 120px;
         height: 40px;

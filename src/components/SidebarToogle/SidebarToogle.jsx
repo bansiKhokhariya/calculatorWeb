@@ -2,8 +2,9 @@ import { React, useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import './SidebarToogle.css'
+import { Button } from 'react-bootstrap';
 
-const SidebarToogle = () => {
+const SidebarToogle = ({ openHistoryModal }) => {
 
     const [isOpen, setIsopen] = useState(false);
     const [previousPath, setPreviousPath] = useState('');
@@ -22,17 +23,21 @@ const SidebarToogle = () => {
     return (
         <>
             <div className="container-fluid">
-                {isRootHome
-                    ?
-                    <button className="menu-button" onClick={ToggleSidebar}>
-                        ☰
-                    </button>
-                    :
-                    <button onClick={() => navigate(-1)} className="menu-button">
-                        🏠︎
-                    </button>
-                }
+                <div className='navbar-section'>
+                    {isRootHome
+                        ?
+                        <button className="menu-button" onClick={ToggleSidebar}>
+                            ☰
+                        </button>
+                        :
+                        <button onClick={() => navigate(-1)} className="menu-button">
+                            🏠︎
+                        </button>
+                    }
 
+                    <Button className="btn btn-sm btn-dark" onClick={openHistoryModal}>History</Button>
+
+                </div>
                 <div className={`sidebar ${isOpen == true ? 'active' : ''}`}>
                     <div className="sd-header">
                         <h4 className="mb-0">Sidebar Header</h4>

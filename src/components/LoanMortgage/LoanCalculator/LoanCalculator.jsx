@@ -6,7 +6,7 @@ import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
-function LoanCalculator() {
+function LoanCalculator(props) {
 
     const [loanAmount, setLoanAmount] = useState(0);
     const [interestRate, setInterestRate] = useState(0);
@@ -23,9 +23,13 @@ function LoanCalculator() {
 
     // Function to retrieve saved loan data from local storage
     useEffect(() => {
-        const savedData = JSON.parse(localStorage.getItem('savedLoans')) || [];
-        setSavedLoans(savedData);
-    }, [showLoanDataModal]);
+        try {
+            const savedData = JSON.parse(localStorage.getItem(props.historyName)) || [];
+            setSavedLoans(savedData);
+        } catch (error) {
+            setSavedLoans([]);
+        }
+    }, [props.isModalOpen]);
 
     // Function to handle loan calculation
     const calculateLoan = () => {
@@ -49,19 +53,21 @@ function LoanCalculator() {
             totalInterest: ((monthlyPayment * loanTermMonthsNum) - loanAmountNum).toFixed(2)
         })
 
+        handleSave();
+
     };
 
     // Function to handle Save Loan
     const handleSave = () => {
         const newLoanDetails = {
-            name: loanName,
+            // name: loanName,
             amount: loanAmount,
             interestRate,
             termYears: loanTermYears
         };
-        const existingLoans = JSON.parse(localStorage.getItem('savedLoans')) || [];
+        const existingLoans = JSON.parse(localStorage.getItem(props.historyName)) || [];
         const updatedLoans = [...existingLoans, newLoanDetails];
-        localStorage.setItem('savedLoans', JSON.stringify(updatedLoans));
+        localStorage.setItem(props.historyName, JSON.stringify(updatedLoans));
         setShowSaveLoanModal(false);
     };
 
@@ -69,7 +75,7 @@ function LoanCalculator() {
     const handleDelete = (index) => {
         const updatedLoans = savedLoans.filter((loan, i) => i !== index);
         setSavedLoans(updatedLoans);
-        localStorage.setItem('savedLoans', JSON.stringify(updatedLoans));
+        localStorage.setItem(props.historyName, JSON.stringify(updatedLoans));
     };
 
     const generateAmortizationSchedule = () => {
@@ -126,41 +132,22 @@ function LoanCalculator() {
                 hoverBackgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)']
             }]
         });
-
     };
 
-    // const handleShareClick = () => {
-    //     // Check for Web Share API support
-    //     if (navigator.share) {
-    //         // Browser supports native share API
-    //         navigator.share({
-    //             text: 'Please read this great article:',
-    //             url: 'https://www.google.com/'
-    //         }).then(() => {
-    //             console.log('Thanks for sharing!');
-    //         }).catch((err) => {
-    //             console.error(err);
-    //         });
-    //     } else {
-    //         // Fallback
-    //         alert("The current browser does not support the share function. Please manually share the link.");
-    //     }
-    // };
-
-
     const handleShareClick = () => {
+        generateAmortizationSchedule()
         // Convert amortization schedule data to CSV format
         const csvData = "No.,Monthly Payment,Principal Payment,Interest Payment,Balance\n" +
-                        amortizationSchedule.map((entry, index) => 
-                            `${entry.month},${entry.monthlyPayment},${entry.principalPayment},${entry.interestPayment},${entry.remainingBalance}`
-                        ).join("\n");
-    
+            amortizationSchedule.map((entry, index) =>
+                `${entry.month},${entry.monthlyPayment},${entry.principalPayment},${entry.interestPayment},${entry.remainingBalance}`
+            ).join("\n");
+
         // Create a Blob object containing the CSV data
         const blob = new Blob([csvData], { type: "text/csv" });
-    
+
         // Create a URL for the Blob object
         const csvUrl = window.URL.createObjectURL(blob);
-    
+
         // Check for Web Share API support
         if (navigator.share) {
             // Browser supports native share API
@@ -178,7 +165,7 @@ function LoanCalculator() {
             console.log("Amortization schedule CSV file URL:", csvUrl);
         }
     };
-    
+
 
     return (
         <>
@@ -187,7 +174,7 @@ function LoanCalculator() {
                     <h2 className='percentage-caculator-title'>Loan Calculator</h2>
                     <div className='percentage-caculator-main-box' >
                         <div className="conversion">
-
+                            {/* 
                             <div className='percentage-button-section'>
                                 <Dropdown>
                                     <Dropdown.Toggle variant="secondary" id="dropdown-basic">
@@ -198,7 +185,7 @@ function LoanCalculator() {
                                         <Dropdown.Item onClick={() => setShowLoanDataModal(true)}>My Loans</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                            </div>
+                            </div> */}
 
                             <div className='percentage-input-box'>
                                 <label className='percentage-caculator-lable' htmlFor="loanamount">Loan Amount : </label>
@@ -286,12 +273,11 @@ function LoanCalculator() {
                                     </button>
                                 </div>
                             )}
-
                         </div>
                     </div>
 
                     {/* view Loan Data */}
-                    <Modal show={showLoanDataModal} onHide={() => setShowLoanDataModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
+                    <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
                         <Modal.Header closeButton>
                             <Modal.Title>{savedLoans.length > 0 ? 'My Loans' : 'Save Loan'}</Modal.Title>
                         </Modal.Header>
@@ -300,7 +286,7 @@ function LoanCalculator() {
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            {/* <th>Name</th> */}
                                             <th>Amount</th>
                                             <th>Interest Rate</th>
                                             <th>Term (Years)</th>
@@ -310,7 +296,7 @@ function LoanCalculator() {
                                     <tbody>
                                         {savedLoans.map((loan, index) => (
                                             <tr key={index}>
-                                                <td>{loan.name}</td>
+                                                {/* <td>{loan.name}</td> */}
                                                 <td>{loan.amount}</td>
                                                 <td>{loan.interestRate}</td>
                                                 <td>{loan.termYears}</td>
@@ -328,7 +314,7 @@ function LoanCalculator() {
                     </Modal>
 
                     {/* Modal for saving loan details */}
-                    <Modal show={showSaveLoanModal} onHide={() => setShowSaveLoanModal(false)} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
+                    {/* <Modal show={showSaveLoanModal} onHide={() => setShowSaveLoanModal(false)} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
                         <Modal.Header closeButton>
                             <Modal.Title>Save Loan</Modal.Title>
                         </Modal.Header>
@@ -342,7 +328,7 @@ function LoanCalculator() {
                                 Save
                             </Button>
                         </Modal.Footer>
-                    </Modal>
+                    </Modal> */}
 
                     {/* modal full report */}
                     <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">

@@ -90,109 +90,103 @@ const BasicCalculator = (props) => {
 
 
 
-    // const handleShareClick = (savedResults) => {
-    //     // Create new jsPDF instance
+    const handleShareClick = (savedResults) => {
+        const doc = new jsPDF();
+
+        let y = 20;
+
+        doc.setFontSize(30);
+        doc.text("My History", 10, y);
+        y += 10;
+
+        savedResults.forEach((result, index) => {
+            y += 15;
+            const x = 10;
+            const width = 100;
+            const height = 15;
+            doc.rect(x, y, width, height);
+            doc.setFontSize(12);
+            doc.text(`Calculation ${index + 1}: ${result}`, x + 2, y + 5);
+        });
+
+        // Save the PDF
+        const pdfData = doc.output();
+        const blob = new Blob([pdfData], { type: "application/pdf" });
+
+        // Check for Web Share API support
+        if (navigator.share) {
+            // Browser supports native share API
+            navigator.share({
+                files: [new File([blob], "history.pdf", { type: "application/pdf" })],
+                title: "My History"
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            // Fallback: Provide the PDF file URL for manual sharing
+            alert("Your browser does not support the share function. Please manually share the PDF file.");
+            const pdfUrl = window.URL.createObjectURL(blob);
+            console.log("History PDF file URL:", pdfUrl);
+        }
+    };
+
+
+    // const handleShareClick = async (savedResults) => {
     //     const doc = new jsPDF();
 
-    //     // Add title
-    //     doc.text("My History", 10, 10);
+    //     // Create a container element to render the HTML content
+    //     const container = document.createElement('div');
+    //     document.body.appendChild(container);
 
-    //     // Add saved results
-    //     savedResults.forEach((result, index) => {
-    //         doc.text(`Calculation ${index + 1}: ${result}`, 10, 20 + (index * 10));
+    //     // Render the BasicCalculatorPdf component into the container
+    //     const root = ReactDOM.createRoot(container);
+    //     root.render(<BasicCalculatorPdf savedResults={savedResults} />);
+
+    //     // Wait for the rendering to complete
+    //     await new Promise((resolve) => setTimeout(resolve, 1000)); // Adjust timeout as needed
+
+    //     // Use html2canvas to capture the container content into a canvas
+    //     html2canvas(container).then((canvas) => {
+    //         // Convert the canvas to an image data URL
+    //         const imageData = canvas.toDataURL('image/jpeg');
+
+    //         // Add the image to the PDF document
+    //         doc.addImage(imageData, 'JPEG', 10, 10, 180, 120); // Adjust positioning and size as needed
+
+    //         // Clean up: remove the container element
+    //         document.body.removeChild(container);
+
+    //         // Save the PDF
+    //         const pdfData = doc.output();
+    //         const blob = new Blob([pdfData], { type: "application/pdf" });
+
+    //         // Create a File object from the PDF blob
+    //         const pdfFile = new File([blob], "history.pdf", { type: "application/pdf" });
+
+    //         // Check for Web Share API support
+    //         if (navigator.share) {
+    //             // Share the PDF file using the Web Share API
+    //             try {
+    //                  navigator.share({
+    //                     files: [pdfFile],
+    //                     title: "My History",
+    //                     text: "Sharing my history data"
+    //                 });
+    //             } catch (error) {
+    //                 console.error("Error sharing PDF:", error);
+    //             }
+    //         } else {
+    //             // Fallback for browsers that don't support Web Share API
+    //             alert("Your browser does not support the share function. Please manually share the PDF file.");
+    //         }
+    //     }).catch((error) => {
+    //         console.error('Error capturing HTML to canvas:', error);
+    //         // Clean up: remove the container element
+    //         document.body.removeChild(container);
     //     });
-
-    // // Save the PDF
-    // const pdfData = doc.output();
-    // const blob = new Blob([pdfData], { type: "application/pdf" });
-
-    // // Check for Web Share API support
-    // if (navigator.share) {
-    //     // Browser supports native share API
-    //     navigator.share({
-    //         files: [new File([blob], "history.pdf", { type: "application/pdf" })],
-    //         title: "My History"
-    //     }).then(() => {
-    //         console.log('Thanks for sharing!');
-    //     }).catch((err) => {
-    //         console.error(err);
-    //     });
-    // } else {
-    //     // Fallback: Provide the PDF file URL for manual sharing
-    //     alert("Your browser does not support the share function. Please manually share the PDF file.");
-    //     const pdfUrl = window.URL.createObjectURL(blob);
-    //     console.log("History PDF file URL:", pdfUrl);
-    // }
     // };
-
-
-
-
-
-    const handleShareClick = async (savedResults) => {
-        const doc = new jsPDF();
-    
-        // Create a container element to render the HTML content
-        const container = document.createElement('div');
-        document.body.appendChild(container);
-    
-        // Render the BasicCalculatorPdf component into the container
-        const root = ReactDOM.createRoot(container);
-        root.render(<BasicCalculatorPdf savedResults={savedResults} />);
-    
-        // Wait for the rendering to complete
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Adjust timeout as needed
-    
-        // Use html2canvas to capture the container content into a canvas
-        html2canvas(container).then((canvas) => {
-            // Convert the canvas to an image data URL
-            const imageData = canvas.toDataURL('image/jpeg');
-    
-            // Add the image to the PDF document
-            doc.addImage(imageData, 'JPEG', 10, 10, 180, 120); // Adjust positioning and size as needed
-    
-            // Clean up: remove the container element
-            document.body.removeChild(container);
-    
-            // Save the PDF
-            const pdfData = doc.output();
-            const blob = new Blob([pdfData], { type: "application/pdf" });
-    
-            // Create a File object from the PDF blob
-            const pdfFile = new File([blob], "history.pdf", { type: "application/pdf" });
-    
-            // Check for Web Share API support
-            if (navigator.share) {
-                // Share the PDF file using the Web Share API
-                try {
-                     navigator.share({
-                        files: [pdfFile],
-                        title: "My History",
-                        text: "Sharing my history data"
-                    });
-                } catch (error) {
-                    console.error("Error sharing PDF:", error);
-                }
-            } else {
-                // Fallback for browsers that don't support Web Share API
-                alert("Your browser does not support the share function. Please manually share the PDF file.");
-            }
-        }).catch((error) => {
-            console.error('Error capturing HTML to canvas:', error);
-            // Clean up: remove the container element
-            document.body.removeChild(container);
-        });
-    };
-    
-    
-
-
-
-
-
-
-
-
 
 
     return (

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { jsPDF } from "jspdf";
+import BasicCalculatorPdf from '../../PDF/BasicCalculatorPdf'
+import html2canvas from 'html2canvas';
+import ReactDOM from 'react-dom';
+
 
 
 const BasicCalculator = (props) => {
@@ -83,33 +87,66 @@ const BasicCalculator = (props) => {
     };
 
 
-    const handleShareClick = () => {
+
+    // const handleShareClick = (savedResults) => {
+    //     // Create new jsPDF instance
+    //     const doc = new jsPDF();
+
+    //     // Add title
+    //     doc.text("My History", 10, 10);
+
+    //     // Add saved results
+    //     savedResults.forEach((result, index) => {
+    //         doc.text(`Calculation ${index + 1}: ${result}`, 10, 20 + (index * 10));
+    //     });
+
+    // // Save the PDF
+    // const pdfData = doc.output();
+    // const blob = new Blob([pdfData], { type: "application/pdf" });
+
+    // // Check for Web Share API support
+    // if (navigator.share) {
+    //     // Browser supports native share API
+    //     navigator.share({
+    //         files: [new File([blob], "history.pdf", { type: "application/pdf" })],
+    //         title: "My History"
+    //     }).then(() => {
+    //         console.log('Thanks for sharing!');
+    //     }).catch((err) => {
+    //         console.error(err);
+    //     });
+    // } else {
+    //     // Fallback: Provide the PDF file URL for manual sharing
+    //     alert("Your browser does not support the share function. Please manually share the PDF file.");
+    //     const pdfUrl = window.URL.createObjectURL(blob);
+    //     console.log("History PDF file URL:", pdfUrl);
+    // }
+    // };
+
+
+    const handleShareClick = async (savedResults) => {
         // Create new jsPDF instance
         const doc = new jsPDF();
 
-        // Add title
-        doc.setFontSize(16);
-        doc.text("My History", 10, 10);
+        // Create a container element to render the htmlContent
+        const container = document.createElement('div');
+        document.body.appendChild(container);
 
-        // Add saved results
-        savedResults.forEach((result, index) => {
-            const startX = 10;
-            const startY = 20 + (index * 40); // Adjust as needed
-            const cardWidth = 80;
-            const cardHeight = 30;
 
-            // Draw card outline
-            doc.setDrawColor(0);
-            doc.setFillColor(255, 255, 255);
-            doc.roundedRect(startX, startY, cardWidth, cardHeight, 3, 3, 'F');
+        // Generate HTML content using HistoryHTML component
+        ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
 
-            // Add calculation number
-            doc.setFontSize(10);
-            doc.text(`Calculation ${index + 1}:`, startX + 5, startY + 5);
+        // Render HTML content to canvas using html2canvas
+        const canvas = await html2canvas(container);
 
-            // Add result
-            doc.text(result, startX + 5, startY + 15);
-        });
+        // Convert canvas to image data URL
+        const imageData = canvas.toDataURL('image/png');
+
+        // Add image to PDF
+        doc.addImage(imageData, 'PNG', 10, 10, 180, 120); // Adjust positioning and size as needed
+
+        // Remove the container element
+        document.body.removeChild(container);
 
         // Save the PDF
         const pdfData = doc.output();
@@ -118,14 +155,19 @@ const BasicCalculator = (props) => {
         // Check for Web Share API support
         if (navigator.share) {
             // Browser supports native share API
-            navigator.share({
-                files: [new File([blob], "history.pdf", { type: "application/pdf" })],
-                title: "My History"
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            }).catch((err) => {
-                console.error(err);
-            });
+            try {
+                // Create a File object from the PDF blob
+                const pdfFile = new File([blob], "history.pdf", { type: "application/pdf" });
+
+                // Share the PDF file using the Web Share API
+                await navigator.share({
+                    files: [pdfFile],
+                    title: "My History",
+                    text: "Sharing my history data"
+                });
+            } catch (error) {
+                console.error("Error sharing PDF:", error);
+            }
         } else {
             // Fallback: Provide the PDF file URL for manual sharing
             alert("Your browser does not support the share function. Please manually share the PDF file.");
@@ -133,6 +175,7 @@ const BasicCalculator = (props) => {
             console.log("History PDF file URL:", pdfUrl);
         }
     };
+
 
 
 
@@ -176,7 +219,7 @@ const BasicCalculator = (props) => {
                         {savedResults.length > 0 && (
                             <div className='mb-3'>
                                 <button className='btn btn-danger btn-sm' onClick={handleDeleteHistory}>Clear All History</button>
-                                <button className='btn btn-success btn-sm ms-1' onClick={handleShareClick}>Share All History</button>
+                                <button className='btn btn-success btn-sm ms-1' onClick={() => handleShareClick(savedResults)}>Share All History</button>
                             </div>
                         )}
 

@@ -137,13 +137,13 @@ const BasicCalculator = (props) => {
         ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
 
         // Render HTML content to canvas using html2canvas
-        const canvas = await html2canvas(container, { scale: 2 });
+        const canvas = await html2canvas(container, { width: container.offsetWidth * 2, height: container.offsetHeight * 2 });
 
         // Convert canvas to image data URL
         const imageData = canvas.toDataURL('image/png');
 
         // Add image to PDF
-        doc.addImage(imageData, 'PNG', 10, 10, 180, 120); // Adjust positioning and size as needed
+        doc.addImage(imageData, 'PNG', 10, 10, 180, 120, undefined, 'FAST');
 
         // Remove the container element
         document.body.removeChild(container);

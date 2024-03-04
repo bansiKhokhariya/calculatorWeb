@@ -102,6 +102,7 @@ const BasicCalculator = (props) => {
 
     // // Save the PDF
     // const pdfData = doc.output();
+    // console.log(pdfData);
     // const blob = new Blob([pdfData], { type: "application/pdf" });
 
     // // Check for Web Share API support
@@ -179,61 +180,57 @@ const BasicCalculator = (props) => {
     // };
 
     const handleShareClick = async (savedResults) => {
+        // Create a new jsPDF instance
         const doc = new jsPDF();
     
+        // Create a container element to render the HTML content
         const container = document.createElement('div');
         document.body.appendChild(container);
     
+        // Render the HTML content using ReactDOM.render
         ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
     
-        html2canvas(container).then(canvas => {
-            const imageData = canvas.toDataURL('image/jpeg');
-            const pdfWidth = doc.internal.pageSize.getWidth();
-            const pdfHeight = doc.internal.pageSize.getHeight();
+        // Use html2canvas to render the HTML content to a canvas
+        const canvas = await html2canvas(container);
     
-            const aspectRatio = canvas.width / canvas.height;
+        // Convert the canvas to an image data URL
+        const imageData = canvas.toDataURL('image/jpeg');
     
-            let imgWidth, imgHeight;
-            if (aspectRatio > pdfWidth / pdfHeight) {
-                imgWidth = pdfWidth;
-                imgHeight = imgWidth / aspectRatio;
-            } else {
-                imgHeight = pdfHeight;
-                imgWidth = imgHeight * aspectRatio;
+        // Add the image to the PDF document
+        doc.addImage(imageData, 'JPEG', 10, 10, 180, 120); // Adjust positioning and size as needed
+    
+        // Save the PDF
+        const pdfData = doc.output();
+        const blob = new Blob([pdfData], { type: "application/pdf" });
+    
+        // Create a URL for the PDF blob
+        const pdfUrl = window.URL.createObjectURL(blob);
+    
+        // Clean up: remove the container element
+        document.body.removeChild(container);
+    
+        // Check for Web Share API support
+        if (navigator.share) {
+            // Share the PDF file using the Web Share API
+            try {
+                await navigator.share({
+                    files: [new File([blob], "history.pdf", { type: "application/pdf" })],
+                    title: "My History",
+                    text: "Sharing my history data"
+                });
+            } catch (error) {
+                console.error("Error sharing PDF:", error);
             }
-    
-            const x = (pdfWidth - imgWidth) / 2;
-            const y = 0; // Set y-coordinate to 0 to position the image at the top of the PDF
-    
-            doc.addImage(imageData, 'JPEG', x, y, imgWidth, imgHeight);
-    
-            // Save the PDF
-            doc.save('history.pdf');
-    
-            // Create a Blob object from the PDF data
-            const pdfData = doc.output();
-            const blob = new Blob([pdfData], { type: "application/pdf" });
-    
-            // Once the PDF is saved, attempt to share it
-            if (navigator.share) {
-                try {
-                    const pdfFile = new File([blob], "history.pdf", { type: "application/pdf" });
-    
-                    navigator.share({
-                        files: [pdfFile],
-                        title: "My History",
-                        text: "Sharing my history data"
-                    });
-                } catch (error) {
-                    console.error("Error sharing PDF:", error);
-                }
-            } else {
-                alert("Your browser does not support the share function. Please manually share the PDF file.");
-                const pdfUrl = window.URL.createObjectURL(blob);
-                console.log("History PDF file URL:", pdfUrl);
-            }
-        });
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            alert("Your browser does not support the share function. Please manually share the PDF file.");
+            console.log("History PDF file URL:", pdfUrl);
+        }
     };
+    
+    
+    
+    
     
     
     

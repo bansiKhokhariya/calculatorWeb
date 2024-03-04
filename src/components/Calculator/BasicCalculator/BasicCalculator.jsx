@@ -83,40 +83,56 @@ const BasicCalculator = (props) => {
     };
 
 
-const handleShareClick = () => {
-    // Create new jsPDF instance
-    const doc = new jsPDF();
+    const handleShareClick = () => {
+        // Create new jsPDF instance
+        const doc = new jsPDF();
 
-    // Add title
-    doc.text("My History", 10, 10);
+        // Add title
+        doc.setFontSize(16);
+        doc.text("My History", 10, 10);
 
-    // Add saved results
-    savedResults.forEach((result, index) => {
-        doc.text(`Calculation ${index + 1}: ${result}`, 10, 20 + (index * 10));
-    });
+        // Add saved results
+        savedResults.forEach((result, index) => {
+            const startX = 10;
+            const startY = 20 + (index * 40); // Adjust as needed
+            const cardWidth = 80;
+            const cardHeight = 30;
 
-    // Save the PDF
-    const pdfData = doc.output();
-    const blob = new Blob([pdfData], { type: "application/pdf" });
+            // Draw card outline
+            doc.setDrawColor(0);
+            doc.setFillColor(255, 255, 255);
+            doc.roundedRect(startX, startY, cardWidth, cardHeight, 3, 3, 'F');
 
-    // Check for Web Share API support
-    if (navigator.share) {
-        // Browser supports native share API
-        navigator.share({
-            files: [new File([blob], "history.pdf", { type: "application/pdf" })],
-            title: "My History"
-        }).then(() => {
-            console.log('Thanks for sharing!');
-        }).catch((err) => {
-            console.error(err);
+            // Add calculation number
+            doc.setFontSize(10);
+            doc.text(`Calculation ${index + 1}:`, startX + 5, startY + 5);
+
+            // Add result
+            doc.text(result, startX + 5, startY + 15);
         });
-    } else {
-        // Fallback: Provide the PDF file URL for manual sharing
-        alert("Your browser does not support the share function. Please manually share the PDF file.");
-        const pdfUrl = window.URL.createObjectURL(blob);
-        console.log("History PDF file URL:", pdfUrl);
-    }
-};
+
+        // Save the PDF
+        const pdfData = doc.output();
+        const blob = new Blob([pdfData], { type: "application/pdf" });
+
+        // Check for Web Share API support
+        if (navigator.share) {
+            // Browser supports native share API
+            navigator.share({
+                files: [new File([blob], "history.pdf", { type: "application/pdf" })],
+                title: "My History"
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            // Fallback: Provide the PDF file URL for manual sharing
+            alert("Your browser does not support the share function. Please manually share the PDF file.");
+            const pdfUrl = window.URL.createObjectURL(blob);
+            console.log("History PDF file URL:", pdfUrl);
+        }
+    };
 
 
 

@@ -137,7 +137,7 @@ const BasicCalculator = (props) => {
         ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
 
         // Render HTML content to canvas using html2canvas
-        const canvas = await html2canvas(container);
+        const canvas = await html2canvas(container, { scale: 2 });
 
         // Convert canvas to image data URL
         const imageData = canvas.toDataURL('image/png');
@@ -175,10 +175,6 @@ const BasicCalculator = (props) => {
             console.log("History PDF file URL:", pdfUrl);
         }
     };
-
-
-
-
 
     return (
         <div className='bootstrap-card-section'>

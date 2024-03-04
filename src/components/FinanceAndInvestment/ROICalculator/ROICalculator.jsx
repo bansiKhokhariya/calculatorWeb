@@ -37,79 +37,111 @@ const ROICalculator = () => {
         setCompoundAnnualROI(`${compoundROI.toFixed(2)}%`);
     };
 
+    const resetInputs = () => {
+        setAmountInvested('');
+        setAmountReturned('');
+        setTerm('');
+        setInvestmentPeriod('');
+        setGainOrLoss('');
+        setReturnOfInvestment('');
+        setSimpleAnnualROI('');
+        setCompoundAnnualROI('');
+    };
+
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Return on Investment (ROI) Calculator</h2>
-                <div className='percentage-caculator-main-box' >
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="amountInvested">Amount Invested :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                value={amountInvested}
-                                onChange={(e) => setAmountInvested(e.target.value)}
-                                id="amountInvested"
-                            />
-                            &nbsp;
-                            &nbsp;
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Return on Investment (ROI) Calculator
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Amount Invested</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={amountInvested}
+                            onChange={(e) => {
+                                const input = e.target.value.replace(/\D/g, '');
+                                setAmountInvested(input);
+                            }}
+                        />
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="amountReturned">Amount Returned :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                value={amountReturned}
-                                onChange={(e) => setAmountReturned(e.target.value)}
-                                id="amountReturned"
-                            />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Amount Returned</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={amountReturned}
+                            onChange={(e) => {
+                                const input = e.target.value.replace(/\D/g, '');
+                                setAmountReturned(input);
+                            }}
+                        />
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="term">Term(Year) :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                value={term}
-                                onChange={(e) => setTerm(e.target.value)}
-                                id="term"
-                            />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Term(Year)</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={term}
+                            onChange={(e) => {
+                                const input = e.target.value.replace(/\D/g, '');
+                                setTerm(input);
+                            }}
+                        />
                     </div>
-                    {/* Similar input boxes for amountReturned and term */}
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={calculateROI}>
-                            Calculate
-                        </div>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={calculateROI}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                     </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            Investment Period :  <span className='result-value-span-green'>{investmentPeriod}</span>
+                    <div >
+                        <div>
+                            <strong>
+                                Investment Period =
+                                <span className='text-success'>
+                                    &nbsp; {investmentPeriod}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Gain or loss :  <span className='result-value-span-green'>{gainOrLoss}</span>
+                        <div>
+                            <strong>
+                                Gain or loss =
+                                <span className='text-success'>
+                                    &nbsp; {gainOrLoss}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Return of Investment :  <span className='result-value-span-green'>{returnOfInvestment}</span>
+                        <div>
+                            <strong>
+                                Return of Investment =
+                                <span className='text-success'>
+                                    &nbsp; {returnOfInvestment}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Simple Annual ROI :  <span className='result-value-span-green'>{simpleAnnualROI}</span>
+                        <div>
+                            <strong>
+                                Simple Annual ROI =
+                                <span className='text-success'>
+                                    &nbsp; {simpleAnnualROI}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Compound Annual ROI :  <span className='result-value-span-green'>{compoundAnnualROI}</span>
+                        <div>
+                            <strong>
+                                Compound Annual ROI =
+                                <span className='text-success'>
+                                    &nbsp; {compoundAnnualROI}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

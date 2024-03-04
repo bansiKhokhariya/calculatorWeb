@@ -7,6 +7,7 @@ import Calculator from './components/Calculator/Calculator'
 import DateAndTime from './components/DateAndTime/DateAndTime'
 import FinanceAndInvestment from './components/FinanceAndInvestment/FinanceAndInvestment'
 import LoanMortgage from './components/LoanMortgage/LoanMortgage'
+import './App.css';
 
 import {
   BrowserRouter as Router,
@@ -18,12 +19,12 @@ const App = () => {
   var selectedTheme = localStorage.getItem('selectedTheme');
 
   useEffect(() => {
-    if (selectedTheme === 'dark') {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
+    if (selectedTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('selectedTheme', 'light');
     } else {
-      document.body.classList.add('light-theme');
-      document.body.classList.remove('dark-theme');
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('selectedTheme', 'dark');
     }
   }, []);
 

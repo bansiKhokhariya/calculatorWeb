@@ -71,58 +71,74 @@ const DuractionBetweenTwoDates = () => {
     };
   }
 
+  const resetInputs = () => {
+    setStartDate('');
+    setEndDate('');
+    setDuration('');
+    setExcludingDuration('');
+    setDurationString('');
+  };
+
   return (
-    <div className='percentage-caculator-section-main'>
-      <div className="percentage-caculator-section">
-        <h2 className='percentage-caculator-title'>Duration Between Two Dates</h2>
-        <div className='percentage-caculator-main-box' >
-          <div className='percentage-input-box'>
-            <label className='percentage-caculator-lable' htmlFor="startDate">Start Date:</label>
-            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-              <input
-                className='percentage-caculator-input'
-                type="date"
-                id="startDate"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
-              &nbsp;
-              &nbsp;
+    <div className='bootstrap-card-section'>
+      <div className="card bootstrap-card">
+        <div className="card-header text-center card-text">
+          <h1>
+            Duration Between Two Dates
+          </h1>
+        </div>
+        <div className="card-body card-text">
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Start Date</span>
             </div>
+            <input type="date" className="form-control" placeholder="Enter Value"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
           </div>
-          <div className='percentage-input-box'>
-            <label className='percentage-caculator-lable' htmlFor="endDate">End Date :</label>
-            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-              <input
-                className='percentage-caculator-input'
-                type="date"
-                id="endDate"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-              &nbsp;
-              &nbsp;
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">End Date</span>
             </div>
+            <input type="date" className="form-control" placeholder="Enter Value"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
           </div>
-          <div className='percentage-button-section'>
-            <div className='percentage-button green-button' onClick={calculateDuration}>
-              Calculate
-            </div>
+          <div className='mb-3'>
+            <button className='btn btn-sm btn-success' onClick={calculateDuration}>Calculate</button>
+            <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
           </div>
-          <div className='percentage-result-section'>
-            <div className='result-value'>
-              Date Period:  <span className='result-value-span-green'>{durationString}</span>
+          <div >
+            <div>
+              <strong>
+                Date Period =
+                <span className='text-success'>
+                  &nbsp; {durationString}
+                </span>
+              </strong>
             </div>
-            <div className='result-value'>
-              Difference in days:  <span className='result-value-span-green'>{duration} days</span>
+            <div>
+              <strong>
+                Difference in days =
+                <span className='text-success'>
+                  &nbsp; {duration} days
+                </span>
+              </strong>
             </div>
-            <div className='result-value'>
-              Difference in days (Excluding Weekends):  <span className='result-value-span-green'>{excludingDuration} days</span>
+            <div>
+              <strong>
+                Difference in days (Excluding Weekends) =
+                <span className='text-success'>
+                  &nbsp; {excludingDuration} days
+                </span>
+              </strong>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

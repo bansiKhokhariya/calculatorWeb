@@ -36,41 +36,44 @@ const AngleConverter = () => {
     };
 
     return (
-        <div className="conversion" id="angle">
-            <label className='unitConversion-label'>From</label>
-            <input
-                className='percentage-caculator-input'
-                type="number"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Enter value"
-            />
-            <select
-                className='unitConversion-input'
-                value={fromAngle}
-                onChange={(e) => setFromAngle(e.target.value)}
-            >
-                <option value="degree">Degree</option>
-                <option value="radian">Radian</option>
-                <option value="grad">Gradian</option>
-                <option value="revolution">Revolution</option>
-            </select>
-            <label className='unitConversion-label'>To</label>
-            <select
-                className='unitConversion-input'
-                value={toAngle}
-                onChange={(e) => setToAngle(e.target.value)}
-            >
-                <option value="degree">Degree</option>
-                <option value="radian">Radian</option>
-                <option value="grad">Gradian</option>
-                <option value="revolution">Revolution</option>
-            </select>
-            <div className='percentage-button green-button' onClick={convertAngle}>
-                Calculate
+        <div className='mt-4'>
+            <div className="input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text">@</span>
+                </div>
+                <input type="number" className="form-control" placeholder="Enter Value"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                />
             </div>
-            <div className='result-value'>
-                Result: <span className='result-value-span-green'>{result}</span>
+            <label className='card-text text-center mt-2 mb-2 ms-1'>From</label>
+            <select className="form-select form-select-sm" id="conversionType" value={fromAngle}
+                onChange={(e) => setFromAngle(e.target.value)}>
+                <option value="degree">Degree</option>
+                <option value="radian">Radian</option>
+                <option value="grad">Gradian</option>
+                <option value="revolution">Revolution</option>
+            </select>
+            <label className='card-text text-center mt-2 mb-2 ms-1'>To</label>
+            <select className="form-select form-select-sm" id="conversionType" value={toAngle}
+                onChange={(e) => setToAngle(e.target.value)}>
+                <option value="degree">Degree</option>
+                <option value="radian">Radian</option>
+                <option value="grad">Gradian</option>
+                <option value="revolution">Revolution</option>
+            </select>
+            <div className='mt-3 mb-2'>
+                <button className='btn btn-sm btn-success' onClick={convertAngle}>Convert</button>
+            </div>
+            <div >
+                <div>
+                    <strong>
+                        Result =
+                        <span className='text-success'>
+                            &nbsp; {result}
+                        </span>
+                    </strong>
+                </div>
             </div>
         </div>
     );

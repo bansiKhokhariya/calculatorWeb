@@ -30,63 +30,71 @@ const BMICalculator = () => {
         }
     };
 
+    const resetInputs = () => {
+        setWeightValue('');
+        setHeightValue('');
+        setBmiMessage('');
+        setBmiValue('');
+    };
+
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>BMI Calculator</h2>
-                <div className='percentage-caculator-main-box' >
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="height">Height (cm):</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="height"
-                                value={heightValue}
-                                onChange={(e) => {
-                                    const input = e.target.value.replace(/\D/g, ''); // Remove any non-numeric characters
-                                    setHeightValue(input);
-                                }}
-                            />
-                            &nbsp;
-                            &nbsp;
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        BMI Calculator
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Height (cm)</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={heightValue}
+                            onChange={(e) => {
+                                const input = e.target.value.replace(/\D/g, '');
+                                setHeightValue(input);
+                            }}
+                        />
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="weight">Weight (kg):</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="weight"
-                                value={weightValue}
-                                onChange={(e) => {
-                                    const input = e.target.value.replace(/\D/g, '');
-                                    setWeightValue(input);
-                                }}
-                            />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Weight (kg)</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={weightValue}
+                            onChange={(e) => {
+                                const input = e.target.value.replace(/\D/g, '');
+                                setWeightValue(input);
+                            }}
+                        />
                     </div>
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={calculateBmi}>
-                            Calculate
-                        </div>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={calculateBmi}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                     </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            Your BMI :  <span className='result-value-span-green'>{bmiValue}</span>
+                    <div >
+                        <div>
+                            <strong>
+                                Your BMI =
+                                <span className='text-success'>
+                                    &nbsp; {bmiValue}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Result :  <span className='result-value-span-green'>{bmiMessage}</span>
+                        <div>
+                            <strong>
+                                Result =
+                                <span className='text-success'>
+                                    &nbsp; {bmiMessage}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

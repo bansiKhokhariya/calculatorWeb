@@ -32,91 +32,64 @@ const CurrencyConverter = () => {
     };
 
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Currency Converter </h2>
-                <div className='percentage-caculator-main-box' >
-                    <div className="conversion">
-
-                        <div className='percentage-input-box'>
-                            <label className='percentage-caculator-lable' htmlFor="number">From : </label>
-                            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                <select
-                                    className='currency-select-input'
-                                    value={fromCurrency}
-                                    onChange={(e) => setFromCurrency(e.target.value)}
-                                >
-                                    {Object.keys(country).map(countryName => (
-                                        <option key={countryName} value={countryName}>{countryName}</option>
-                                    ))}
-                                </select>
-                                &nbsp;
-                                &nbsp;
-                            </div>
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Currency Converter
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Amount</span>
                         </div>
-
-                        <div className='percentage-input-box'>
-                            <label className='percentage-caculator-lable' htmlFor="number">To : </label>
-                            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                <select
-                                    className='currency-select-input'
-                                    value={toCurrency}
-                                    onChange={(e) => setToCurrency(e.target.value)}
-                                >
-                                    {Object.keys(country).map(countryName => (
-                                        <option key={countryName} value={countryName}>{countryName}</option>
-                                    ))}
-                                </select>
-                                &nbsp;
-                                &nbsp;
-                            </div>
+                        <input type="number" className="form-control" placeholder="Enter amount"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                        />
+                    </div>
+                    <label className='card-text text-center mt-2 mb-2 ms-1'>From</label>
+                    <select className="form-select form-select-sm" id="conversionType" value={fromCurrency}
+                        onChange={(e) => setFromCurrency(e.target.value)}
+                    >
+                        {Object.keys(country).map(countryName => (
+                            <option key={countryName} value={countryName}>{countryName}</option>
+                        ))}
+                    </select>
+                    <label className='card-text text-center mt-2 mb-2 ms-1'>To</label>
+                    <select className="form-select form-select-sm" id="conversionType" value={toCurrency}
+                        onChange={(e) => setToCurrency(e.target.value)}>
+                        {Object.keys(country).map(countryName => (
+                            <option key={countryName} value={countryName}>{countryName}</option>
+                        ))}
+                    </select>
+                    <div className="input-group mt-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Rate</span>
                         </div>
-
-                        <div className='percentage-input-box'>
-                            <label className='percentage-caculator-lable' htmlFor="number">Rate : </label>
-                            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                <input
-                                    className='percentage-caculator-input'
-                                    type="number"
-                                    value={exchangeRate}
-                                    placeholder="Rate"
-                                    readOnly
-                                />
-                                &nbsp;
-                                &nbsp;
-                            </div>
-                        </div>
-
-                        <div className='percentage-input-box'>
-                            <label className='percentage-caculator-lable' htmlFor="number">Amount : </label>
-                            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                <input
-                                    className='percentage-caculator-input'
-                                    type="number"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    placeholder="Enter amount"
-                                />
-                                &nbsp;
-                                &nbsp;
-                            </div>
-                        </div>
-
-                        <div className='percentage-button-section'>
-                            <div className='percentage-button green-button' onClick={convertCurrency}>
-                                Convert
-                            </div>
-                        </div>
-                        <div className='percentage-result-section'>
-                            <div className='result-value'>
-                                <span className='result-value-span-green'>{result}</span>
-                            </div>
+                        <input type="number" className="form-control"
+                            value={exchangeRate}
+                            placeholder="Rate"
+                            readOnly
+                        />
+                    </div>
+                    <div className='mt-3 mb-2'>
+                        <button className='btn btn-sm btn-success' onClick={convertCurrency}>Convert</button>
+                    </div>
+                    <div >
+                        <div>
+                            <strong>
+                                Result :
+                                <span className='text-success'>
+                                    &nbsp; {result}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
         </div >
-
     );
 };
 

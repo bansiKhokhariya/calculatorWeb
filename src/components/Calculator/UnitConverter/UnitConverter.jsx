@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './UnitConverter.css';
 import AreaConverter from './AreaConverter/AreaConverter'
 import TemperatureConverter from './TemperatureConverter/TemperatureConverter'
 import WeightConverter from './WeightConverter/WeightConverter'
@@ -25,19 +24,23 @@ import SoundConverter from './SoundConverter/SoundConverter'
 import DataStorageConverter from './DataStorageConverter/DataStorageConverter'
 
 const UnitConverter = () => {
-    const [conversionType, setConversionType] = useState('length');
+    const [conversionType, setConversionType] = useState('SelectConversionType');
 
     const handleConversionChange = (e) => {
         setConversionType(e.target.value);
     };
 
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Unit Converter</h2>
-                <div className='unitConversion-input-box'>
-                    <label className='unitConversion-label' htmlFor="conversionType">Select Conversion Type:</label>
-                    <select className='unitConversion-input' id="conversionType" value={conversionType} onChange={handleConversionChange}>
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Unit Converter
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <select className="form-select form-select-sm" id="conversionType" value={conversionType} onChange={handleConversionChange}>
+                        <option value="SelectConversionType">Select Conversion Type:</option>
                         <option value="angle">Angle</option>
                         <option value="area">Area</option>
                         <option value="energy">Energy</option>
@@ -63,35 +66,33 @@ const UnitConverter = () => {
                         <option value="sound">Sound</option>
                         <option value="dataStorage">Data Storage</option>
                     </select>
+
+                    {conversionType === 'angle' && <AngleConverter />}
+                    {conversionType === 'area' && <AreaConverter />}
+                    {conversionType === 'energy' && <EnergyConverter />}
+                    {conversionType === 'temperature' && <TemperatureConverter />}
+                    {conversionType === 'weightMass' && <WeightConverter />}
+                    {conversionType === 'length' && <LengthConverter />}
+                    {conversionType === 'time' && <TimeConverter />}
+                    {conversionType === 'power' && <PowerConverter />}
+                    {conversionType === 'pressure' && <PressureConverter />}
+                    {conversionType === 'velocity' && <VelocityConverter />}
+                    {conversionType === 'volume' && <VolumeConverter />}
+                    {conversionType === 'frequency' && <FrequencyConverter />}
+                    {conversionType === 'electricCharge' && <ElectricChargeConverter />}
+                    {conversionType === 'electricCurrent' && <ElectricCurrentConverter />}
+                    {conversionType === 'electricPotential' && <ElectricPotentialConverter />}
+                    {conversionType === 'electricResistance' && <ElectricResistanceConverter />}
+                    {conversionType === 'electricConductance' && <ElectricConductanceConverter />}
+                    {conversionType === 'electricCapacitance' && <ElectricCapacitancecConverter />}
+                    {conversionType === 'electricInductance' && <ElectricInductanceConverter />}
+                    {conversionType === 'illuminance' && <IlluminanceConverter />}
+                    {conversionType === 'force' && <ForceConverter />}
+                    {conversionType === 'sound' && <SoundConverter />}
+                    {conversionType === 'dataStorage' && <DataStorageConverter />}
                 </div>
-
-
-                {/* Render different converters based on the selected conversion type */}
-                {conversionType === 'angle' && <AngleConverter />}
-                {conversionType === 'area' && <AreaConverter />}
-                {conversionType === 'energy' && <EnergyConverter />}
-                {conversionType === 'temperature' && <TemperatureConverter />}
-                {conversionType === 'weightMass' && <WeightConverter />}
-                {conversionType === 'length' && <LengthConverter />}
-                {conversionType === 'time' && <TimeConverter />}
-                {conversionType === 'power' && <PowerConverter />}
-                {conversionType === 'pressure' && <PressureConverter />}
-                {conversionType === 'velocity' && <VelocityConverter />}
-                {conversionType === 'volume' && <VolumeConverter />}
-                {conversionType === 'frequency' && <FrequencyConverter />}
-                {conversionType === 'electricCharge' && <ElectricChargeConverter />}
-                {conversionType === 'electricCurrent' && <ElectricCurrentConverter />}
-                {conversionType === 'electricPotential' && <ElectricPotentialConverter />}
-                {conversionType === 'electricResistance' && <ElectricResistanceConverter />}
-                {conversionType === 'electricConductance' && <ElectricConductanceConverter />}
-                {conversionType === 'electricCapacitance' && <ElectricCapacitancecConverter />}
-                {conversionType === 'electricInductance' && <ElectricInductanceConverter />}
-                {conversionType === 'illuminance' && <IlluminanceConverter />}
-                {conversionType === 'force' && <ForceConverter />}
-                {conversionType === 'sound' && <SoundConverter />}
-                {conversionType === 'dataStorage' && <DataStorageConverter />}
             </div>
-        </div>
+        </div >
     );
 };
 

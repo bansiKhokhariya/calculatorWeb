@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Setting.css';
 import SidebarToogle from '../SidebarToogle/SidebarToogle';
-import { Modal, Button } from "react-bootstrap";
-// import Calculator from '../Calculator/Calculator'
+import { Modal } from "react-bootstrap";
 
 
 const Setting = () => {
@@ -26,47 +24,64 @@ const Setting = () => {
     };
 
     useEffect(() => {
-        if (selectedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            document.body.classList.remove('light-theme');
+        if (selectedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('selectedTheme', 'light');
         } else {
-            document.body.classList.add('light-theme');
-            document.body.classList.remove('dark-theme');
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('selectedTheme', 'dark');
         }
     }, [selectedTheme]);
+
 
     return (
         <>
             <SidebarToogle />
-            <div className='sd-inner-menu-section'>
-                <div className='setting-container'>
-                    <ul className='setting-menu'>
-                        <li className='setting-inner-item' onClick={handleShow}>
-                            <div>
-                                Background Colour
-                            </div>
+            <div className="accordion sidebar-menu bg-light">
+                <div className="card" role="button">
+                    <div className="card-header bg-light card-text">
+                        <div onClick={handleShow} className='d-flex justify-content-between'>
+                            Background Colour
                             <div className='setting-inner-menu-value'>
                                 {selectedTheme || 'Select Theme'}
                             </div>
-                        </li>
-                        <li className='setting-inner-item'>Currency Format</li>
-                        <li className='setting-inner-item'>Set up Calculator Shortcut</li>
-                        <li className='setting-inner-item'>Confirm before exit app</li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
-                {/* <Calculator calculatorType='basicCalculator' /> */}
-                <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
-                    <Modal.Header >
-                        <Modal.Title>Background Colour</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <ul className='setting-inner-menu'>
-                            <li onClick={() => handleThemeSelect('light')}>Light Mode</li>
-                            <li onClick={() => handleThemeSelect('dark')}>Dark Mode</li>
-                        </ul>
-                    </Modal.Body>
-                </Modal>
+                <div className="card" role="button">
+                    <div className="card-header bg-light card-text">
+                        <div className='d-flex justify-content-between'>
+                            Currency Format
+                        </div>
+                    </div>
+                </div>
+                <div className="card" role="button">
+                    <div className="card-header bg-light card-text">
+                        <div className='d-flex justify-content-between'>
+                            Set up Calculator Shortcut
+                        </div>
+                    </div>
+                </div>
+                <div className="card" role="button">
+                    <div className="card-header bg-light card-text">
+                        <div className='d-flex justify-content-between'>
+                            Confirm before exit app
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
+                <Modal.Header >
+                    <Modal.Title>Background Colour</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ul className='setting-inner-menu'>
+                        <li role="button" onClick={() => handleThemeSelect('light')}>Light Mode</li>
+                        <li role="button" onClick={() => handleThemeSelect('dark')}>Dark Mode</li>
+                    </ul>
+                </Modal.Body>
+            </Modal>
         </>
     );
 }

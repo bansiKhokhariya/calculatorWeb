@@ -1,112 +1,175 @@
 import { React, useState } from 'react'
 import SidebarToogle from '../SidebarToogle/SidebarToogle'
-import './AllCategory.css'
 import { Link } from 'react-router-dom'
 
-
 const AllCategory = () => {
-
     return (
         <>
             <SidebarToogle />
-            <div className='sd-inner-menu-section'>
-                <div className='setting-container'>
-                    <ul className='setting-menu'>
-                        <li className='category-inner-item'>
-                            <input className="setting-menu-input" type="checkbox" name="setting-menu-item" id="setting-menu-item-1" />
-                            <label htmlFor="setting-menu-item-1">
-                                <svg className='down-arrow-svg' xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10" fill="none">
-                                    <path d="M7.49997 9.30044C7.23114 9.30044 6.96235 9.19779 6.75739 8.99294L0.307713 2.54319C-0.102571 2.13291 -0.102571 1.46771 0.307713 1.05759C0.71783 0.647471 1.3829 0.647471 1.79322 1.05759L7.49997 6.76468L13.2068 1.05779C13.617 0.64767 14.2821 0.64767 14.6921 1.05779C15.1026 1.46791 15.1026 2.13311 14.6921 2.54339L8.24256 8.99313C8.0375 9.19803 7.76871 9.30044 7.49997 9.30044Z" fill="#007B42" />
-                                </svg>
-                                &nbsp;
-                                &nbsp;
-                                General Calculator
-                            </label>
-                            <ul className="setting-menu-item-inner-list">
-                                <Link className='redirect-link' to={'/'}>
-                                    <li>Calculator</li>
+            <div className="accordion sidebar-menu bg-light card-text" id="accordionExample">
+                <div className="card">
+                    <div className="card-header bg-light card-text" id="headingOne">
+                        <div role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            ▼ General
+                        </div>
+                    </div>
+                    <div id="collapseOne" className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div className="accordion" id="accordionExample">
+                            <div className="card border-0">
+                                <Link className='redirect-link' to={'/'} >
+                                    <div className="card-header bg-light card-text" >
+                                        <div>
+                                            &nbsp; &nbsp;  Calculator
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
-                                    <li>Percentage Calculator</li>
+                                    <div className="card-header bg-light card-text" role="button">
+                                        <div>
+                                            &nbsp; &nbsp;  Percentage Calculator
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/bmiCalculator'}>
-                                    <li>BMI Calculator</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  BMI Calculator
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/numberToWordConverter'}>
-                                    <li>Number To Word Converter</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Number To Word Converter
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/unitConverter'}>
-                                    <li>Unit Converter</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Unit Converter
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/cashCounter'}>
-                                    <li>Cash Counter</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Cash Counter
+                                        </div>
+                                    </div>
                                 </Link>
-                            </ul>
-                        </li>
-                        <li className='category-inner-item'>
-                            <input className="setting-menu-input" type="checkbox" name="setting-menu-item" id="setting-menu-item-2" />
-                            <label htmlFor="setting-menu-item-2">
-                                <svg className='down-arrow-svg' xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10" fill="none">
-                                    <path d="M7.49997 9.30044C7.23114 9.30044 6.96235 9.19779 6.75739 8.99294L0.307713 2.54319C-0.102571 2.13291 -0.102571 1.46771 0.307713 1.05759C0.71783 0.647471 1.3829 0.647471 1.79322 1.05759L7.49997 6.76468L13.2068 1.05779C13.617 0.64767 14.2821 0.64767 14.6921 1.05779C15.1026 1.46791 15.1026 2.13311 14.6921 2.54339L8.24256 8.99313C8.0375 9.19803 7.76871 9.30044 7.49997 9.30044Z" fill="#007B42" />
-                                </svg>
-                                &nbsp;
-                                &nbsp;
-                                Loan And Mortgage
-                            </label>
-                            <ul className="setting-menu-item-inner-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header bg-light card-text" id="headingTwo">
+                        <div role="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            ▼ Loan And Mortgage
+                        </div>
+                    </div>
+                    <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div className="accordion" id="accordionExample">
+                            <div className="card border-0">
                                 <Link className='redirect-link' to={'/loanMortgage/loanCalculator'}>
-                                    <li>Loan Calculator</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Loan Calculator
+                                        </div>
+                                    </div>
                                 </Link>
-                            </ul>
-                        </li>
-                        <li className='category-inner-item'>
-                            <input className="setting-menu-input" type="checkbox" name="setting-menu-item" id="setting-menu-item-3" />
-                            <label htmlFor="setting-menu-item-3">
-                                <svg className='down-arrow-svg' xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10" fill="none">
-                                    <path d="M7.49997 9.30044C7.23114 9.30044 6.96235 9.19779 6.75739 8.99294L0.307713 2.54319C-0.102571 2.13291 -0.102571 1.46771 0.307713 1.05759C0.71783 0.647471 1.3829 0.647471 1.79322 1.05759L7.49997 6.76468L13.2068 1.05779C13.617 0.64767 14.2821 0.64767 14.6921 1.05779C15.1026 1.46791 15.1026 2.13311 14.6921 2.54339L8.24256 8.99313C8.0375 9.19803 7.76871 9.30044 7.49997 9.30044Z" fill="#007B42" />
-                                </svg>
-                                &nbsp;
-                                &nbsp;
-                                Finance and Investment
-                            </label>
-                            <ul className="setting-menu-item-inner-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header bg-light card-text" id="headingThree">
+                        <div role="button" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree" aria-controls="collapseThree">
+                            ▼  Finance and Investment
+                        </div>
+                    </div>
+                    <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div className="accordion" id="accordionExample">
+                            <div className="card border-0">
                                 <Link className='redirect-link' to={'/financeAndInvestment/currencyConverter'}>
-                                    <li>Currency Converter</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Currency Converter
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/financeAndInvestment/roiCalculator'}>
-                                    <li>Return on Investment (ROI) Calculator</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Return on Investment (ROI) Calculator
+                                        </div>
+                                    </div>
                                 </Link>
-                            </ul>
-                        </li>
-                        <li className='category-inner-item'>Retirement</li>
-                        <li className='category-inner-item'>Bond</li>
-                        <li className='category-inner-item'>Business Accounting</li>
-                        <li className='category-inner-item'>
-                            <input className="setting-menu-input" type="checkbox" name="setting-menu-item" id="setting-menu-item-7" />
-                            <label htmlFor="setting-menu-item-7">
-                                <svg className='down-arrow-svg' xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10" fill="none">
-                                    <path d="M7.49997 9.30044C7.23114 9.30044 6.96235 9.19779 6.75739 8.99294L0.307713 2.54319C-0.102571 2.13291 -0.102571 1.46771 0.307713 1.05759C0.71783 0.647471 1.3829 0.647471 1.79322 1.05759L7.49997 6.76468L13.2068 1.05779C13.617 0.64767 14.2821 0.64767 14.6921 1.05779C15.1026 1.46791 15.1026 2.13311 14.6921 2.54339L8.24256 8.99313C8.0375 9.19803 7.76871 9.30044 7.49997 9.30044Z" fill="#007B42" />
-                                </svg>
-                                &nbsp;
-                                &nbsp;
-                                Date and Time
-                            </label>
-                            <ul className="setting-menu-item-inner-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div role="button" className="card-header bg-light card-text" id="headingFour">
+                        <div data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                            ▼ Retirement
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header bg-light card-text" id="headingFive">
+                        <div role="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                            ▼ Bond
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header bg-light card-text" id="headingSix">
+                        <div role="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                            ▼ Business Accounting
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header bg-light card-text" id="headingSeven">
+                        <div role="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                            ▼  Date and Time
+                        </div>
+                    </div>
+                    <div id="collapseSeven" className="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                        <div className="accordion" id="accordionExample">
+                            <div className="card border-0">
                                 <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'}>
-                                    <li>Duration Between Two Dates</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Duration Between Two Dates
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/dateAddSubtract'}>
-                                    <li>Date Add And Subtract</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Date Add And Subtract
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/weekDayCalculator'}>
-                                    <li>WeekDay Calculator</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  WeekDay Calculator
+                                        </div>
+                                    </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/ageCaculator'}>
-                                    <li>Age Caculator</li>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  Age Caculator
+                                        </div>
+                                    </div>
                                 </Link>
-                            </ul>
-                        </li>
-                    </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

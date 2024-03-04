@@ -167,203 +167,185 @@ function LoanCalculator(props) {
     };
 
 
+    const resetInputs = () => {
+        setLoanAmount('');
+        setInterestRate('');
+        setLoanTermYears('');
+        setResult({});
+    };
+
     return (
         <>
-            <div className='percentage-caculator-section-main'>
-                <div className="percentage-caculator-section">
-                    <h2 className='percentage-caculator-title'>Loan Calculator</h2>
-                    <div className='percentage-caculator-main-box' >
-                        <div className="conversion">
-                            {/* 
-                            <div className='percentage-button-section'>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                                        Action
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => setShowSaveLoanModal(true)}>Save</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setShowLoanDataModal(true)}>My Loans</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </div> */}
-
-                            <div className='percentage-input-box'>
-                                <label className='percentage-caculator-lable' htmlFor="loanamount">Loan Amount : </label>
-                                <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                    <input
-                                        className='percentage-caculator-input'
-                                        type="text"
-                                        name=""
-                                        id="loanamount"
-                                        value={loanAmount}
-                                        onChange={(e) => setLoanAmount(e.target.value.replace(/\D/g, ''))}
-                                    />
-                                    &nbsp;
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <div className='percentage-input-box'>
-                                <label className='percentage-caculator-lable' htmlFor="interestRate">Interest Rate :</label>
-                                <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                    <input
-                                        className='percentage-caculator-input'
-                                        type="text"
-                                        name=""
-                                        id="interestRate"
-                                        value={interestRate}
-                                        onChange={(e) => setInterestRate(e.target.value.replace(/\D/g, ''))}
-                                    />
-                                    <div style={{ fontWeight: '600' }}>
-                                        %
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='percentage-input-box'>
-                                <label className='percentage-caculator-lable' htmlFor="loanTermYears">Years To Pay :</label>
-                                <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                                    <input
-                                        className='percentage-caculator-input'
-                                        type="text"
-                                        name=""
-                                        id="loanTermYears"
-                                        value={loanTermYears}
-                                        onChange={(e) => setLoanTermYears(e.target.value.replace(/\D/g, ''))}
-                                    />
-                                    &nbsp;
-                                    &nbsp;
-                                </div>
-                            </div>
-
-                            <div className='percentage-button-section'>
-                                <div className='percentage-button green-button' onClick={calculateLoan}>
-                                    Calculate
-                                </div>
-                            </div>
-
-                            <div className='percentage-result-section'>
-                                <div className='result-value'>
-                                    Total Payment  :  <span className='result-value-span-green'> {result.totalPayment}</span>
-                                </div>
-                                <div className='result-value'>
-                                    Annual Payment  :  <span className='result-value-span-green'> {result.annualPayment}</span>
-                                </div>
-                                <div className='result-value'>
-                                    Monthly Payment  :  <span className='result-value-span-green'> {result.monthlyPayment}</span>
-                                </div>
-                                <div className='result-value'>
-                                    Total Interest  :  <span className='result-value-span-green'> {result.totalInterest}</span>
-                                </div>
-                                <div className='result-value'>
-                                    Mortgage Constant  :  <span className='result-value-span-green'> {result.mortgageConstant}</span>
-                                </div>
-                            </div>
-
-                            {result.totalPayment && (
-                                <div className='percentage-button-section'>
-                                    <button className='percentage-button blue-button'
-                                        onClick={() => {
-                                            generateAmortizationSchedule(),
-                                                setShowFullReportModal(true)
-                                        }}>
-                                        View Full Report
-                                    </button>
-                                    <button className='percentage-button blue-button'
-                                        onClick={handleShareClick}>
-                                        Email
-                                    </button>
-                                </div>
-                            )}
-                        </div>
+            <div className='bootstrap-card-section'>
+                <div className="card bootstrap-card">
+                    <div className="card-header text-center card-text">
+                        <h1>
+                            Loan Calculator
+                        </h1>
                     </div>
+                    <div className="card-body card-text">
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">Loan Amount</span>
+                            </div>
+                            <input type="text" className="form-control" placeholder="Enter Amount"
+                                value={loanAmount}
+                                onChange={(e) => setLoanAmount(e.target.value.replace(/\D/g, ''))}
+                            />
+                        </div>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">Interest Rate(%) </span>
+                            </div>
+                            <input type="text" className="form-control" placeholder="Enter Interest Rate"
+                                value={interestRate}
+                                onChange={(e) => setInterestRate(e.target.value.replace(/\D/g, ''))}
+                            />
+                        </div>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">Years To Pay </span>
+                            </div>
+                            <input type="text" className="form-control" placeholder="Enter Year"
+                                value={loanTermYears}
+                                onChange={(e) => setLoanTermYears(e.target.value.replace(/\D/g, ''))}
+                            />
+                        </div>
 
-                    {/* view Loan Data */}
-                    <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-                        <Modal.Header closeButton>
-                            <Modal.Title>{savedLoans.length > 0 ? 'My Loans' : 'Save Loan'}</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            {savedLoans.length > 0 ? (
+                        <div className='mb-3'>
+                            <button className='btn btn-sm btn-success' onClick={calculateLoan}>Calculate</button>
+                            <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
+                        </div>
+                        <div >
+                            <div>
+                                <strong>
+                                    Total Payment =
+                                    <span className='text-success'>
+                                        &nbsp; {result.totalPayment}
+                                    </span>
+                                </strong>
+                            </div>
+                            <div>
+                                <strong>
+                                    Annual Payment =
+                                    <span className='text-success'>
+                                        &nbsp; {result.annualPayment}
+                                    </span>
+                                </strong>
+                            </div>
+                            <div>
+                                <strong>
+                                    Monthly Payment =
+                                    <span className='text-success'>
+                                        &nbsp; {result.monthlyPayment}
+                                    </span>
+                                </strong>
+                            </div>
+                            <div>
+                                <strong>
+                                    Total Interest =
+                                    <span className='text-success'>
+                                        &nbsp; {result.totalInterest}
+                                    </span>
+                                </strong>
+                            </div>
+                            <div>
+                                <strong>
+                                    Mortgage Constant =
+                                    <span className='text-success'>
+                                        &nbsp; {result.mortgageConstant}
+                                    </span>
+                                </strong>
+                            </div>
+                        </div>
+                        {result.totalPayment && (
+                            <div className='mt-3'>
+                                <button className='btn btn-sm btn-outline-primary'
+                                    onClick={() => {
+                                        generateAmortizationSchedule(),
+                                            setShowFullReportModal(true)
+                                    }}>
+                                    View Full Report
+                                </button>
+                                <button className='btn btn-outline-success btn-sm ms-2'
+                                    onClick={handleShareClick}>
+                                    Share
+                                </button>
+                            </div>
+                        )}
+
+                        {/* view Loan Data */}
+                        <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
+                            <Modal.Header closeButton>
+                                <Modal.Title>{savedLoans.length > 0 ? 'My Loans' : 'Save Loan'}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                {savedLoans.length > 0 ? (
+                                    <Table striped bordered hover>
+                                        <thead>
+                                            <tr>
+                                                {/* <th>Name</th> */}
+                                                <th>Amount</th>
+                                                <th>Interest Rate</th>
+                                                <th>Term (Years)</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {savedLoans.map((loan, index) => (
+                                                <tr key={index}>
+                                                    {/* <td>{loan.name}</td> */}
+                                                    <td>{loan.amount}</td>
+                                                    <td>{loan.interestRate}</td>
+                                                    <td>{loan.termYears}</td>
+                                                    <td>
+                                                        <Button variant="danger" className='btn btn-sm' onClick={() => handleDelete(index)}>Delete</Button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                ) : (
+                                    <p>No saved loans.</p>
+                                )}
+                            </Modal.Body>
+                        </Modal>
+
+
+                        {/* modal full report */}
+                        <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
+                            <Modal.Header closeButton>
+                                <Modal.Title>Amortization Schedule</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className='pieChart-box'>
+                                    <Doughnut data={pieChartData} />
+                                </div>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
-                                            {/* <th>Name</th> */}
-                                            <th>Amount</th>
-                                            <th>Interest Rate</th>
-                                            <th>Term (Years)</th>
-                                            <th>Action</th>
+                                            <th>No.</th>
+                                            <th>Monthly Payment</th>
+                                            <th>principal Payment</th>
+                                            <th>interest Payment</th>
+                                            <th>Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {savedLoans.map((loan, index) => (
+                                        {amortizationSchedule.map((entry, index) => (
                                             <tr key={index}>
-                                                {/* <td>{loan.name}</td> */}
-                                                <td>{loan.amount}</td>
-                                                <td>{loan.interestRate}</td>
-                                                <td>{loan.termYears}</td>
-                                                <td>
-                                                    <Button variant="danger" onClick={() => handleDelete(index)}>Delete</Button>
-                                                </td>
+                                                <td>{entry.month}</td>
+                                                <td>{entry.monthlyPayment}</td>
+                                                <td>{entry.principalPayment}</td>
+                                                <td>{entry.interestPayment}</td>
+                                                <td>{entry.remainingBalance}</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </Table>
-                            ) : (
-                                <p>No saved loans.</p>
-                            )}
-                        </Modal.Body>
-                    </Modal>
-
-                    {/* Modal for saving loan details */}
-                    {/* <Modal show={showSaveLoanModal} onHide={() => setShowSaveLoanModal(false)} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
-                        <Modal.Header closeButton>
-                            <Modal.Title>Save Loan</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <label>Loan Name:</label>
-                            <input type="text" value={loanName} onChange={(e) => setLoanName(e.target.value)} />
-                        </Modal.Body>
-                        <Modal.Footer>
-
-                            <Button variant="primary" onClick={handleSave}>
-                                Save
-                            </Button>
-                        </Modal.Footer>
-                    </Modal> */}
-
-                    {/* modal full report */}
-                    <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-                        <Modal.Header closeButton>
-                            <Modal.Title>Amortization Schedule</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div className='pieChart-box'>
-                                <Doughnut data={pieChartData} />
-                            </div>
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Monthly Payment</th>
-                                        <th>principal Payment</th>
-                                        <th>interest Payment</th>
-                                        <th>Balance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {amortizationSchedule.map((entry, index) => (
-                                        <tr key={index}>
-                                            <td>{entry.month}</td>
-                                            <td>{entry.monthlyPayment}</td>
-                                            <td>{entry.principalPayment}</td>
-                                            <td>{entry.interestPayment}</td>
-                                            <td>{entry.remainingBalance}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Modal.Body>
-                    </Modal>
-
+                            </Modal.Body>
+                        </Modal>
+                    </div>
                 </div>
             </div >
         </>

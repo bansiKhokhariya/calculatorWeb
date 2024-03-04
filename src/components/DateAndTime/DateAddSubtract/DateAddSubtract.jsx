@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './DateAddSubtract.css'
 
 const DateAddSubtract = () => {
     const [endDate, setEndDate] = useState(new Date().toISOString().substr(0, 10)); // Default to today's date
@@ -90,116 +89,105 @@ const DateAddSubtract = () => {
         setResultDate(date.toISOString().substr(0, 10));
     };
 
+    const resetInputs = () => {
+        setResultDate('');
+        setYearValue(0);
+        setMonthValue(0);
+        setWeekValue(0);
+        setDayValue(0);
+        setEndDate(new Date().toISOString().substr(0, 10))
+    };
+
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Date Add and Subtract</h2>
-                <div className='percentage-caculator-main-box'>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="todayDate">Select a Date :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="date"
-                                id="todayDate"
-                                value={endDate}
-                                onChange={(e) => setEndDate(e.target.value)}
-                            />
-                            &nbsp;
-                            &nbsp;
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Date Add and Subtract
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Select a Date</span>
+                        </div>
+                        <input type="date" className="form-control" placeholder="Enter Value"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
+                    </div>
+                    <div className=' mb-3'>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" id='add' value="add"
+                                checked={operation === 'add'}
+                                onChange={() => setOperation('add')} />
+                            <label className="form-check-label" for="add">Add</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" id="subtract"
+                                value="subtract"
+                                checked={operation === 'subtract'}
+                                onChange={() => setOperation('subtract')} />
+                            <label className="form-check-label" for="subtract">Subtract</label>
                         </div>
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="todayDate">Date :</label>
-                        <div className='input-radio-section'>
-                            <div>
-                                <input
-                                    className='input-radio-box'
-                                    type="radio"
-                                    id="add"
-                                    value="add"
-                                    checked={operation === 'add'}
-                                    onChange={() => setOperation('add')}
-                                />
-                                &nbsp;
-                                <label className='input-radio-box-label' htmlFor="add">Add</label>
-                            </div>
-                            <div>
-                                <input
-                                    type="radio"
-                                    id="subtract"
-                                    value="subtract"
-                                    checked={operation === 'subtract'}
-                                    onChange={() => setOperation('subtract')}
-                                />
-                                &nbsp;
-                                <label className='input-radio-box-label' htmlFor="subtract">Subtract</label>
-                            </div>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Year(s)</span>
                         </div>
+                        <input type="number" className="form-control" placeholder="Enter Value"
+                            value={yearValue} onChange={handleYearChange}
+                        />
+                        <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('year')}>-</button>
+                        <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('year')}>+</button>
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="year">Year(s) :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input className='dateAddSubtractNumberInput' type="number" id="year" value={yearValue} onChange={handleYearChange} />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Month(s)</span>
                         </div>
-                        <div style={{ display: "flex", gap: "10px" }}>
-                            <button className='dateAddSubtractButton' style={{ paddingBottom: "5px", backgroundColor: "#FF4433" }} onClick={() => handleDecrement('year')}>-</button>
-                            <button className='dateAddSubtractButton' onClick={() => handleIncrement('year')}>+</button>
-                        </div>
+                        <input type="number" className="form-control" placeholder="Enter Value"
+                            value={monthValue} onChange={handleMonthChange}
+                        />
+                        <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('month')}>-</button>
+                        <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('month')}>+</button>
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="month">Month(s) :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input className='dateAddSubtractNumberInput' type="number" id="month" value={monthValue} onChange={handleMonthChange} />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Week(s)</span>
                         </div>
-                        <div style={{ display: "flex", gap: "10px" }}>
-                            <button className='dateAddSubtractButton' style={{ paddingBottom: "5px", backgroundColor: "#FF4433" }} onClick={() => handleDecrement('month')}>-</button>
-                            <button className='dateAddSubtractButton' onClick={() => handleIncrement('month')}>+</button>
-                        </div>
+                        <input type="number" className="form-control" placeholder="Enter Value"
+                            value={weekValue} onChange={handleWeekChange}
+                        />
+                        <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('week')}>-</button>
+                        <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('week')}>+</button>
                     </div>
-
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="week">Week(s) :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input className='dateAddSubtractNumberInput' type="number" id="week" value={weekValue} onChange={handleWeekChange} />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Day(s)</span>
                         </div>
-                        <div style={{ display: "flex", gap: "10px" }}>
-                            <button className='dateAddSubtractButton' style={{ paddingBottom: "5px", backgroundColor: "#FF4433" }} onClick={() => handleDecrement('week')}>-</button>
-                            <button className='dateAddSubtractButton' onClick={() => handleIncrement('week')}>+</button>
-                        </div>
+                        <input type="number" className="form-control" placeholder="Enter Value"
+                            value={dayValue} onChange={handleDayChange}
+                        />
+                        <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('day')}>-</button>
+                        <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('day')}>+</button>
                     </div>
-
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="day">Day(s) :</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input className='dateAddSubtractNumberInput' type="number" id="day" value={dayValue} onChange={handleDayChange} />
-                            &nbsp;
-                            &nbsp;
-                        </div>
-                        <div style={{ display: "flex", gap: "10px" }}>
-                            <button className='dateAddSubtractButton' style={{ paddingBottom: "5px", backgroundColor: "#FF4433" }} onClick={() => handleDecrement('day')}>-</button>
-                            <button className='dateAddSubtractButton' onClick={() => handleIncrement('day')}>+</button>
-                        </div>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={handleCalculate}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                     </div>
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={handleCalculate}>
-                            Calculate
-                        </div>
-                    </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            Result Date: <span className='result-value-span-green'>{resultDate}</span>
+                    <div>
+                        <div>
+                            <strong>
+                                Result Date =
+                                <span className='text-success'>
+                                    &nbsp; {resultDate}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

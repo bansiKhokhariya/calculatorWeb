@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 
 const LengthConverter = () => {
 
@@ -28,7 +28,7 @@ const LengthConverter = () => {
     pica: 236.22,
     rods: 0.19884,
     span: 2.95276
-};
+  };
 
   const convertLength = () => {
     const value = parseFloat(inputValue);
@@ -37,17 +37,18 @@ const LengthConverter = () => {
   };
 
   return (
-    <div className="conversion" id="length">
-      <label className='unitConversion-label'>From</label>
-      <input
-        className='percentage-caculator-input'
-        type="number"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter value"
-      />
-      <select
-        className='unitConversion-input'
+    <div className='mt-4'>
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <span className="input-group-text">@</span>
+        </div>
+        <input type="number" className="form-control" placeholder="Enter Value"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+      </div>
+      <label className='card-text text-center mt-2 mb-2 ms-1'>From</label>
+      <select className="form-select form-select-sm" id="conversionType"
         value={fromLength}
         onChange={(e) => setFromLength(e.target.value)}
       >
@@ -55,9 +56,8 @@ const LengthConverter = () => {
           <option key={Length} value={Length}>{Length}</option>
         ))}
       </select>
-      <label className='unitConversion-label'>To</label>
-      <select
-        className='unitConversion-input'
+      <label className='card-text text-center mt-2 mb-2 ms-1'>To</label>
+      <select className="form-select form-select-sm" id="conversionType"
         value={toLength}
         onChange={(e) => setToLength(e.target.value)}
       >
@@ -65,11 +65,18 @@ const LengthConverter = () => {
           <option key={Length} value={Length}>{Length}</option>
         ))}
       </select>
-      <div className='percentage-button green-button' onClick={convertLength}>
-        Calculate
+      <div className='mt-3 mb-2'>
+        <button className='btn btn-sm btn-success' onClick={convertLength}>Convert</button>
       </div>
-      <div className='result-value'>
-        Result : <span className='result-value-span-green'>{result}</span>
+      <div >
+        <div>
+          <strong>
+            Result =
+            <span className='text-success'>
+              &nbsp; {result}
+            </span>
+          </strong>
+        </div>
       </div>
     </div>
   )

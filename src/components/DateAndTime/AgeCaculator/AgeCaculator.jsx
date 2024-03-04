@@ -79,61 +79,83 @@ const AgeCalculator = () => {
         calculateAge();
     };
 
+    const resetInputs = () => {
+        setStartDate('');
+        setEndDate(new Date().toISOString().substr(0, 10));
+        setAge('');
+        setTotalDays('');
+        setTotalMonths('');
+        setComingBirthday('');
+    };
+
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Age Calculator</h2>
-                <div className='percentage-caculator-main-box'>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="dateOfBirth">Date of Birth:</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="date"
-                                id="dateOfBirth"
-                                value={startDate}
-                                onChange={(e) => setStartDate(e.target.value)}
-                            />
-                            &nbsp;
-                            &nbsp;
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Age Calculator
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Date of Birth</span>
                         </div>
+                        <input type="date" className="form-control" placeholder="Enter Value"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="todayDate">Today's Date:</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="date"
-                                id="todayDate"
-                                value={endDate}
-                                onChange={(e) => setEndDate(e.target.value)}
-                            />
-                            &nbsp;
-                            &nbsp;
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Today's Date</span>
                         </div>
+                        <input type="date" className="form-control" placeholder="Enter Value"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
                     </div>
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={handleCalculate}>
-                            Calculate
-                        </div>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={handleCalculate}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                     </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            Age: <span className='result-value-span-green'>{age}</span>
+                    <div >
+                        <div>
+                            <strong>
+                                Age =
+                                <span className='text-success'>
+                                    &nbsp; {age}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Total in days: <span className='result-value-span-green'>{isNaN(totalDays) ? 'NaN' : totalDays}</span>
+                        <div>
+                            <strong>
+                                Total in days =
+                                <span className='text-success'>
+                                    &nbsp; {isNaN(totalDays) ? 'NaN' : totalDays}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Total in Months: <span className='result-value-span-green'>{isNaN(totalMonths) ? 'NaN' : totalMonths}</span>
+                        <div>
+                            <strong>
+                                Total in Months =
+                                <span className='text-success'>
+                                    &nbsp; {isNaN(totalMonths) ? 'NaN' : totalMonths}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Coming Birthday: <span className='result-value-span-green'>{comingBirthday}</span>
+                        <div>
+                            <strong>
+                                Coming Birthday =
+                                <span className='text-success'>
+                                    &nbsp; {comingBirthday}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

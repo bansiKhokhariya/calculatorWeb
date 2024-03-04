@@ -48,56 +48,94 @@ const WeekDayCalculator = () => {
 
     };
 
+    const resetInputs = () => {
+        setResult('');
+        setEnterDate(new Date().toISOString().substr(0, 10))
+    };
+
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>WeekDay Calculator</h2>
-                <div className='percentage-caculator-main-box'>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="todayDate">Enter a Date:</label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="date"
-                                id="todayDate"
-                                value={enterDate}
-                                onChange={(e) => setEnterDate(e.target.value)}
-                            />
-                            &nbsp;
-                            &nbsp;
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Age Calculator
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Enter a Date</span>
                         </div>
+                        <input type="date" className="form-control" placeholder="Enter Value"
+                            value={enterDate}
+                            onChange={(e) => setEnterDate(e.target.value)}
+                        />
                     </div>
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={calculateValues}>
-                            Calculate
-                        </div>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={calculateValues}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                     </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            Day Number in Month: <span className='result-value-span-green'>{result.dayNumberInMonth}</span>
+                    <div >
+                        <div>
+                            <strong>
+                                Day Number in Month =
+                                <span className='text-success'>
+                                    &nbsp; {result.dayNumberInMonth}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Total days in the Month: <span className='result-value-span-green'>{result.totalDaysInMonth}</span>
+                        <div>
+                            <strong>
+                                Total days in the Month =
+                                <span className='text-success'>
+                                    &nbsp; {result.totalDaysInMonth}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Day Number in the Year: <span className='result-value-span-green'>{result.dayNumberInYear}</span>
+                        <div>
+                            <strong>
+                                Day Number in the Year =
+                                <span className='text-success'>
+                                    &nbsp; {result.dayNumberInYear}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Total Days in the Year:  <span className='result-value-span-green'>{result.totalDaysInYear}</span>
+                        <div>
+                            <strong>
+                                Total Days in the Year =
+                                <span className='text-success'>
+                                    &nbsp; {result.totalDaysInYear}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Month Number in the Year:  <span className='result-value-span-green'>{result.monthNumberInYear}</span>
+                        <div>
+                            <strong>
+                                Month Number in the Year =
+                                <span className='text-success'>
+                                    &nbsp; {result.monthNumberInYear}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Week Number in the Year:  <span className='result-value-span-green'>{result.weekNumberInYear}</span>
+                        <div>
+                            <strong>
+                                Week Number in the Year =
+                                <span className='text-success'>
+                                    &nbsp; {result.weekNumberInYear}
+                                </span>
+                            </strong>
                         </div>
-                        <div className='result-value'>
-                            Week Number in the Month:  <span className='result-value-span-green'>{result.weekNumberInMonth}</span>
+                        <div>
+                            <strong>
+                                Week Number in the Month =
+                                <span className='text-success'>
+                                    &nbsp; {result.weekNumberInMonth}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

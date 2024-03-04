@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './CashCounter.css'
 
 const CashCounter = () => {
     const [notes, setNotes] = useState({
@@ -32,44 +31,59 @@ const CashCounter = () => {
     };
 
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Cash Counter</h2>
-                <div className='percentage-caculator-main-box' >
-                    <div className="cash-counter">
-                        <table>
-                            <thead style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
-                                <tr>
-                                    <th className='percentage-caculator-lable'>Note</th>
-                                    <th className='percentage-caculator-lable'>Count</th>
-                                    <th className='percentage-caculator-lable'>Amount</th>
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Cash Counter
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Note</th>
+                                <th scope="col">Count</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.keys(notes).map(note => (
+                                <tr className='pb-3' key={note} >
+                                    <td className='card-text'>{`₹${note}`}</td>
+                                    <td>
+                                        <div className="input-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Enter Value" value={notes[note].count}
+                                                onChange={(e) => handleNoteChange(e, note)} />
+                                        </div>
+                                    </td>
+                                    <td className=''>
+                                        <div>
+                                            <strong>
+                                                <span className='text-success'>
+                                                    &nbsp; {`₹${notes[note].amount}`}
+                                                </span>
+                                            </strong>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
-                                {Object.keys(notes).map(note => (
-                                    <tr key={note} style={{ display: "flex", alignItems: "center" }}>
-                                        <td className='percentage-caculator-lable'>{`₹${note}`}</td>
-                                        <td>
-                                            <input
-                                                className='cash-caculator-input'
-                                                type="number"
-                                                value={notes[note].count}
-                                                onChange={(e) => handleNoteChange(e, note)}
-                                            />
-                                        </td>
-                                        <td className='percentage-caculator-lable result-value-span-green'>{`₹${notes[note].amount}`}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div className='result-value' style={{ textAlign: "center" }}>
-                            Total Amount: <span className='percentage-caculator-lable result-value-span-green'>₹{calculateTotal()}</span>
+                            ))}
+
+                        </tbody>
+                    </table>
+                    <div>
+                        <div>
+                            <strong>
+                                Total Amount =
+                                <span className='text-success'>
+                                    &nbsp; {calculateTotal()}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div >
     );
 };
 

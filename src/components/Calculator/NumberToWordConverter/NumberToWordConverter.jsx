@@ -28,33 +28,36 @@ const NumberToWordConverter = () => {
     };
 
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section">
-                <h2 className='percentage-caculator-title'>Number To Word Converter</h2>
-                <div className='percentage-caculator-main-box' >
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="number">Number : </label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="number"
-                                value={numberValue}
-                                onChange={handleChangeNumberValue}
-                            />
-                            &nbsp;
-                            &nbsp;
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Number To Word Converter
+                    </h1>
+                </div>
+                <div className="card-body card-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Number</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={numberValue}
+                            onChange={handleChangeNumberValue}
+                        />
                     </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            Word :  <span className='result-value-span-green'>{wordValue}</span>
+                    <div>
+                        <div>
+                            <strong>
+                                Word =
+                                <span className='text-success'>
+                                    &nbsp; {wordValue}
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

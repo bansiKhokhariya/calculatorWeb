@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './PercentageCalculator.css';
 
 const PercentageCalculator = () => {
     const [originalValue1, setOriginalValue1] = useState('');
@@ -65,116 +64,104 @@ const PercentageCalculator = () => {
     };
 
     return (
-        <div className='percentage-caculator-section-main'>
-            <div className="percentage-caculator-section" >
-                <h2 className='percentage-caculator-title'>Percentage Calculator</h2>
-                <div className='percentage-caculator-main-box' >
-                    <h4 className='percentage-caculator-innerTitle'>Original value to percentage value</h4>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="originalValue1">Original Value : </label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="originalValue1"
-                                value={originalValue1}
-                                onChange={handleChangeOriginalValue1}
-                            />
-                            &nbsp;
-                            &nbsp;
-                        </div>
-                    </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="percentage1">Percentage : </label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="percentage1"
-                                value={percentage1}
-                                onChange={handleChangePercentage1}
-                            />
-                            <div style={{ fontWeight: '600' }}>
-                                %
-                            </div>
-                        </div>
-                    </div>
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={calculatePercentage1}>
-                            Calculate
-                        </div>
-                        <div className='percentage-button blue-button' onClick={resetInputs1}>
-                            Reset
-                        </div>
-                    </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            original value : <span className='result-value-span'>{originalValue1}</span>
-                        </div>
-                        <div className='result-value'>
-                            Percentage :  <span className='result-value-span'>{percentage1}</span>
-                        </div>
-                        <div className='result-value'>
-                            Result :  <span className='result-value-span-green'>{result1}</span>
-                        </div>
-                    </div>
+        <div className='bootstrap-card-section'>
+            <div className="card bootstrap-card">
+                <div className="card-header text-center card-text">
+                    <h1>
+                        Percentage Calculator
+                    </h1>
                 </div>
-                <div className='percentage-caculator-main-box' >
-                    <h4 className='percentage-caculator-innerTitle'>Percentage value to percentage</h4>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="originalValue2">Original Value : </label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="originalValue2"
-                                value={originalValue2}
-                                onChange={handleChangeOriginalValue2}
-                            />
-                            &nbsp;
-                            &nbsp;
+                <div className="card-body card-text">
+                    <h3 className='card-title mb-4'>Original value to percentage value</h3>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Original Value</span>
+                        </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={originalValue1}
+                            onChange={handleChangeOriginalValue1} />
+                    </div>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Percentage (%)</span>
+                        </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={percentage1}
+                            onChange={handleChangePercentage1} />
+                    </div>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={calculatePercentage1}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs1}>Reset</button>
+                    </div>
+                    <div >
+                        <div>
+                            original value =
+                            <span className='text-success'>
+                                &nbsp; {originalValue1}
+                            </span>
+                        </div>
+                        <div>
+                            Percentage =
+                            <span className='text-success'>
+                                &nbsp; {percentage1}
+                            </span>
+                        </div>
+                        <div>
+                            <strong>
+                                Result =
+                                <span className='text-success'>
+                                    &nbsp; {result1}
+                                </span>
+                            </strong>
                         </div>
                     </div>
-                    <div className='percentage-input-box'>
-                        <label className='percentage-caculator-lable' htmlFor="percentage2">Percentage Value : </label>
-                        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                            <input
-                                className='percentage-caculator-input'
-                                type="text"
-                                name=""
-                                id="percentage2"
-                                value={percentage2}
-                                onChange={handleChangePercentage2}
-                            />
-                            &nbsp;
-                            &nbsp;
+                    <hr />
+                    <h3 className='card-title mb-4'>Percentage value to percentage</h3>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Original Value</span>
                         </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={originalValue2}
+                            onChange={handleChangeOriginalValue2} />
                     </div>
-                    <div className='percentage-button-section'>
-                        <div className='percentage-button green-button' onClick={calculatePercentage2}>
-                            Calculate
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Percentage Value</span>
                         </div>
-                        <div className='percentage-button blue-button' onClick={resetInputs2}>
-                            Reset
-                        </div>
+                        <input type="text" className="form-control" placeholder="Enter Value"
+                            value={percentage2}
+                            onChange={handleChangePercentage2} />
                     </div>
-                    <div className='percentage-result-section'>
-                        <div className='result-value'>
-                            original value : <span className='result-value-span'>{originalValue2}</span>
+                    <div className='mb-3'>
+                        <button className='btn btn-sm btn-success' onClick={calculatePercentage2}>Calculate</button>
+                        <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs2}>Reset</button>
+                    </div>
+                    <div>
+                        <div>
+                            Original Value =
+                            <span className='text-success'>
+                                &nbsp; {originalValue2}
+                            </span>
                         </div>
-                        <div className='result-value'>
-                            Percentage :  <span className='result-value-span'>{percentage2}</span>
+                        <div>
+                            Percentage Value =
+                            <span className='text-success'>
+                                &nbsp; {percentage2}
+                            </span>
                         </div>
-                        <div className='result-value'>
-                            Result :  <span className='result-value-span-green'>{result2}%</span>
+                        <div>
+                            <strong>
+                                Result =
+                                <span className='text-success'>
+                                    &nbsp; {result2}%
+                                </span>
+                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

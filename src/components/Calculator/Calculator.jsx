@@ -14,7 +14,6 @@ const Calculator = () => {
 
     const location = useLocation();
 
-
     useEffect(() => {
         if (location.pathname === '/') {
             setHistoryName('savedResults');

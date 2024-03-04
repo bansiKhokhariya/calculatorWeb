@@ -4,6 +4,8 @@ import { jsPDF } from "jspdf";
 import BasicCalculatorPdf from '../../PDF/BasicCalculatorPdf'
 import html2canvas from 'html2canvas';
 import { createRoot, ReactDOM } from 'react-dom';
+import { renderToString } from 'react-dom/server';
+
 
 
 
@@ -178,38 +180,36 @@ const BasicCalculator = (props) => {
     //     }
     // };
 
+
     const handleShareClick = async (savedResults) => {
-        // Create a new jsPDF instance
         const doc = new jsPDF();
-
-        // Create a container element to render the HTML content
+        const htmlString = renderToString(<BasicCalculatorPdf savedResults={savedResults} />);
         const container = document.createElement('div');
+        container.innerHTML = htmlString;
         document.body.appendChild(container);
-
-        // Render the HTML content using ReactDOM.render
-        createRoot(container).render(<BasicCalculatorPdf savedResults={savedResults} />);
 
         // Use html2canvas to render the HTML content to a canvas
         const canvas = await html2canvas(container);
 
+
         // Convert the canvas to an image data URL
         const imageData = canvas.toDataURL('image/jpeg');
+
 
         // Add the image to the PDF document
         doc.addImage(imageData, 'JPEG', 10, 10, 180, 120); // Adjust positioning and size as needed
 
+
+        // Clean up: remove the container element
+        document.body.removeChild(container);
+
         // Save the PDF
         const pdfData = doc.output();
-        console.log(pdfData);
-
         const blob = new Blob([pdfData], { type: "application/pdf" });
-        console.log(blob);
 
         // Create a URL for the PDF blob
         const pdfUrl = window.URL.createObjectURL(blob);
 
-        // Clean up: remove the container element
-        document.body.removeChild(container);
 
         // Check for Web Share API support
         if (navigator.share) {
@@ -229,6 +229,7 @@ const BasicCalculator = (props) => {
             console.log("History PDF file URL:", pdfUrl);
         }
     };
+
 
 
 

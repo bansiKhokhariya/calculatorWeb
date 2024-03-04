@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { jsPDF } from "jspdf";
 import BasicCalculatorPdf from '../../PDF/BasicCalculatorPdf'
 import html2canvas from 'html2canvas';
-import ReactDOM from 'react-dom';
+import { createRoot, ReactDOM } from 'react-dom';
 
 
 
@@ -102,7 +102,6 @@ const BasicCalculator = (props) => {
 
     // // Save the PDF
     // const pdfData = doc.output();
-    // console.log(pdfData);
     // const blob = new Blob([pdfData], { type: "application/pdf" });
 
     // // Check for Web Share API support
@@ -127,19 +126,19 @@ const BasicCalculator = (props) => {
 
     // const handleShareClick = async (savedResults) => {
     //     const doc = new jsPDF();
-    
+
     //     const container = document.createElement('div');
     //     document.body.appendChild(container);
-    
+
     //     ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
-    
+
     //     html2canvas(container).then(canvas => {
     //         const imageData = canvas.toDataURL('image/jpeg');
     //         const pdfWidth = doc.internal.pageSize.getWidth();
     //         const pdfHeight = doc.internal.pageSize.getHeight();
-    
+
     //         const aspectRatio = canvas.width / canvas.height;
-    
+
     //         let imgWidth, imgHeight;
     //         if (aspectRatio > pdfWidth / pdfHeight) {
     //             imgWidth = pdfWidth;
@@ -148,22 +147,22 @@ const BasicCalculator = (props) => {
     //             imgHeight = pdfHeight;
     //             imgWidth = imgHeight * aspectRatio;
     //         }
-    
+
     //         const x = (pdfWidth - imgWidth) / 2;
     //         const y = 0; // Set y-coordinate to 0 to position the image at the top of the PDF
-    
+
     //         doc.addImage(imageData, 'JPEG', x, y, imgWidth, imgHeight);
     //     });
-    
+
     //     // Save the PDF
     //     const pdfData = doc.output();
     //     const blob = new Blob([pdfData], { type: "application/pdf" });
     //     console.log(blob);
-    
+
     //     if (navigator.share) {
     //         try {
     //             const pdfFile = new File([blob], "history.pdf", { type: "application/pdf" });
-    
+
     //             await navigator.share({
     //                 files: [pdfFile],
     //                 title: "My History",
@@ -182,33 +181,36 @@ const BasicCalculator = (props) => {
     const handleShareClick = async (savedResults) => {
         // Create a new jsPDF instance
         const doc = new jsPDF();
-    
+
         // Create a container element to render the HTML content
         const container = document.createElement('div');
         document.body.appendChild(container);
-    
+
         // Render the HTML content using ReactDOM.render
-        ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
-    
+        createRoot(container).render(<BasicCalculatorPdf savedResults={savedResults} />);
+
         // Use html2canvas to render the HTML content to a canvas
         const canvas = await html2canvas(container);
-    
+
         // Convert the canvas to an image data URL
         const imageData = canvas.toDataURL('image/jpeg');
-    
+
         // Add the image to the PDF document
         doc.addImage(imageData, 'JPEG', 10, 10, 180, 120); // Adjust positioning and size as needed
-    
+
         // Save the PDF
         const pdfData = doc.output();
+        console.log(pdfData);
+
         const blob = new Blob([pdfData], { type: "application/pdf" });
-    
+        console.log(blob);
+
         // Create a URL for the PDF blob
         const pdfUrl = window.URL.createObjectURL(blob);
-    
+
         // Clean up: remove the container element
         document.body.removeChild(container);
-    
+
         // Check for Web Share API support
         if (navigator.share) {
             // Share the PDF file using the Web Share API
@@ -227,14 +229,14 @@ const BasicCalculator = (props) => {
             console.log("History PDF file URL:", pdfUrl);
         }
     };
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
 
     return (
         <div className='bootstrap-card-section'>

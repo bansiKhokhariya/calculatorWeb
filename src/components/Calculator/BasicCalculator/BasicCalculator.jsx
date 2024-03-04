@@ -6,13 +6,12 @@ import html2canvas from 'html2canvas';
 import ReactDOM from 'react-dom';
 import { renderToString } from 'react-dom/server';
 
-
-
-
 const BasicCalculator = (props) => {
     const [inputValue, setInputValue] = useState('');
     const [equalPressed, setEqualPressed] = useState(false);
     const [savedResults, setSavedResults] = useState([]);
+    const [showShareButton, setShowShareButton] = useState(false);
+    const [currentCalculation, setCurrentCalculation] = useState('');
 
     useEffect(() => {
         try {
@@ -46,7 +45,6 @@ const BasicCalculator = (props) => {
         };
     }, [inputValue]);
 
-
     const handleClick = (button) => {
         if (equalPressed) {
             setInputValue('');
@@ -61,20 +59,24 @@ const BasicCalculator = (props) => {
 
     const handleAC = () => {
         setInputValue('');
+        setShowShareButton(false)
     };
 
     const handleEqual = () => {
+
         if (inputValue.trim() !== '') {
             let expression = inputValue;
-            // Replace percentage symbol with '/100*'
             expression = expression.replace(/%/g, '/100*');
-            // Remove trailing operator if present
             if (/[+\-*/]$/.test(expression)) {
                 expression = expression.slice(0, -1);
             }
             const result = eval(expression);
             setInputValue(result.toString());
             setEqualPressed(true);
+
+            setShowShareButton(true)
+            setCurrentCalculation(`${expression} = ${result.toString()}`)
+
 
             // Save the expression and result in local storage array
             const updatedResults = [`${expression} = ${result.toString()}`, ...savedResults];
@@ -87,8 +89,6 @@ const BasicCalculator = (props) => {
         localStorage.removeItem('savedResults');
         setSavedResults([]);
     };
-
-
 
     const handleShareClick = (savedResults) => {
         const doc = new jsPDF();
@@ -129,7 +129,7 @@ const BasicCalculator = (props) => {
     const SingleCalculationShare = (current) => {
         if (navigator.share) {
             navigator.share({
-                title: "My History",
+                title: "Calculation",
                 text: current
             }).then(() => {
                 console.log('Thanks for sharing!');
@@ -143,12 +143,12 @@ const BasicCalculator = (props) => {
         }
     }
 
-
     return (
         <div className='bootstrap-card-section'>
             <div>
                 <div className="main-container border">
                     <div>
+                        {showShareButton && <button className='btn btn-sm bg-success card-text mb-3' onClick={() => SingleCalculationShare(currentCalculation)}>Share Current Calculation</button>}
                         <input type="text" placeholder="0" className="container__input bg-light card-text border-0" value={inputValue} readOnly />
                         <div className="calculator-buttons">
                             <button className="btn btn-sm bg-light card-text" id="ac" onClick={handleAC}>AC</button>

@@ -4,7 +4,7 @@ const BasicCalculatorPdf = ({ savedResults }) => {
 
     return (
         <>
-            <h1>My History</h1>
+            <h1 style={{ color: "black" }}>My History</h1>
             <div className='card-container'>
                 {savedResults.map((result, index) => (
                     index % 3 === 0 && (

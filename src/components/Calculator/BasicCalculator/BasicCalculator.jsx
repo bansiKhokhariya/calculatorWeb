@@ -125,41 +125,44 @@ const BasicCalculator = (props) => {
 
 
     const handleShareClick = async (savedResults) => {
-        // Create new jsPDF instance
         const doc = new jsPDF();
-
-        // Create a container element to render the htmlContent
+    
         const container = document.createElement('div');
         document.body.appendChild(container);
-
-
-        // Generate HTML content using HistoryHTML component
+    
         ReactDOM.render(<BasicCalculatorPdf savedResults={savedResults} />, container);
-
-        // Render HTML content to canvas using html2canvas
-        const canvas = await html2canvas(container, { width: container.offsetWidth * 2, height: container.offsetHeight * 2 });
-
-        // Convert canvas to image data URL
-        const imageData = canvas.toDataURL('image/png');
-
-        // Add image to PDF
-        doc.addImage(imageData, 'PNG', 10, 10, 180, 120, undefined, 'FAST');
-
-        // Remove the container element
-        document.body.removeChild(container);
-
+    
+        html2canvas(container).then(canvas => {
+            const imageData = canvas.toDataURL('image/jpeg');
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = doc.internal.pageSize.getHeight();
+    
+            const aspectRatio = canvas.width / canvas.height;
+    
+            let imgWidth, imgHeight;
+            if (aspectRatio > pdfWidth / pdfHeight) {
+                imgWidth = pdfWidth;
+                imgHeight = imgWidth / aspectRatio;
+            } else {
+                imgHeight = pdfHeight;
+                imgWidth = imgHeight * aspectRatio;
+            }
+    
+            const x = (pdfWidth - imgWidth) / 2;
+            const y = 0; // Set y-coordinate to 0 to position the image at the top of the PDF
+    
+            doc.addImage(imageData, 'JPEG', x, y, imgWidth, imgHeight);
+            // doc.save('history.pdf');
+        });
+    
         // Save the PDF
         const pdfData = doc.output();
         const blob = new Blob([pdfData], { type: "application/pdf" });
-
-        // Check for Web Share API support
+    
         if (navigator.share) {
-            // Browser supports native share API
             try {
-                // Create a File object from the PDF blob
                 const pdfFile = new File([blob], "history.pdf", { type: "application/pdf" });
-
-                // Share the PDF file using the Web Share API
+    
                 await navigator.share({
                     files: [pdfFile],
                     title: "My History",
@@ -169,12 +172,12 @@ const BasicCalculator = (props) => {
                 console.error("Error sharing PDF:", error);
             }
         } else {
-            // Fallback: Provide the PDF file URL for manual sharing
             alert("Your browser does not support the share function. Please manually share the PDF file.");
             const pdfUrl = window.URL.createObjectURL(blob);
             console.log("History PDF file URL:", pdfUrl);
         }
     };
+    
 
     return (
         <div className='bootstrap-card-section'>

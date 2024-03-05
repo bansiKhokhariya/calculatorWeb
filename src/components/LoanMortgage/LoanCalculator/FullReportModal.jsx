@@ -82,7 +82,24 @@ const FullReportModal = ({ show, handleClose, amortizationSchedule, pieChartData
         });
 
         // Save the PDF
-        pdf.save('amortization_schedule.pdf');
+        const pdfData = pdf.output();
+        const blob = new Blob([pdfData], { type: "application/pdf" });
+
+        if (navigator.share) {
+            navigator.share({
+                files: [new File([blob], "loan_data_full_report.pdf", { type: "application/pdf" })],
+                title: "Loan Amortization Schedule"
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            alert("Your browser does not support the share function. Please manually share the PDF file.");
+            const pdfUrl = window.URL.createObjectURL(blob);
+            console.log("History PDF file URL:", pdfUrl);
+        }
+
     };
 
 

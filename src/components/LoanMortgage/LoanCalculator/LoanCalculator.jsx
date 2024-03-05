@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Dropdown, Modal, Button, Table } from 'react-bootstrap';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import FullReportModal from './FullReportModal'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -134,37 +137,124 @@ function LoanCalculator(props) {
         });
     };
 
-    const handleShareClick = () => {
-        generateAmortizationSchedule()
-        // Convert amortization schedule data to CSV format
-        const csvData = "No.,Monthly Payment,Principal Payment,Interest Payment,Balance\n" +
-            amortizationSchedule.map((entry, index) =>
-                `${entry.month},${entry.monthlyPayment},${entry.principalPayment},${entry.interestPayment},${entry.remainingBalance}`
-            ).join("\n");
+    // const handleShareClick = () => {
+    //     generateAmortizationSchedule();
 
-        // Create a Blob object containing the CSV data
-        const blob = new Blob([csvData], { type: "text/csv" });
+    //     // Create a new jsPDF instance
+    //     const pdf = new jsPDF();
 
-        // Create a URL for the Blob object
-        const csvUrl = window.URL.createObjectURL(blob);
+    //     // Add title to the PDF
+    //     pdf.text("Amortization Schedule", 10, 10);
 
-        // Check for Web Share API support
-        if (navigator.share) {
-            // Browser supports native share API
-            navigator.share({
-                files: [new File([blob], "amortization_schedule.csv", { type: "text/csv" })],
-                title: "Amortization Schedule"
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            }).catch((err) => {
-                console.error(err);
-            });
-        } else {
-            // Fallback: Provide the CSV file URL for manual sharing
-            alert("Your browser does not support the share function. Please manually share the CSV file.");
-            console.log("Amortization schedule CSV file URL:", csvUrl);
-        }
-    };
+    //     // Convert amortization schedule data to an array of arrays for the table
+    //     const tableData = amortizationSchedule.map(entry => [
+    //         entry.month,
+    //         entry.monthlyPayment,
+    //         entry.principalPayment,
+    //         entry.interestPayment,
+    //         entry.remainingBalance
+    //     ]);
+
+    //     // Add the table to the PDF
+    //     pdf.autoTable({
+    //         head: [['No.', 'Monthly Payment', 'Principal Payment', 'Interest Payment', 'Balance']],
+    //         body: tableData
+    //     });
+
+    //     // Save the PDF as a Blob
+    //     const pdfBlob = pdf.output('blob');
+
+    //     // Create a URL for the Blob object
+    //     const pdfUrl = window.URL.createObjectURL(pdfBlob);
+
+    //     // Check for Web Share API support
+    //     if (navigator.share) {
+    //         // Browser supports native share API
+    //         navigator.share({
+    //             files: [new File([pdfBlob], "amortization_schedule.pdf", { type: "application/pdf" })],
+    //             title: "Amortization Schedule"
+    //         }).then(() => {
+    //             console.log('Thanks for sharing!');
+    //         }).catch((err) => {
+    //             console.error(err);
+    //         });
+    //     } else {
+    //         // Fallback: Provide the PDF file URL for manual sharing
+    //         alert("Your browser does not support the share function. Please manually share the PDF file.");
+    //         console.log("Amortization schedule PDF file URL:", pdfUrl);
+    //     }
+    // };
+
+
+    // const handleShareClick = () => {
+    //     generateAmortizationSchedule();
+
+    //     // Create a new jsPDF instance
+    //     const pdf = new jsPDF();
+
+    //     // Add title to the PDF
+    //     pdf.text("Amortization Schedule", 10, 10);
+
+    //     // Convert amortization schedule data to an array of arrays for the table
+    //     const tableData = amortizationSchedule.map(entry => [
+    //         entry.month,
+    //         entry.monthlyPayment,
+    //         entry.principalPayment,
+    //         entry.interestPayment,
+    //         entry.remainingBalance
+    //     ]);
+
+    //     // Add the table to the PDF
+    //     pdf.autoTable({
+    //         head: [['No.', 'Monthly Payment', 'Principal Payment', 'Interest Payment', 'Balance']],
+    //         body: tableData
+    //     });
+
+    //     // Generate data for the pie chart
+    //     const labels = ['Principal Payment', 'Interest Payment'];
+    //     const data = [
+    //         amortizationSchedule.reduce((total, entry) => total + entry.principalPayment, 0),
+    //         amortizationSchedule.reduce((total, entry) => total + entry.interestPayment, 0)
+    //     ];
+
+    //     // Create a canvas element
+    //     const canvas = document.createElement('canvas');
+    //     canvas.width = 400;
+    //     canvas.height = 200;
+    //     const ctx = canvas.getContext('2d');
+
+    //     // Draw the pie chart using Chart.js
+    //     new ChartJS(ctx, {
+    //         type: 'pie',
+    //         data: {
+    //             labels,
+    //             datasets: [{
+    //                 data,
+    //                 backgroundColor: ['#FF6384', '#36A2EB'],
+    //                 hoverBackgroundColor: ['#FF6384', '#36A2EB']
+    //             }]
+    //         },
+    //         options: {
+    //             responsive: false
+    //         }
+    //     });
+
+    //     // Convert the canvas to a PNG image
+    //     const imageData = canvas.toDataURL('image/png');
+
+    //     // Create a temporary image element
+    //     const img = new Image();
+    //     img.onload = () => {
+    //         // Add the image to the PDF
+    //         pdf.addImage(img, 'PNG', 10, 40, 200, 100);
+
+    //         // Save the PDF
+    //         pdf.save('amortization_schedule.pdf');
+    //     };
+    //     img.src = imageData;
+    // };
+
+
 
     const resetInputs = () => {
         setLoanAmount('');
@@ -266,10 +356,10 @@ function LoanCalculator(props) {
                                     }}>
                                     View Full Report
                                 </button>
-                                <button className='btn btn-outline-success btn-sm ms-2'
+                                {/* <button className='btn btn-outline-success btn-sm ms-2'
                                     onClick={handleShareClick}>
                                     Share
-                                </button>
+                                </button> */}
                             </div>
                         )}
 
@@ -310,9 +400,16 @@ function LoanCalculator(props) {
                             </Modal.Body>
                         </Modal>
 
-
                         {/* modal full report */}
-                        <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
+
+                        <FullReportModal
+                            show={showFullReportModal}
+                            handleClose={() => setShowFullReportModal(false)}
+                            amortizationSchedule={amortizationSchedule}
+                            pieChartData={pieChartData}
+                        />
+
+                        {/* <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
                             <Modal.Header closeButton>
                                 <Modal.Title>Amortization Schedule</Modal.Title>
                             </Modal.Header>
@@ -343,7 +440,7 @@ function LoanCalculator(props) {
                                     </tbody>
                                 </Table>
                             </Modal.Body>
-                        </Modal>
+                        </Modal> */}
                     </div>
                 </div>
             </div >

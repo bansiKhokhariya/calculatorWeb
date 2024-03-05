@@ -1,144 +1,115 @@
-// import React, { useRef } from 'react';
-// import { Modal, Table } from 'react-bootstrap';
-// import { Doughnut } from 'react-chartjs-2';
-// import { jsPDF } from 'jspdf';
-// import html2canvas from 'html2canvas';
-
-// const FullReportModal = ({ show, handleClose, amortizationSchedule, pieChartData }) => {
-//     const modalContentRef = useRef(null);
-
-//     const handleShareClick = async () => {
-//         try {
-//             const modalContent = modalContentRef.current;
-
-//             // Get the dimensions of the modal content
-//             const { width, height } = modalContent.getBoundingClientRect();
-
-//             // Create a new jsPDF instance
-//             const pdf = new jsPDF('p', 'pt', [width, height]);
-
-//             // Render modal content to canvas
-//             const canvas = await html2canvas(modalContent, { scale: 1 });
-
-//             // Convert canvas to image data
-//             const imageData = canvas.toDataURL('image/jpeg');
-
-//             // Add captured image to PDF
-//             pdf.addImage(imageData, 'JPEG', 0, 0, width, height);
-
-//             // Save the PDF
-//             pdf.save('full_report.pdf');
-//         } catch (error) {
-//             console.error('Error generating PDF:', error);
-//             // Handle error (e.g., show error message to user)
-//         }
-//     };
-
-//     return (
-//         <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-//             <Modal.Header closeButton>
-//                 <Modal.Title>Amortization Schedule</Modal.Title>
-//             </Modal.Header>
-//             <Modal.Body>
-//                 <div ref={modalContentRef}>
-//                     <div className='pieChart-box'>
-//                         <Doughnut data={pieChartData} />
-//                     </div>
-//                     <Table striped bordered hover>
-//                         <thead>
-//                             <tr>
-//                                 <th>No.</th>
-//                                 <th>Monthly Payment</th>
-//                                 <th>Principal Payment</th>
-//                                 <th>Interest Payment</th>
-//                                 <th>Balance</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>
-//                             {amortizationSchedule.map((entry, index) => (
-//                                 <tr key={index}>
-//                                     <td>{entry.month}</td>
-//                                     <td>{entry.monthlyPayment}</td>
-//                                     <td>{entry.principalPayment}</td>
-//                                     <td>{entry.interestPayment}</td>
-//                                     <td>{entry.remainingBalance}</td>
-//                                 </tr>
-//                             ))}
-//                         </tbody>
-//                     </Table>
-//                 </div>
-//             </Modal.Body>
-//             <Modal.Footer>
-//                 <button onClick={handleShareClick}>Share as PDF</button>
-//                 <button onClick={handleClose}>Close</button>
-//             </Modal.Footer>
-//         </Modal>
-//     );
-// };
-
-// export default FullReportModal;
-
-
-
-import React , {useRef} from 'react';
+import React, { useRef } from 'react';
 import { Modal, Table } from 'react-bootstrap';
 import { Doughnut } from 'react-chartjs-2';
 import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
-const FullReportModal = ({ show, handleClose, amortizationSchedule, pieChartData }) => {
+const FullReportModal = ({ show, handleClose, amortizationSchedule, pieChartData, loanAmount, interestRate, loanTermYears, result }) => {
 
     const modalContentRef = useRef(null);
 
     const handleShareClick = async () => {
-        const modalContent = modalContentRef.current;
+        const pdf = new jsPDF();
+        let y = 20;
 
-        // Get the dimensions of the modal content
-        const { width, height } = modalContent.getBoundingClientRect();
+        pdf.setFontSize(30);
+        pdf.text("Loan Calculator", 10, y);
+        y += 20;
 
-        // Create a new jsPDF instance
-        const pdf = new jsPDF('p', 'pt', [width, height]);
+        pdf.setFontSize(20);
+        pdf.text("Inputs", 10, y);
+        y += 10;
 
-        // Render modal content to canvas
-        const canvas = await html2canvas(modalContent, { scale: 1 });
+        pdf.setFontSize(14);
+        pdf.text("Loan Amount: " + loanAmount, 10, y);
+        y += 7;
+        pdf.text("Interest Rate: " + interestRate + "%", 10, y);
+        y += 7;
+        pdf.text("Loan Term: " + loanTermYears + " years", 10, y);
+        y += 7;
 
-        // Convert canvas to image data
-        const imageData = canvas.toDataURL('image/jpeg');
+        // Draw horizontal line after input details
+        pdf.line(10, y, 200, y);
+        y += 10;
 
-        // Add captured image to PDF
-        pdf.addImage(imageData, 'JPEG', 0, 0, width, height);
+        pdf.setFontSize(20);
+        pdf.text("Results", 10, y);
+        y += 10;
 
+        pdf.setFontSize(14);
+        pdf.text("Monthly Payment: " + result.monthlyPayment, 10, y);
+        y += 7;
+        pdf.text("Total Payment: " + result.totalPayment, 10, y);
+        y += 7;
+        pdf.text("Total Interest: " + result.totalInterest, 10, y);
+        y += 7;
+        pdf.text("Annual Payment: " + result.annualPayment, 10, y);
+        y += 7;
+
+        pdf.line(10, y, 200, y);
+        y += 10;
+
+        pdf.setFontSize(20);
+        pdf.text("Amortization Schedule", 10, y);
+        y += 10;
+
+        // Set up table headers
+        const headers = [['No.', 'Monthly Payment', 'Principal Payment', 'Interest Payment', 'Balance']];
+
+        // Set up table data
+        const data = amortizationSchedule.map(entry => [
+            entry.month,
+            entry.monthlyPayment,
+            entry.principalPayment,
+            entry.interestPayment,
+            entry.remainingBalance
+        ]);
+
+        // AutoTable configuration
+        const options = {
+            margin: { top: 10 },
+        };
+
+        // Add table to PDF
+        pdf.autoTable({
+            head: headers,
+            body: data,
+            startY: y, // Start y position after the details
+            didDrawPage: function (data) {
+                // Add footer with page number
+                pdf.text('Page ' + pdf.internal.getNumberOfPages(), data.settings.margin.left, pdf.internal.pageSize.height - 10);
+            },
+            ...options
+        });
 
         // Save the PDF
-        const pdfBlob = pdf.output('blob');
-        const pdfUrl = URL.createObjectURL(pdfBlob);
-
-        try {
-            // Check for Web Share API support
-            if (navigator.share) {
-                // Browser supports native share API
-                await navigator.share({
-                    files: [new File([pdfBlob], "full_report.pdf", { type: "application/pdf" })],
-                    title: "Full Report PDF"
-                });
-                console.log('Thanks for sharing!');
-            } else {
-                // Fallback: Provide the PDF file URL for manual sharing
-                alert("Your browser does not support the share function. Please manually share the PDF file.");
-                console.log("Full report PDF file URL:", pdfUrl);
-            }
-        } catch (error) {
-            console.error('Error sharing PDF:', error);
-        }
+        pdf.save('amortization_schedule.pdf');
     };
+
 
     return (
         <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
             <Modal.Header closeButton>
-                <Modal.Title>Amortization Schedule</Modal.Title>
+                <Modal.Title>Full Report</Modal.Title>
             </Modal.Header>
             <Modal.Body id="fullReportModalContent">
-                <div  ref={modalContentRef}>
+                <div ref={modalContentRef}>
+                    <div className='mb-3'>
+                        <h3>Inputs</h3>
+                        <div>
+                            <div><strong>Loan Amount : {loanAmount}</strong></div>
+                            <div><strong>Interest Rate : {interestRate}</strong></div>
+                            <div><strong>Loan Term Years : {loanTermYears} years</strong></div>
+                        </div>
+                    </div>
+                    <div className='mb-5'>
+                        <h3>Results</h3>
+                        <div>
+                            <div><strong>Monthly Payment : {result.monthlyPayment}</strong></div>
+                            <div><strong>Total Payment : {result.totalPayment}</strong></div>
+                            <div><strong>Total Interest  : {result.totalInterest} </strong></div>
+                            <div><strong>Annual Payment  : {result.annualPayment} </strong></div>
+                        </div>
+                    </div>
                     <div className='pieChart-box'>
                         <Doughnut data={pieChartData} />
                     </div>
@@ -165,14 +136,13 @@ const FullReportModal = ({ show, handleClose, amortizationSchedule, pieChartData
                         </tbody>
                     </Table>
                 </div>
-
             </Modal.Body>
-            <Modal.Footer>
-                <button onClick={handleShareClick}>Share as PDF</button>
-                <button onClick={handleClose}>Close</button>
+            <Modal.Footer className='d-flex justify-content-center'>
+                <button className='btn btn-success btn-sm' onClick={handleShareClick}>Share as PDF</button>
             </Modal.Footer>
         </Modal>
     );
 };
 
 export default FullReportModal;
+

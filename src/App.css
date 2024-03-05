@@ -93,13 +93,14 @@
     .bootstrap-card {
         width: 100%;
     }
+
+    .pieChart-box {
+        height: 300px;
+    }
 }
 
-/* 
-
 @media (max-width:300px) {
-    .main-container {
-        width: 100%;
-        border-radius: 0;
+    .pieChart-box {
+        height: 200px;
     }
-} */
+}

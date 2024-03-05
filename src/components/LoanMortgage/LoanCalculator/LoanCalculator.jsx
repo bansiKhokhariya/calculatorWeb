@@ -15,14 +15,10 @@ function LoanCalculator(props) {
     const [interestRate, setInterestRate] = useState(0);
     const [loanTermYears, setLoanTermYears] = useState(0);
     const [result, setResult] = useState({});
-    const [showSaveLoanModal, setShowSaveLoanModal] = useState(false);
-    const [showLoanDataModal, setShowLoanDataModal] = useState(false);
     const [showFullReportModal, setShowFullReportModal] = useState(false);
-    const [loanName, setLoanName] = useState('');
     const [savedLoans, setSavedLoans] = useState([]);
     const [amortizationSchedule, setAmortizationSchedule] = useState([]);
     const [pieChartData, setPieChartData] = useState({});
-
 
     // Function to retrieve saved loan data from local storage
     useEffect(() => {
@@ -69,7 +65,7 @@ function LoanCalculator(props) {
             termYears: loanTermYears
         };
         const existingLoans = JSON.parse(localStorage.getItem(props.historyName)) || [];
-        const updatedLoans = [...existingLoans, newLoanDetails];
+        const updatedLoans = [newLoanDetails ,...existingLoans];
         localStorage.setItem(props.historyName, JSON.stringify(updatedLoans));
         setShowSaveLoanModal(false);
     };
@@ -137,130 +133,16 @@ function LoanCalculator(props) {
         });
     };
 
-    // const handleShareClick = () => {
-    //     generateAmortizationSchedule();
-
-    //     // Create a new jsPDF instance
-    //     const pdf = new jsPDF();
-
-    //     // Add title to the PDF
-    //     pdf.text("Amortization Schedule", 10, 10);
-
-    //     // Convert amortization schedule data to an array of arrays for the table
-    //     const tableData = amortizationSchedule.map(entry => [
-    //         entry.month,
-    //         entry.monthlyPayment,
-    //         entry.principalPayment,
-    //         entry.interestPayment,
-    //         entry.remainingBalance
-    //     ]);
-
-    //     // Add the table to the PDF
-    //     pdf.autoTable({
-    //         head: [['No.', 'Monthly Payment', 'Principal Payment', 'Interest Payment', 'Balance']],
-    //         body: tableData
-    //     });
-
-    //     // Save the PDF as a Blob
-    //     const pdfBlob = pdf.output('blob');
-
-    //     // Create a URL for the Blob object
-    //     const pdfUrl = window.URL.createObjectURL(pdfBlob);
-
-    //     // Check for Web Share API support
-    //     if (navigator.share) {
-    //         // Browser supports native share API
-    //         navigator.share({
-    //             files: [new File([pdfBlob], "amortization_schedule.pdf", { type: "application/pdf" })],
-    //             title: "Amortization Schedule"
-    //         }).then(() => {
-    //             console.log('Thanks for sharing!');
-    //         }).catch((err) => {
-    //             console.error(err);
-    //         });
-    //     } else {
-    //         // Fallback: Provide the PDF file URL for manual sharing
-    //         alert("Your browser does not support the share function. Please manually share the PDF file.");
-    //         console.log("Amortization schedule PDF file URL:", pdfUrl);
-    //     }
-    // };
-
-
-    // const handleShareClick = () => {
-    //     generateAmortizationSchedule();
-
-    //     // Create a new jsPDF instance
-    //     const pdf = new jsPDF();
-
-    //     // Add title to the PDF
-    //     pdf.text("Amortization Schedule", 10, 10);
-
-    //     // Convert amortization schedule data to an array of arrays for the table
-    //     const tableData = amortizationSchedule.map(entry => [
-    //         entry.month,
-    //         entry.monthlyPayment,
-    //         entry.principalPayment,
-    //         entry.interestPayment,
-    //         entry.remainingBalance
-    //     ]);
-
-    //     // Add the table to the PDF
-    //     pdf.autoTable({
-    //         head: [['No.', 'Monthly Payment', 'Principal Payment', 'Interest Payment', 'Balance']],
-    //         body: tableData
-    //     });
-
-    //     // Generate data for the pie chart
-    //     const labels = ['Principal Payment', 'Interest Payment'];
-    //     const data = [
-    //         amortizationSchedule.reduce((total, entry) => total + entry.principalPayment, 0),
-    //         amortizationSchedule.reduce((total, entry) => total + entry.interestPayment, 0)
-    //     ];
-
-    //     // Create a canvas element
-    //     const canvas = document.createElement('canvas');
-    //     canvas.width = 400;
-    //     canvas.height = 200;
-    //     const ctx = canvas.getContext('2d');
-
-    //     // Draw the pie chart using Chart.js
-    //     new ChartJS(ctx, {
-    //         type: 'pie',
-    //         data: {
-    //             labels,
-    //             datasets: [{
-    //                 data,
-    //                 backgroundColor: ['#FF6384', '#36A2EB'],
-    //                 hoverBackgroundColor: ['#FF6384', '#36A2EB']
-    //             }]
-    //         },
-    //         options: {
-    //             responsive: false
-    //         }
-    //     });
-
-    //     // Convert the canvas to a PNG image
-    //     const imageData = canvas.toDataURL('image/png');
-
-    //     // Create a temporary image element
-    //     const img = new Image();
-    //     img.onload = () => {
-    //         // Add the image to the PDF
-    //         pdf.addImage(img, 'PNG', 10, 40, 200, 100);
-
-    //         // Save the PDF
-    //         pdf.save('amortization_schedule.pdf');
-    //     };
-    //     img.src = imageData;
-    // };
-
-
-
     const resetInputs = () => {
         setLoanAmount('');
         setInterestRate('');
         setLoanTermYears('');
         setResult({});
+    };
+
+    const handleDeleteHistory = () => {
+        localStorage.removeItem('loanHistory');
+        setSavedLoans([])
     };
 
     return (
@@ -300,7 +182,6 @@ function LoanCalculator(props) {
                                 onChange={(e) => setLoanTermYears(e.target.value.replace(/\D/g, ''))}
                             />
                         </div>
-
                         <div className='mb-3'>
                             <button className='btn btn-sm btn-success' onClick={calculateLoan}>Calculate</button>
                             <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
@@ -356,13 +237,8 @@ function LoanCalculator(props) {
                                     }}>
                                     View Full Report
                                 </button>
-                                {/* <button className='btn btn-outline-success btn-sm ms-2'
-                                    onClick={handleShareClick}>
-                                    Share
-                                </button> */}
                             </div>
                         )}
-
                         {/* view Loan Data */}
                         <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
                             <Modal.Header closeButton>
@@ -370,30 +246,31 @@ function LoanCalculator(props) {
                             </Modal.Header>
                             <Modal.Body>
                                 {savedLoans.length > 0 ? (
-                                    <Table striped bordered hover>
-                                        <thead>
-                                            <tr>
-                                                {/* <th>Name</th> */}
-                                                <th>Amount</th>
-                                                <th>Interest Rate</th>
-                                                <th>Term (Years)</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {savedLoans.map((loan, index) => (
-                                                <tr key={index}>
-                                                    {/* <td>{loan.name}</td> */}
-                                                    <td>{loan.amount}</td>
-                                                    <td>{loan.interestRate}</td>
-                                                    <td>{loan.termYears}</td>
-                                                    <td>
-                                                        <Button variant="danger" className='btn btn-sm' onClick={() => handleDelete(index)}>Delete</Button>
-                                                    </td>
+                                    <>
+                                        <button className='btn btn-danger mb-2 btn-sm' onClick={handleDeleteHistory}>Clear All history</button>
+                                        <Table striped bordered hover>
+                                            <thead>
+                                                <tr>
+                                                    <th>Amount</th>
+                                                    <th>Interest Rate</th>
+                                                    <th>Term (Years)</th>
+                                                    <th>Action</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </Table>
+                                            </thead>
+                                            <tbody>
+                                                {savedLoans.map((loan, index) => (
+                                                    <tr key={index}>
+                                                        <td>{loan.amount}</td>
+                                                        <td>{loan.interestRate}</td>
+                                                        <td>{loan.termYears}</td>
+                                                        <td>
+                                                            <Button variant="danger" className='btn btn-sm' onClick={() => handleDelete(index)}>Delete</Button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </Table>
+                                    </>
                                 ) : (
                                     <p>No saved loans.</p>
                                 )}
@@ -401,46 +278,16 @@ function LoanCalculator(props) {
                         </Modal>
 
                         {/* modal full report */}
-
                         <FullReportModal
                             show={showFullReportModal}
                             handleClose={() => setShowFullReportModal(false)}
                             amortizationSchedule={amortizationSchedule}
                             pieChartData={pieChartData}
+                            loanAmount={loanAmount}
+                            interestRate={interestRate}
+                            loanTermYears={loanTermYears}
+                            result={result}
                         />
-
-                        {/* <Modal show={showFullReportModal} onHide={() => setShowFullReportModal(false)} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-                            <Modal.Header closeButton>
-                                <Modal.Title>Amortization Schedule</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className='pieChart-box'>
-                                    <Doughnut data={pieChartData} />
-                                </div>
-                                <Table striped bordered hover>
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Monthly Payment</th>
-                                            <th>principal Payment</th>
-                                            <th>interest Payment</th>
-                                            <th>Balance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {amortizationSchedule.map((entry, index) => (
-                                            <tr key={index}>
-                                                <td>{entry.month}</td>
-                                                <td>{entry.monthlyPayment}</td>
-                                                <td>{entry.principalPayment}</td>
-                                                <td>{entry.interestPayment}</td>
-                                                <td>{entry.remainingBalance}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>
-                            </Modal.Body>
-                        </Modal> */}
                     </div>
                 </div>
             </div >

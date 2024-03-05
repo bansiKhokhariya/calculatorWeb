@@ -26,10 +26,8 @@ const Setting = () => {
     useEffect(() => {
         if (selectedTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('selectedTheme', 'light');
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('selectedTheme', 'dark');
         }
     }, [selectedTheme]);
 

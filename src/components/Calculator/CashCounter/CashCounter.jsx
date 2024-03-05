@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 const CashCounter = () => {
+
+    var selectedTheme = localStorage.getItem('selectedTheme');
+
     const [notes, setNotes] = useState({
         '1': { count: 0, amount: 0 },
         '2': { count: 0, amount: 0 },
@@ -39,7 +42,7 @@ const CashCounter = () => {
                     </h1>
                 </div>
                 <div className="card-body card-text">
-                    <table className="table table-bordered">
+                    <table className={`table table-bordered ${selectedTheme === 'dark' ? 'table-dark' : 'table-light'}`}>
                         <thead>
                             <tr>
                                 <th scope="col">Note</th>

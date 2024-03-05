@@ -12,6 +12,7 @@
     padding-right: 10px;
     font-size: 30px;
     text-align: end;
+    overflow-y: auto;
 }
 
 .container__input::placeholder {

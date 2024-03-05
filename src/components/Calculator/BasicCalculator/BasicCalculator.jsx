@@ -149,7 +149,7 @@ const BasicCalculator = (props) => {
                 <div className="main-container border">
                     <div>
                         {showShareButton && <button className='btn btn-sm bg-success card-text mb-3' onClick={() => SingleCalculationShare(currentCalculation)}>Share Current Calculation</button>}
-                        <input type="text" placeholder="0" className="container__input bg-light card-text border-0" value={inputValue} readOnly />
+                        <textarea type="textarea" placeholder="0" className="container__input bg-light card-text border-0" value={inputValue} readOnly />
                         <div className="calculator-buttons">
                             <button className="btn btn-sm bg-light card-text" id="ac" onClick={handleAC}>AC</button>
                             <button className="btn btn-sm bg-light card-text" id="del" onClick={handleDelete}>DEL</button>

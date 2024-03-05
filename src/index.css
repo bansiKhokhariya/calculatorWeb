@@ -5,7 +5,7 @@
     --color-dp2: rgb(38, 38, 38);
     --color-dp3: rgb(41, 41, 41);
     --color-dp4: rgb(42, 42, 42);
-    --color-dp6: rgb(48, 48, 48);
+     --color-dp6: rgb(48, 48, 48);
     --color-dp8: rgb(49, 49, 49);
     --color-dp12: rgb(53, 53, 53);
     --color-dp16: rgb(56, 56, 56);
@@ -463,7 +463,33 @@ Bootstrap */
     color: var(--color-white) !important;
 }
 
+
+/* Table */
+[data-theme='dark'] .table {
+    color: var(--color-text) !important;
+}
+
+[data-theme='dark'] .table-dark {
+    background-color: var(--color-dp6) !important;
+}
+
+[data-theme='dark'] .table-dark th,
+[data-theme='dark'] .table-dark td,
+[data-theme='dark'] .table-dark thead th {
+    border-color: var(--color-dp8) !important;
+}
+
+[data-theme='dark'] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--color-dp8) !important;
+}
+
+[data-theme='dark'] .table-hover tbody tr:hover {
+    background-color: var(--color-dp4) !important;
+}
+
+
 [data-theme='dark'] code {
     color: var(--text-secondary);
 }
+
 

@@ -166,7 +166,6 @@ function LoanCalculator(props) {
         }
     };
 
-
     const resetInputs = () => {
         setLoanAmount('');
         setInterestRate('');

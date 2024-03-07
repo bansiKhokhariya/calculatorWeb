@@ -39,7 +39,7 @@ const Setting = () => {
                 <div className="card" role="button">
                     <div className="card-header bg-light card-text">
                         <div onClick={handleShow} className='d-flex justify-content-between'>
-                            Background Colour
+                            Theme
                             <div className='setting-inner-menu-value'>
                                 {selectedTheme || 'Select Theme'}
                             </div>
@@ -71,13 +71,29 @@ const Setting = () => {
 
             <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
                 <Modal.Header >
-                    <Modal.Title>Background Colour</Modal.Title>
+                    <Modal.Title>Theme</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ul className='setting-inner-menu'>
-                        <li role="button" onClick={() => handleThemeSelect('light')}>Light Mode</li>
-                        <li role="button" onClick={() => handleThemeSelect('dark')}>Dark Mode</li>
-                    </ul>
+                    <div className='setting-inner-menu'>
+                        <label>
+                            <input
+                                type="radio"
+                                value="light"
+                                checked={selectedTheme === 'light'}
+                                onChange={() => handleThemeSelect('light')}
+                            />
+                          &nbsp;  Light Mode
+                        </label>
+                        <label className='ms-5'>
+                            <input
+                                type="radio"
+                                value="dark"
+                                checked={selectedTheme === 'dark'}
+                                onChange={() => handleThemeSelect('dark')}
+                            />
+                           &nbsp; Dark Mode
+                        </label>
+                    </div>
                 </Modal.Body>
             </Modal>
         </>

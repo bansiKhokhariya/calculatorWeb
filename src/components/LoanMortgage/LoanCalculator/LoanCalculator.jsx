@@ -19,6 +19,7 @@ function LoanCalculator(props) {
     const [savedLoans, setSavedLoans] = useState([]);
     const [amortizationSchedule, setAmortizationSchedule] = useState([]);
     const [pieChartData, setPieChartData] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
 
     // Function to retrieve saved loan data from local storage
     useEffect(() => {
@@ -32,6 +33,12 @@ function LoanCalculator(props) {
 
     // Function to handle loan calculation
     const calculateLoan = () => {
+
+        if (!loanAmount || !interestRate || !loanTermYears) {
+            setErrorMessage('All fields are required');
+            return;
+        }
+        setErrorMessage('');
         const loanAmountNum = parseFloat(loanAmount);
         const interestRateNum = parseFloat(interestRate) / 100 / 12;
         const loanTermMonthsNum = parseInt(loanTermYears) * 12;
@@ -65,7 +72,7 @@ function LoanCalculator(props) {
             termYears: loanTermYears
         };
         const existingLoans = JSON.parse(localStorage.getItem(props.historyName)) || [];
-        const updatedLoans = [newLoanDetails ,...existingLoans];
+        const updatedLoans = [newLoanDetails, ...existingLoans];
         localStorage.setItem(props.historyName, JSON.stringify(updatedLoans));
         setShowSaveLoanModal(false);
     };
@@ -145,6 +152,12 @@ function LoanCalculator(props) {
         setSavedLoans([])
     };
 
+    const handleRateChange = (e) => {
+        let input = e.target.value.replace(/[^\d.]/g, '');
+        input = input.replace(/(\..*)\./g, '$1');
+        setInterestRate(input);
+    };
+
     return (
         <>
             <div className='bootstrap-card-section'>
@@ -155,6 +168,7 @@ function LoanCalculator(props) {
                         </h1>
                     </div>
                     <div className="card-body card-text">
+                        <div className="message text-danger mb-2">{errorMessage}</div>
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">Loan Amount</span>
@@ -170,7 +184,8 @@ function LoanCalculator(props) {
                             </div>
                             <input type="text" className="form-control" placeholder="Enter Interest Rate"
                                 value={interestRate}
-                                onChange={(e) => setInterestRate(e.target.value.replace(/\D/g, ''))}
+                                // onChange={(e) => setInterestRate(e.target.value)}
+                                onChange={handleRateChange}
                             />
                         </div>
                         <div className="input-group mb-3">
@@ -228,7 +243,7 @@ function LoanCalculator(props) {
                                 </strong>
                             </div>
                         </div>
-                        
+
                         {result.totalPayment && (
                             <div className='mt-3'>
                                 <button className='btn btn-sm btn-outline-primary'

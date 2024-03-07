@@ -79,7 +79,7 @@ const PercentageCalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={originalValue1}
-                            onChange={handleChangeOriginalValue1} inputMode='numeric'/>
+                            onChange={handleChangeOriginalValue1} inputMode='numeric' />
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
@@ -87,7 +87,7 @@ const PercentageCalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={percentage1}
-                            onChange={handleChangePercentage1} inputMode='numeric'/>
+                            onChange={handleChangePercentage1} inputMode='numeric' />
                     </div>
                     <div className='mb-3'>
                         <button className='btn btn-sm btn-success' onClick={calculatePercentage1}>Calculate</button>
@@ -119,19 +119,19 @@ const PercentageCalculator = () => {
                     <h3 className='card-title mb-4'>Percentage value to percentage</h3>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">Original Value</span>
+                            <span className="input-group-text">Percentage value</span>
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={originalValue2}
-                            onChange={handleChangeOriginalValue2} inputMode='numeric'/>
+                            onChange={handleChangeOriginalValue2} inputMode='numeric' />
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">Percentage Value</span>
+                            <span className="input-group-text">Percentage</span>
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={percentage2}
-                            onChange={handleChangePercentage2} inputMode='numeric'/>
+                            onChange={handleChangePercentage2} inputMode='numeric' />
                     </div>
                     <div className='mb-3'>
                         <button className='btn btn-sm btn-success' onClick={calculatePercentage2}>Calculate</button>

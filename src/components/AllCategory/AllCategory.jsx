@@ -8,7 +8,7 @@ const AllCategory = () => {
             <SidebarToogle />
             <div className="accordion sidebar-menu bg-light card-text" id="accordionExample">
                 <div className="card">
-                    <div className="card-header bg-light card-text" id="headingOne">
+                    <div className="card-header bg-light card-text " id="headingOne">
                         <div role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             ▼ General
                         </div>
@@ -17,42 +17,42 @@ const AllCategory = () => {
                         <div className="accordion" id="accordionExample">
                             <div className="card border-0">
                                 <Link className='redirect-link' to={'/'} >
-                                    <div className="card-header bg-light card-text" >
+                                    <div className="card-header bg-light text-primary" >
                                         <div>
                                             &nbsp; &nbsp;  Calculator
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
-                                    <div className="card-header bg-light card-text" role="button">
+                                    <div className="card-header bg-light text-primary" role="button">
                                         <div>
                                             &nbsp; &nbsp;  Percentage Calculator
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/bmiCalculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  BMI Calculator
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/numberToWordConverter'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Number To Word Converter
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/unitConverter'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Unit Converter
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/calculator/cashCounter'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Cash Counter
                                         </div>
@@ -72,7 +72,7 @@ const AllCategory = () => {
                         <div className="accordion" id="accordionExample">
                             <div className="card border-0">
                                 <Link className='redirect-link' to={'/loanMortgage/loanCalculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Loan Calculator
                                         </div>
@@ -92,28 +92,28 @@ const AllCategory = () => {
                         <div className="accordion" id="accordionExample">
                             <div className="card border-0">
                                 <Link className='redirect-link' to={'/financeAndInvestment/currencyConverter'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Currency Converter
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/financeAndInvestment/roiCalculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Return on Investment (ROI) Calculator
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/financeAndInvestment/tvmCalculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  TVM Calculator
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/financeAndInvestment/tvmAdvancedCalculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  TVM Advanced Calculator
                                         </div>
@@ -154,28 +154,28 @@ const AllCategory = () => {
                         <div className="accordion" id="accordionExample">
                             <div className="card border-0">
                                 <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Duration Between Two Dates
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/dateAddSubtract'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Date Add And Subtract
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/weekDayCalculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  WeekDay Calculator
                                         </div>
                                     </div>
                                 </Link>
                                 <Link className='redirect-link' to={'/dateAndTime/ageCaculator'}>
-                                    <div className="card-header bg-light card-text">
+                                    <div className="card-header bg-light text-primary">
                                         <div>
                                             &nbsp; &nbsp;  Age Caculator
                                         </div>

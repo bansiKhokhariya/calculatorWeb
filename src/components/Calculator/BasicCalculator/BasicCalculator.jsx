@@ -75,17 +75,17 @@ const BasicCalculator = (props) => {
             const result = eval(expression);
             setInputValue(result.toString());
             setEqualPressed(true);
-    
+
             setShowShareButton(true)
             setCurrentCalculation(`${expression} = ${result.toString()}`)
-    
+
             // Save the expression and result in local storage array
             const updatedResults = [`${expression} = ${result.toString()}`, ...savedResults];
             localStorage.setItem('savedResults', JSON.stringify(updatedResults));
             setSavedResults(updatedResults);
         }
     };
-  
+
     const handleDeleteHistory = () => {
         localStorage.removeItem('savedResults');
         setSavedResults([]);
@@ -98,14 +98,26 @@ const BasicCalculator = (props) => {
         doc.text("My History", 10, y);
         y += 10;
 
-        savedResults.forEach((result, index) => {
-            y += 15;
-            const x = 10;
-            const width = 100;
-            const height = 15;
-            doc.rect(x, y, width, height);
-            doc.setFontSize(12);
-            doc.text(`Calculation ${index + 1}: ${result}`, x + 2, y + 5);
+        // Define table headers
+        const headers = ["Calculation", "Result"];
+
+        // Define table data
+        const data = savedResults.map((result, index) => {
+            return [`Calculation ${index + 1}`, result];
+        });
+
+        // Add autoTable plugin options
+        const options = {
+            startY: y,
+            margin: { top: 20 },
+        };
+
+        // Generate table using autoTable
+        doc.autoTable({
+            head: [headers],
+            body: data,
+            startY: y + 10, // Start table after the header
+            margin: { top: 20 },
         });
 
         const pdfData = doc.output();
@@ -143,14 +155,14 @@ const BasicCalculator = (props) => {
             console.log("History PDF file URL:", pdfUrl);
         }
     }
-    
+
     return (
         <div className='bootstrap-card-section'>
             <div>
                 <div className="main-container border">
                     <div>
-                        {showShareButton && <button className='btn btn-sm bg-success card-text mb-3' onClick={() => SingleCalculationShare(currentCalculation)}>Share Current Calculation</button>}
-                        <textarea type="textarea" placeholder="0" className="container__input bg-light form-control card-text" value={inputValue} readOnly/>
+                        {showShareButton && <button className='btn btn-sm bg-success text-white mb-3' onClick={() => SingleCalculationShare(currentCalculation)}>Share Current Calculation</button>}
+                        <textarea type="textarea" placeholder="0" className="container__input bg-light form-control card-text" value={inputValue} readOnly />
                         <div className="calculator-buttons">
                             <button className="btn btn-sm bg-light card-text" id="ac" onClick={handleAC}>AC</button>
                             <button className="btn btn-sm bg-light card-text" id="del" onClick={handleDelete}>DEL</button>
@@ -171,20 +183,24 @@ const BasicCalculator = (props) => {
                             <button className="btn btn-sm bg-light card-text" onClick={() => handleClick('00')}>00</button>
                             <button className="btn btn-sm bg-light card-text" onClick={() => handleClick('0')}>0</button>
                             <button className="btn btn-sm bg-light card-text" onClick={() => handleClick('.')}>.</button>
-                            <button className='btn btn-sm bg-primary card-text' id="igual" onClick={handleEqual}>=</button>
+                            <button className='btn btn-sm bg-primary text-white' id="igual" onClick={handleEqual}>=</button>
                         </div>
                     </div>
                 </div>
                 <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-                    <Modal.Header closeButton>
+                    <Modal.Header
+                    >
                         <Modal.Title>My History</Modal.Title>
+                        <button className="btn card-text" onClick={props.closeModal}>
+                            <span aria-hidden="true"><h1>&times;</h1></span>
+                        </button>
                     </Modal.Header>
                     <Modal.Body>
 
                         {savedResults.length > 0 && (
                             <div className='mb-3'>
-                                <button className='btn btn-danger btn-sm' onClick={handleDeleteHistory}>Clear All History</button>
-                                <button className='btn btn-success btn-sm ms-1' onClick={() => handleShareClick(savedResults)}>Share All History</button>
+                                <button className='btn btn-danger btn-sm text-white' onClick={handleDeleteHistory}>Clear All History</button>
+                                <button className='btn btn-success btn-sm ms-2 text-white' onClick={() => handleShareClick(savedResults)}>Share All History</button>
                             </div>
                         )}
 
@@ -205,7 +221,7 @@ const BasicCalculator = (props) => {
                                                                     localStorage.setItem('savedResults', JSON.stringify(updatedResults));
                                                                     setSavedResults(updatedResults);
                                                                 }}>Delete</button>
-                                                                <button className='btn btn-success btn-sm ms-1' onClick={() => SingleCalculationShare(item)}>Share</button>
+                                                                <button className='btn btn-success btn-sm ms-2' onClick={() => SingleCalculationShare(item)}>Share</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -225,7 +241,7 @@ const BasicCalculator = (props) => {
     );
 };
 
-export default BasicCalculator;          
+export default BasicCalculator;
 
 
 

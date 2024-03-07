@@ -105,8 +105,11 @@ const FullReportModal = ({ show, handleClose, amortizationSchedule, pieChartData
 
     return (
         <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title>Full Report</Modal.Title>
+                <button className="btn card-text" onClick={handleClose}>
+                    <span aria-hidden="true"><h1>&times;</h1></span>
+                </button>
             </Modal.Header>
             <Modal.Body id="fullReportModalContent">
                 <div ref={modalContentRef}>

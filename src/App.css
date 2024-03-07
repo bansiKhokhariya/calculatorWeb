@@ -48,6 +48,7 @@
 .redirect-link {
     text-decoration: none;
     cursor: pointer;
+    color: black;
 }
 
 /* loan calculator report piechart css */
@@ -69,6 +70,8 @@
 .bootstrap-card {
     width: 50%;
 }
+
+
 
 @media (max-width:500px) {
     .sidebar-menu {

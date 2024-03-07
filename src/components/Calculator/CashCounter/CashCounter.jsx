@@ -26,7 +26,7 @@ const CashCounter = () => {
         newNotes[note] = { count: newValue, amount: newValue * parseInt(note) };
         setNotes(newNotes);
     };
-    
+
 
     const calculateTotal = () => {
         let total = 0;
@@ -48,22 +48,22 @@ const CashCounter = () => {
                     <table className={`table table-bordered ${selectedTheme === 'dark' ? 'table-dark' : 'table-light'}`}>
                         <thead>
                             <tr>
-                                <th scope="col">Note</th>
-                                <th scope="col">Count</th>
-                                <th scope="col">Amount</th>
+                                <th scope="col" className='text-center'>Note</th>
+                                <th scope="col" className='text-center'>Count</th>
+                                <th scope="col" className='text-center'>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             {Object.keys(notes).map(note => (
                                 <tr className='pb-3' key={note} >
-                                    <td className='card-text'>{`₹${note}`}</td>
+                                    <td className='card-text text-center'>{`₹${note}`}</td>
                                     <td>
                                         <div className="input-group mb-3">
                                             <input type="text" className="form-control" placeholder="Enter Value" value={notes[note].count}
                                                 onChange={(e) => handleNoteChange(e, note)} />
                                         </div>
                                     </td>
-                                    <td className=''>
+                                    <td className='text-center'>
                                         <div>
                                             <strong>
                                                 <span className='text-success'>

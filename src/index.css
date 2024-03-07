@@ -41,6 +41,10 @@ body {
     transition: .35s all ease-out;
 }
 
+::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+}
+
 [data-theme="dark"] .jumbotron {
     background: var(--color-dp0) !important;
 }
@@ -98,7 +102,7 @@ body {
 [data-theme='dark'] .form-control {
     background: var(--color-dp6) !important;
     border: var(--color-dp8) !important;
-    color: var(--color-text-secondary) !important;
+    color: var(--color-white) !important;
 }
 
 [data-theme='dark'] .form-select {
@@ -141,6 +145,10 @@ body {
 
 [data-theme="dark"] ::placeholder {
     color: var(--color-text);
+}
+
+[data-theme="dark"] textarea::placeholder {
+    color: var(--color-text); /* Set the placeholder text color to the variable --color-text */
 }
 
 /* 
@@ -339,27 +347,27 @@ Bootstrap */
 
 [data-theme='dark'] .btn-primary {
     background: var(--color-dark-primary) !important;
-    color: var(--color-dp0) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme='dark'] .btn-secondary {
     background: var(--color-dark-secondary) !important;
-    color: var(--color-dp0) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme='dark'] .btn-success {
     background: var(--color-dark-success) !important;
-    color: var(--color-dp0) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme='dark'] .btn-danger {
     background: var(--color-dark-danger) !important;
-    color: var(--color-dp0) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme='dark'] .btn-warning {
     background: var(--color-dark-warning) !important;
-    color: var(--color-dp0) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme='dark'] .btn-info {

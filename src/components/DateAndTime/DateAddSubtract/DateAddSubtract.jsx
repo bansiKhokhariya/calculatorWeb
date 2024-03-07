@@ -121,14 +121,14 @@ const DateAddSubtract = () => {
                             <input className="form-check-input" type="radio" id='add' value="add"
                                 checked={operation === 'add'}
                                 onChange={() => setOperation('add')} />
-                            <label className="form-check-label" for="add">Add</label>
+                            <label className="form-check-label" htmlFor="add">Add</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" id="subtract"
                                 value="subtract"
                                 checked={operation === 'subtract'}
                                 onChange={() => setOperation('subtract')} />
-                            <label className="form-check-label" for="subtract">Subtract</label>
+                            <label className="form-check-label" htmlFor="subtract">Subtract</label>
                         </div>
                     </div>
                     <div className="input-group mb-3">

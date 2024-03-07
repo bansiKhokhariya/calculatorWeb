@@ -18,12 +18,15 @@ const CashCounter = () => {
     });
 
     const handleNoteChange = (event, note) => {
-        const { value } = event.target;
+        let { value } = event.target;
+        // Truncate value if it exceeds 10 characters
+        value = value.slice(0, 15);
         const newValue = parseInt(value) || 0;
         const newNotes = { ...notes };
         newNotes[note] = { count: newValue, amount: newValue * parseInt(note) };
         setNotes(newNotes);
     };
+    
 
     const calculateTotal = () => {
         let total = 0;

@@ -53,8 +53,12 @@ const PowerConverter = () => {
 
     const convertPower = () => {
         const value = parseFloat(inputValue);
-        const convertedResult = conversionFactors[fromPower][toPower](value);
-        setResult(`${convertedResult.toFixed(2)} ${toPower}`);
+        if (fromPower === toPower) {
+            setResult(`${value.toFixed(2)} ${toPower}`);
+        } else {
+            const convertedResult = conversionFactors[fromPower][toPower](value);
+            setResult(`${convertedResult.toFixed(2)} ${toPower}`);
+        }
     };
 
     return (

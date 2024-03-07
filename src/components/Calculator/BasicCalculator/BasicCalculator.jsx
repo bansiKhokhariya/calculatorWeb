@@ -47,10 +47,11 @@ const BasicCalculator = (props) => {
 
     const handleClick = (button) => {
         if (equalPressed) {
-            setInputValue('');
+            setInputValue(button);
             setEqualPressed(false);
+        } else {
+            setInputValue(inputValue + button);
         }
-        setInputValue(inputValue + button);
     };
 
     const handleDelete = () => {
@@ -63,9 +64,10 @@ const BasicCalculator = (props) => {
     };
 
     const handleEqual = () => {
-
         if (inputValue.trim() !== '') {
             let expression = inputValue;
+            // Remove leading zeros from numbers
+            expression = expression.replace(/\b0+(\d+)/g, '$1');
             expression = expression.replace(/%/g, '/100*');
             if (/[+\-*/]$/.test(expression)) {
                 expression = expression.slice(0, -1);
@@ -73,18 +75,17 @@ const BasicCalculator = (props) => {
             const result = eval(expression);
             setInputValue(result.toString());
             setEqualPressed(true);
-
+    
             setShowShareButton(true)
             setCurrentCalculation(`${expression} = ${result.toString()}`)
-
-
+    
             // Save the expression and result in local storage array
             const updatedResults = [`${expression} = ${result.toString()}`, ...savedResults];
             localStorage.setItem('savedResults', JSON.stringify(updatedResults));
             setSavedResults(updatedResults);
         }
     };
-
+  
     const handleDeleteHistory = () => {
         localStorage.removeItem('savedResults');
         setSavedResults([]);
@@ -142,14 +143,14 @@ const BasicCalculator = (props) => {
             console.log("History PDF file URL:", pdfUrl);
         }
     }
-
+    
     return (
         <div className='bootstrap-card-section'>
             <div>
                 <div className="main-container border">
                     <div>
                         {showShareButton && <button className='btn btn-sm bg-success card-text mb-3' onClick={() => SingleCalculationShare(currentCalculation)}>Share Current Calculation</button>}
-                        <textarea type="textarea" placeholder="0" className="container__input bg-light form-control card-text" value={inputValue} readOnly />
+                        <textarea type="textarea" placeholder="0" className="container__input bg-light form-control card-text" value={inputValue} readOnly/>
                         <div className="calculator-buttons">
                             <button className="btn btn-sm bg-light card-text" id="ac" onClick={handleAC}>AC</button>
                             <button className="btn btn-sm bg-light card-text" id="del" onClick={handleDelete}>DEL</button>
@@ -224,7 +225,7 @@ const BasicCalculator = (props) => {
     );
 };
 
-export default BasicCalculator;
+export default BasicCalculator;          
 
 
 

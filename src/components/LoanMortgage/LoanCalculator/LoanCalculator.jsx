@@ -228,6 +228,7 @@ function LoanCalculator(props) {
                                 </strong>
                             </div>
                         </div>
+                        
                         {result.totalPayment && (
                             <div className='mt-3'>
                                 <button className='btn btn-sm btn-outline-primary'
@@ -239,6 +240,7 @@ function LoanCalculator(props) {
                                 </button>
                             </div>
                         )}
+
                         {/* view Loan Data */}
                         <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
                             <Modal.Header closeButton>

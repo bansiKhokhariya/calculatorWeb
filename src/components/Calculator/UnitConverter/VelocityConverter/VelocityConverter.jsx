@@ -83,8 +83,12 @@ const VelocityConverter = () => {
 
     const convertVelocity = () => {
         const value = parseFloat(inputValue);
-        const convertedResult = conversionFactors[fromVelocity][toVelocity](value);
-        setResult(`${convertedResult.toFixed(2)} ${toVelocity}`);
+        if (fromVelocity === toVelocity) {
+            setResult(`${value.toFixed(2)} ${toVelocity}`);
+        } else {
+            const convertedResult = conversionFactors[fromVelocity][toVelocity](value);
+            setResult(`${convertedResult.toFixed(2)} ${toVelocity}`);
+        }
     };
 
     return (

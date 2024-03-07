@@ -105,6 +105,20 @@ const AllCategory = () => {
                                         </div>
                                     </div>
                                 </Link>
+                                <Link className='redirect-link' to={'/financeAndInvestment/tvmCalculator'}>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  TVM Calculator
+                                        </div>
+                                    </div>
+                                </Link>
+                                <Link className='redirect-link' to={'/financeAndInvestment/tvmAdvancedCalculator'}>
+                                    <div className="card-header bg-light card-text">
+                                        <div>
+                                            &nbsp; &nbsp;  TVM Advanced Calculator
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

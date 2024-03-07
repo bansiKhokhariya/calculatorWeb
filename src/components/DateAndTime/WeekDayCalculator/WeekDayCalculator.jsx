@@ -58,7 +58,7 @@ const WeekDayCalculator = () => {
             <div className="card bootstrap-card">
                 <div className="card-header text-center card-text">
                     <h1>
-                        Age Calculator
+                        WeekDay Calculator
                     </h1>
                 </div>
                 <div className="card-body card-text">

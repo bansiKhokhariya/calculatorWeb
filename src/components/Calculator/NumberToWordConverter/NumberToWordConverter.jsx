@@ -21,12 +21,15 @@ const NumberToWordConverter = () => {
     }
 
     const handleChangeNumberValue = (e) => {
-        const input = e.target.value.replace(/\D/g, '');
+        let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        if (input.length > 9) {
+            input = input.slice(0, 9); // Truncate to the first nine digits
+        }
         setNumberValue(input);
-        const words = inWords(input);
+        const words = input === '0' ? 'zero' : inWords(input);
         setWordValue(words);
     };
-
+    
     return (
         <div className='bootstrap-card-section'>
             <div className="card bootstrap-card">

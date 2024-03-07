@@ -53,8 +53,12 @@ const PressureConverter = () => {
 
     const convertPressure = () => {
         const value = parseFloat(inputValue);
-        const convertedResult = conversionFactors[fromPressure][toPressure](value);
-        setResult(`${convertedResult.toFixed(2)} ${toPressure}`);
+        if (fromPressure === toPressure) {
+            setResult(`${value.toFixed(2)} ${toPressure}`);
+        } else {
+            const convertedResult = conversionFactors[fromPressure][toPressure](value);
+            setResult(`${convertedResult.toFixed(2)} ${toPressure}`);
+        }
     };
 
     return (
@@ -76,9 +80,9 @@ const PressureConverter = () => {
                 <option value="pascal">Pascal</option>
                 <option value="atmosphere">Atmosphere</option>
                 <option value="bar">Bar</option>
-                <option value="psi">Psi</option>
-                <option value="mmHg">mmHg</option>
-                <option value="kPa">kPa</option>
+                <option value="psi">Pound per square inch (PSI)</option>
+                <option value="mmHg">Milimeter of mercury</option>
+                <option value="kPa">Kilo Pascal</option>
             </select>
             <label className='card-text text-center mt-2 mb-2 ms-1'>To</label>
             <select className="form-select form-select-sm" id="conversionType"

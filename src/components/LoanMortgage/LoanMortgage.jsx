@@ -9,8 +9,6 @@ const LoanMortgage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const location = useLocation();
 
-    
-
     useEffect(() => {
         if (location.pathname === '/loanMortgage/loanCalculator') {
             setHistoryName('loanHistory');

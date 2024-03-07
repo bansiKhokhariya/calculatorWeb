@@ -13,7 +13,7 @@ const SidebarToggle = ({ openHistoryModal }) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (location.pathname === "/loanMortgage/loanCalculator" || location.pathname === "/") {
+        if (location.pathname === "/financeAndInvestment/tvmAdvancedCalculator" || location.pathname === "/loanMortgage/loanCalculator" || location.pathname === "/" || location.pathname === "/financeAndInvestment/tvmCalculator") {
             setHistoryButtonShow(true);
         } else {
             setHistoryButtonShow(false);

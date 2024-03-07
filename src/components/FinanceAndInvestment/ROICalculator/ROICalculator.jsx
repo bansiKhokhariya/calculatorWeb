@@ -9,12 +9,21 @@ const ROICalculator = () => {
     const [returnOfInvestment, setReturnOfInvestment] = useState('');
     const [simpleAnnualROI, setSimpleAnnualROI] = useState('');
     const [compoundAnnualROI, setCompoundAnnualROI] = useState('');
+    const [termError, setTermError] = useState('');
 
     const calculateROI = () => {
         // Convert input values to numbers
         const invested = parseFloat(amountInvested);
         const returned = parseFloat(amountReturned);
         const years = parseFloat(term);
+
+        // Check if term input is empty or not a number
+        if (isNaN(years) || years <= 0) {
+            setTermError('Please enter a valid positive number for the term (year).');
+            return;
+        } else {
+            setTermError('');
+        }
 
         // Calculate gain or loss
         const gainLoss = returned - invested;
@@ -82,6 +91,7 @@ const ROICalculator = () => {
                         />
                     </div>
                     <div className="input-group mb-3">
+                    <div className="input-group">
                         <div className="input-group-prepend">
                             <span className="input-group-text">Term(Year)</span>
                         </div>
@@ -92,6 +102,10 @@ const ROICalculator = () => {
                                 setTerm(input);
                             }}
                         />
+                    </div>
+                    {termError && (
+                        <div className="text-danger mb-3">{termError}</div>
+                    )}
                     </div>
                     <div className='mb-3'>
                         <button className='btn btn-sm btn-success' onClick={calculateROI}>Calculate</button>

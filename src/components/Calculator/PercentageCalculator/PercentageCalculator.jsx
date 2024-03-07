@@ -79,7 +79,7 @@ const PercentageCalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={originalValue1}
-                            onChange={handleChangeOriginalValue1} />
+                            onChange={handleChangeOriginalValue1} inputMode='numeric'/>
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
@@ -87,7 +87,7 @@ const PercentageCalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={percentage1}
-                            onChange={handleChangePercentage1} />
+                            onChange={handleChangePercentage1} inputMode='numeric'/>
                     </div>
                     <div className='mb-3'>
                         <button className='btn btn-sm btn-success' onClick={calculatePercentage1}>Calculate</button>
@@ -123,7 +123,7 @@ const PercentageCalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={originalValue2}
-                            onChange={handleChangeOriginalValue2} />
+                            onChange={handleChangeOriginalValue2} inputMode='numeric'/>
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
@@ -131,7 +131,7 @@ const PercentageCalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={percentage2}
-                            onChange={handleChangePercentage2} />
+                            onChange={handleChangePercentage2} inputMode='numeric'/>
                     </div>
                     <div className='mb-3'>
                         <button className='btn btn-sm btn-success' onClick={calculatePercentage2}>Calculate</button>

@@ -57,6 +57,8 @@ const App = () => {
           {/* Finance And Investment */}
           <Route path="/financeAndInvestment/currencyConverter" element={<FinanceAndInvestment />}></Route>
           <Route path="/financeAndInvestment/roiCalculator" element={<FinanceAndInvestment />}></Route>
+          <Route path="/financeAndInvestment/tvmCalculator" element={<FinanceAndInvestment />}></Route>
+          <Route path="/financeAndInvestment/tvmAdvancedCalculator" element={<FinanceAndInvestment />}></Route>
           {/* Loan And Mortgage */}
           <Route path="/loanMortgage/loanCalculator" element={<LoanMortgage />}></Route>
 

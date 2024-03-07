@@ -7,6 +7,25 @@ const VolumeConverter = () => {
     const [result, setResult] = useState('');
 
     const conversionFactors = {
+        milliliter: {
+            cubicMeter: (volume) => volume * 1e6,
+            cubicCentimeter: (volume) => volume,
+            cubicFeet: (volume) => volume * 28316.8,
+            cubicInch: (volume) => volume * 16.3871,
+            cubicYard: (volume) => volume * 764554.857984,
+            fluidOunceUK: (volume) => volume * 28.4131,
+            fluidOunceUS: (volume) => volume * 29.5735,
+            gallonUS: (volume) => volume * 3785.41,
+            gallonUK: (volume) => volume * 4546.09,
+            liter: (volume) => volume * 1000,
+            pintUS: (volume) => volume * 473.176,
+            pintUK: (volume) => volume * 568.261,
+            quartUS: (volume) => volume * 946.353,
+            quartUK: (volume) => volume * 1136.52,
+            cupUS: (volume) => volume * 236.588,
+            tablespoonUS: (volume) => volume * 14.7868,
+            teaspoonUS: (volume) => volume * 4.92892,
+        },
         cubicCentimeter: {
             cubicMeter: (volume) => volume * 1e-6,
             cubicFeet: (volume) => volume * 3.53147e-5,
@@ -333,8 +352,12 @@ const VolumeConverter = () => {
 
     const convertVolume = () => {
         const value = parseFloat(inputValue);
-        const convertedResult = conversionFactors[fromVolume][toVolume](value);
-        setResult(`${convertedResult.toFixed(2)} ${toVolume}`);
+        if (fromVolume === toVolume) {
+            setResult(`${value.toFixed(2)} ${toVolume}`);
+        } else {
+            const convertedResult = conversionFactors[fromVolume][toVolume](value);
+            setResult(`${convertedResult.toFixed(2)} ${toVolume}`);
+        }
     };
 
     return (

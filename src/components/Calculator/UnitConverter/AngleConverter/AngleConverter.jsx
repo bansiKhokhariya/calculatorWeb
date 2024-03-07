@@ -31,8 +31,12 @@ const AngleConverter = () => {
 
     const convertAngle = () => {
         const value = parseFloat(inputValue);
-        const convertedResult = conversionFactors[fromAngle][toAngle](value);
-        setResult(`${convertedResult.toFixed(2)} ${toAngle}`);
+        if (fromAngle === toAngle) {
+            setResult(`${value.toFixed(2)} ${toAngle}`);
+        } else {
+            const convertedResult = conversionFactors[fromAngle][toAngle](value);
+            setResult(`${convertedResult.toFixed(2)} ${toAngle}`);
+        }
     };
 
     return (

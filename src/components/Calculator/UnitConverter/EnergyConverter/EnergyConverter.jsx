@@ -67,8 +67,12 @@ const EnergyConverter = () => {
 
     const convertEnergy = () => {
         const value = parseFloat(inputValue);
-        const convertedResult = conversionFactors[fromEnergy][toEnergy](value);
-        setResult(`${convertedResult.toFixed(2)} ${toEnergy}`);
+        if (fromEnergy === toEnergy) {
+            setResult(`${value.toFixed(2)} ${toEnergy}`);
+        } else {
+            const convertedResult = conversionFactors[fromEnergy][toEnergy](value);
+            setResult(`${convertedResult} ${toEnergy}`);
+        }
     };
 
     return (

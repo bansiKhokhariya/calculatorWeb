@@ -22,11 +22,13 @@ const NumberToWordConverter = () => {
 
     const handleChangeNumberValue = (e) => {
         let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        // Add commas to the input value
+        input = input.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         if (input.length > 9) {
             input = input.slice(0, 9); // Truncate to the first nine digits
         }
         setNumberValue(input);
-        const words = input === '0' ? 'zero' : inWords(input);
+        const words = input === '0' ? 'zero' : inWords(input.replace(/,/g, '')); // Remove commas before converting
         setWordValue(words);
     };
     
@@ -46,6 +48,7 @@ const NumberToWordConverter = () => {
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={numberValue}
                             onChange={handleChangeNumberValue}
+                            inputMode='numeric'
                         />
                     </div>
                     <div>

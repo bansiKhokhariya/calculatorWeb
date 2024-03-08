@@ -9,26 +9,33 @@ const PercentageCalculator = () => {
     const [percentage2, setPercentage2] = useState('');
     const [result2, setResult2] = useState('');
 
+    const addCommas = (amount) => {
+        return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     const handleChangeOriginalValue1 = (event) => {
         const { value } = event.target;
         if (/^\d*\.?\d*$/.test(value)) {
-            setOriginalValue1(value);
+            setOriginalValue1(addCommas(value));
         }
     };
 
     const handleChangePercentage1 = (event) => {
         const { value } = event.target;
         if (/^\d*\.?\d*$/.test(value)) {
-            setPercentage1(value);
+            setPercentage1(addCommas(value));
         }
     };
 
     const calculatePercentage1 = () => {
-        if (originalValue1.trim() !== '' && percentage1.trim() !== '') {
-            const resultValue = (parseFloat(originalValue1) * parseFloat(percentage1)) / 100;
+        const originalValue = originalValue1.trim().replace(/,/g, "");
+        
+        if (originalValue !== '' && percentage1.trim() !== '') {
+            const resultValue = (parseFloat(originalValue) * parseFloat(percentage1)) / 100;
             setResult1(resultValue.toFixed(2));
         }
     };
+    
 
     const resetInputs1 = () => {
         setOriginalValue1('');
@@ -51,11 +58,16 @@ const PercentageCalculator = () => {
     };
 
     const calculatePercentage2 = () => {
-        if (originalValue2.trim() !== '' && percentage2.trim() !== '') {
-            const resultValue = (parseFloat(originalValue2) / parseFloat(percentage2)) * 100;
+        // Parse originalValue2 and percentage2 as numbers
+        const originalValue = parseFloat(originalValue2.trim());
+        const percentage = parseFloat(percentage2.trim());
+        
+        if (!isNaN(originalValue) && !isNaN(percentage) && percentage !== 0) {
+            const resultValue = (originalValue / percentage) * 100;
             setResult2(resultValue.toFixed(2));
         }
     };
+    
 
     const resetInputs2 = () => {
         setOriginalValue2('');

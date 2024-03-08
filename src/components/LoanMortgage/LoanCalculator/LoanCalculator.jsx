@@ -31,37 +31,37 @@ function LoanCalculator(props) {
         }
     }, [props.isModalOpen]);
 
-    // Function to handle loan calculation
     const calculateLoan = () => {
-
         if (!loanAmount || !interestRate || !loanTermYears) {
             setErrorMessage('All fields are required');
             return;
         }
         setErrorMessage('');
-        const loanAmountNum = parseFloat(loanAmount);
+        
+        // Remove commas from the loanAmount
+        const loanAmountNum = parseFloat(loanAmount.replace(/,/g, ""));
         const interestRateNum = parseFloat(interestRate) / 100 / 12;
         const loanTermMonthsNum = parseInt(loanTermYears) * 12;
-
+    
         // mortgage constant Calculations
         const mortgageConstant = (interestRateNum * Math.pow(1 + interestRateNum, loanTermMonthsNum)) /
             (Math.pow(1 + interestRateNum, loanTermMonthsNum) - 1) * 12;
-
+    
         // monthly payment Calculations
         var x = Math.pow(1 + interestRateNum, loanTermMonthsNum);
         var monthlyPayment = (loanAmountNum * x * interestRateNum) / (x - 1);
-
+    
         setResult({
             mortgageConstant: (mortgageConstant * 100).toFixed(2) + '%',
             monthlyPayment: (monthlyPayment.toFixed(2)),
             annualPayment: (monthlyPayment * 12).toFixed(2),
             totalPayment: (monthlyPayment * loanTermMonthsNum).toFixed(2),
             totalInterest: ((monthlyPayment * loanTermMonthsNum) - loanAmountNum).toFixed(2)
-        })
-
+        });
+    
         handleSave();
-
     };
+    
 
     // Function to handle Save Loan
     const handleSave = () => {
@@ -152,11 +152,29 @@ function LoanCalculator(props) {
         setSavedLoans([])
     };
 
+
+    const handleLoanAmountChange = (e) => {
+        const inputAmount = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        setLoanAmount(addCommas(inputAmount)); // Format amount with commas
+    };
+
+    const addCommas = (amount) => {
+        return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     const handleRateChange = (e) => {
-        let input = e.target.value.replace(/[^\d.]/g, '');
-        input = input.replace(/(\..*)\./g, '$1');
+        let input = e.target.value.replace(/[^\d.]/g, ''); // Remove non-numeric and non-decimal characters
+        input = input.substring(0, 5); // Limit to 5 digits
+        input = input.replace(/(\..*)\./g, '$1'); // Remove extra decimal points
         setInterestRate(input);
     };
+
+    const handleLoanTermChange = (e) => {
+        let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        input = input.substring(0, 4); // Limit to 4 digits
+        setLoanTermYears(input);
+    };
+
 
     return (
         <>
@@ -175,7 +193,8 @@ function LoanCalculator(props) {
                             </div>
                             <input type="text" className="form-control" placeholder="Enter Amount"
                                 value={loanAmount}
-                                onChange={(e) => setLoanAmount(e.target.value.replace(/\D/g, ''))}
+                                onChange={handleLoanAmountChange}
+                                inputMode='numeric'
                             />
                         </div>
                         <div className="input-group mb-3">
@@ -184,8 +203,8 @@ function LoanCalculator(props) {
                             </div>
                             <input type="text" className="form-control" placeholder="Enter Interest Rate"
                                 value={interestRate}
-                                // onChange={(e) => setInterestRate(e.target.value)}
                                 onChange={handleRateChange}
+                                inputMode='numeric'
                             />
                         </div>
                         <div className="input-group mb-3">
@@ -194,7 +213,8 @@ function LoanCalculator(props) {
                             </div>
                             <input type="text" className="form-control" placeholder="Enter Year"
                                 value={loanTermYears}
-                                onChange={(e) => setLoanTermYears(e.target.value.replace(/\D/g, ''))}
+                                onChange={handleLoanTermChange}
+                                inputMode='numeric'
                             />
                         </div>
                         <div className='mb-3'>

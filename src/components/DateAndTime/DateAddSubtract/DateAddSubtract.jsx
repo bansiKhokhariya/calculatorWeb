@@ -25,19 +25,31 @@ const DateAddSubtract = () => {
     };
 
     const handleYearChange = (e) => {
-        setYearValue(Math.max(0, parseInt(e.target.value)));
+        const value = e.target.value.replace(/\D/g, ''); // Allow only numbers
+        if (value.length <= 4) { // Limit to 4 digits
+            setYearValue(value);
+        }
     };
 
     const handleMonthChange = (e) => {
-        setMonthValue(Math.max(0, parseInt(e.target.value)));
+        const value = e.target.value.replace(/\D/g, ''); // Allow only numbers
+        if (value.length <= 5) { // Limit to 5 digits
+            setMonthValue(value);
+        }
     };
 
     const handleWeekChange = (e) => {
-        setWeekValue(Math.max(0, parseInt(e.target.value)));
+        const value = e.target.value.replace(/\D/g, ''); // Allow only numbers
+        if (value.length <= 5) { // Limit to 5 digits
+            setWeekValue(value);
+        }
     };
 
     const handleDayChange = (e) => {
-        setDayValue(Math.max(0, parseInt(e.target.value)));
+        const value = e.target.value.replace(/\D/g, ''); // Allow only numbers
+        if (value.length <= 9) { // Limit to 9 digits
+            setDayValue(value);
+        }
     };
 
     const handleIncrement = (field) => {
@@ -136,7 +148,7 @@ const DateAddSubtract = () => {
                             <span className="input-group-text">Year(s)</span>
                         </div>
                         <input type="number" className="form-control" placeholder="Enter Value"
-                            value={yearValue} onChange={handleYearChange}
+                            value={yearValue} onChange={handleYearChange}  inputMode='numeric'
                         />
                         <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('year')}>-</button>
                         <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('year')}>+</button>
@@ -146,7 +158,7 @@ const DateAddSubtract = () => {
                             <span className="input-group-text">Month(s)</span>
                         </div>
                         <input type="number" className="form-control" placeholder="Enter Value"
-                            value={monthValue} onChange={handleMonthChange}
+                            value={monthValue} onChange={handleMonthChange} inputMode='numeric'
                         />
                         <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('month')}>-</button>
                         <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('month')}>+</button>
@@ -156,7 +168,7 @@ const DateAddSubtract = () => {
                             <span className="input-group-text">Week(s)</span>
                         </div>
                         <input type="number" className="form-control" placeholder="Enter Value"
-                            value={weekValue} onChange={handleWeekChange}
+                            value={weekValue} onChange={handleWeekChange} inputMode='numeric'
                         />
                         <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('week')}>-</button>
                         <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('week')}>+</button>
@@ -166,7 +178,7 @@ const DateAddSubtract = () => {
                             <span className="input-group-text">Day(s)</span>
                         </div>
                         <input type="number" className="form-control" placeholder="Enter Value"
-                            value={dayValue} onChange={handleDayChange}
+                            value={dayValue} onChange={handleDayChange} inputMode='numeric'
                         />
                         <button className='btn btn-sm btn-danger card-text' style={{ width: "40px" }} onClick={() => handleDecrement('day')}>-</button>
                         <button className='btn btn-sm btn-success' style={{ width: "40px" }} onClick={() => handleIncrement('day')}>+</button>

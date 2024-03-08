@@ -13,8 +13,8 @@ const ROICalculator = () => {
 
     const calculateROI = () => {
         // Convert input values to numbers
-        const invested = parseFloat(amountInvested);
-        const returned = parseFloat(amountReturned);
+        const invested = parseFloat(amountInvested.replace(/,/g, ''));
+        const returned = parseFloat(amountReturned.replace(/,/g, ''));
         const years = parseFloat(term);
 
         // Check if term input is empty or not a number
@@ -40,10 +40,10 @@ const ROICalculator = () => {
 
         // Update state with calculated values
         setInvestmentPeriod(`${years} yr`);
-        setGainOrLoss(gainLoss);
-        setReturnOfInvestment(`${roi.toFixed(2)}%`);
-        setSimpleAnnualROI(`${simpleROI.toFixed(2)}%`);
-        setCompoundAnnualROI(`${compoundROI.toFixed(2)}%`);
+        setGainOrLoss(addCommasAndDecimals(gainLoss));
+        setReturnOfInvestment(`${addCommasAndDecimals(roi.toFixed(2))}%`);
+        setSimpleAnnualROI(`${addCommasAndDecimals(simpleROI.toFixed(2))}%`);
+        setCompoundAnnualROI(`${addCommasAndDecimals(compoundROI.toFixed(2))}%`);
     };
 
     const resetInputs = () => {
@@ -55,6 +55,32 @@ const ROICalculator = () => {
         setReturnOfInvestment('');
         setSimpleAnnualROI('');
         setCompoundAnnualROI('');
+    };
+
+    const handleChangeTerm = (e) => {
+        const input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        setTerm(input.slice(0, 4)); // Limit to 4 digits
+    };
+
+    const handleChangeAmountInvested = (e) => {
+        const input = e.target.value.replace(/[^\d.]/g, ''); // Remove non-numeric and non-decimal characters
+        setAmountInvested(addCommasAndDecimals(input));
+    };
+
+    const handleChangeAmountReturned = (e) => {
+        const input = e.target.value.replace(/[^\d.]/g, ''); // Remove non-numeric and non-decimal characters
+        setAmountReturned(addCommasAndDecimals(input));
+    };
+
+    const addCommasAndDecimals = (value) => {
+        if (typeof value === 'string') {
+            const parts = value.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
+            return parts.join('.'); // Combine integer and decimal parts
+        } else {
+            // If the value is not a string, return it as is
+            return value;
+        }
     };
 
     return (
@@ -72,10 +98,8 @@ const ROICalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={amountInvested}
-                            onChange={(e) => {
-                                const input = e.target.value.replace(/\D/g, '');
-                                setAmountInvested(input);
-                            }}
+                            onChange={handleChangeAmountInvested}
+                            inputMode='numeric'
                         />
                     </div>
                     <div className="input-group mb-3">
@@ -84,10 +108,8 @@ const ROICalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={amountReturned}
-                            onChange={(e) => {
-                                const input = e.target.value.replace(/\D/g, '');
-                                setAmountReturned(input);
-                            }}
+                            onChange={handleChangeAmountReturned}
+                            inputMode='numeric'
                         />
                     </div>
                     <div className="input-group mb-3">
@@ -97,10 +119,8 @@ const ROICalculator = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Enter Value"
                             value={term}
-                            onChange={(e) => {
-                                const input = e.target.value.replace(/\D/g, '');
-                                setTerm(input);
-                            }}
+                            onChange={handleChangeTerm}
+                            inputMode='numeric'
                         />
                     </div>
                     {termError && (
@@ -160,3 +180,4 @@ const ROICalculator = () => {
 };
 
 export default ROICalculator;
+

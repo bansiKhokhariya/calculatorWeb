@@ -4,6 +4,7 @@ import jsPDF from 'jspdf';
 
 const AmortizationModal = ({ show, handleClose, presentValue, payments, futureValue, periods, annualRate }) => {
     const [amortizationSchedule, setAmortizationSchedule] = useState([]);
+    var selectedTheme = localStorage.getItem('selectedTheme');
 
     useEffect(() => {
         const calculateAmortization = () => {
@@ -75,11 +76,14 @@ const AmortizationModal = ({ show, handleClose, presentValue, payments, futureVa
 
     return (
         <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
-            <Modal.Header closeButton>
+            <Modal.Header >
                 <Modal.Title>Amortization Schedule</Modal.Title>
+                <button className="btn card-text" onClick={handleClose}>
+                    <span aria-hidden="true"><h1>&times;</h1></span>
+                </button>
             </Modal.Header>
             <Modal.Body>
-                <Table id="amortizationTable" striped bordered hover>
+                <Table id="amortizationTable" className={`${selectedTheme == 'light' ? 'table-light' : 'table-dark'}`} striped bordered hover>
                     <thead>
                         <tr>
                             <th>Period</th>

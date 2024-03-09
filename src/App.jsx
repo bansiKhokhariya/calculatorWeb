@@ -31,9 +31,7 @@ const App = () => {
       <Router>
         <Routes>
 
-
           <Route path="/" element={<Home />}></Route>
-
 
           {/* general */}
           <Route path="/calculator/percentageCalculator" element={<Calculator />}></Route>

@@ -44,6 +44,10 @@ const SidebarToggle = ({ openHistoryModal }) => {
         }
     }, [selectedTheme]);
 
+    const handleDrawerClose = () => {
+        setVisible(false);
+    };
+
     return (
         <nav className="navbar bg-light navbar-expand-xl navbar-light sticky-top">
             <div className="container-fluid">
@@ -102,42 +106,42 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                         <div id="collapseOne" className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                             <div className="accordion" id="accordionExample">
                                                 <div className="card border-0">
-                                                    <Link className='redirect-link' to={'/'} >
+                                                    <Link className='redirect-link' to={'/'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary" >
                                                             <div>
                                                                 &nbsp; &nbsp;  Calculator
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
+                                                    <Link className='redirect-link' to={'/calculator/percentageCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary" role="button">
                                                             <div>
                                                                 &nbsp; &nbsp;  Percentage Calculator
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/calculator/bmiCalculator'}>
+                                                    <Link className='redirect-link' to={'/calculator/bmiCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  BMI Calculator
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/calculator/numberToWordConverter'}>
+                                                    <Link className='redirect-link' to={'/calculator/numberToWordConverter'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Number To Word Converter
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/calculator/unitConverter'}>
+                                                    <Link className='redirect-link' to={'/calculator/unitConverter'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Unit Converter
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/calculator/cashCounter'}>
+                                                    <Link className='redirect-link' to={'/calculator/cashCounter'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Cash Counter
@@ -157,7 +161,7 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                             <div className="accordion" id="accordionExample">
                                                 <div className="card border-0">
-                                                    <Link className='redirect-link' to={'/loanMortgage/loanCalculator'}>
+                                                    <Link className='redirect-link' to={'/loanMortgage/loanCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Loan Calculator
@@ -177,28 +181,28 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                         <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                             <div className="accordion" id="accordionExample">
                                                 <div className="card border-0">
-                                                    <Link className='redirect-link' to={'/financeAndInvestment/currencyConverter'}>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/currencyConverter'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Currency Converter
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/financeAndInvestment/roiCalculator'}>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/roiCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Return on Investment (ROI) Calculator
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/financeAndInvestment/tvmCalculator'}>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/tvmCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  TVM Calculator
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/financeAndInvestment/tvmAdvancedCalculator'}>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/tvmAdvancedCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  TVM Advanced Calculator
@@ -239,28 +243,28 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                         <div id="collapseSeven" className="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                                             <div className="accordion" id="accordionExample">
                                                 <div className="card border-0">
-                                                    <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'}>
+                                                    <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Duration Between Two Dates
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/dateAndTime/dateAddSubtract'}>
+                                                    <Link className='redirect-link' to={'/dateAndTime/dateAddSubtract'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Date Add And Subtract
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/dateAndTime/weekDayCalculator'}>
+                                                    <Link className='redirect-link' to={'/dateAndTime/weekDayCalculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  WeekDay Calculator
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link className='redirect-link' to={'/dateAndTime/ageCaculator'}>
+                                                    <Link className='redirect-link' to={'/dateAndTime/ageCaculator'} onClick={handleDrawerClose}>
                                                         <div className="card-header bg-light text-primary">
                                                             <div>
                                                                 &nbsp; &nbsp;  Age Caculator

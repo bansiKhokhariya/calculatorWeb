@@ -16,7 +16,7 @@ const ROICalculator = () => {
         const invested = parseFloat(amountInvested.replace(/,/g, ''));
         const returned = parseFloat(amountReturned.replace(/,/g, ''));
         const years = parseFloat(term);
-
+    
         // Check if term input is empty or not a number
         if (isNaN(years) || years <= 0) {
             setTermError('Please enter a valid positive number for the term (year).');
@@ -24,20 +24,19 @@ const ROICalculator = () => {
         } else {
             setTermError('');
         }
-
+    
         // Calculate gain or loss
         const gainLoss = returned - invested;
-
+    
         // Calculate return on investment
         const roi = ((returned - invested) / invested) * 100;
-
+    
         // Calculate simple annual ROI
         const simpleROI = roi / years;
-
+    
         // Calculate compound annual ROI (assuming annually compounded)
-        const compoundROI = ((1 + roi / 100) ** (1 / years) - 1) * 100;
-
-
+        const compoundROI = (Math.pow((1 + roi / 100), (1 / years)) - 1) * 100;
+    
         // Update state with calculated values
         setInvestmentPeriod(`${years} yr`);
         setGainOrLoss(addCommasAndDecimals(gainLoss));
@@ -45,6 +44,7 @@ const ROICalculator = () => {
         setSimpleAnnualROI(`${addCommasAndDecimals(simpleROI.toFixed(2))}%`);
         setCompoundAnnualROI(`${addCommasAndDecimals(compoundROI.toFixed(2))}%`);
     };
+    
 
     const resetInputs = () => {
         setAmountInvested('');

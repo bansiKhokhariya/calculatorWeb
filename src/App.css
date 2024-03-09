@@ -35,7 +35,7 @@
 
 /* sidebar menu css */
 .sidebar-menu {
-    width: 50%;
+    width: 100%;
     /* height: 95vh; */
 }
 
@@ -71,7 +71,10 @@
     width: 50%;
 }
 
-
+.fullWidthDropdown{
+    width: 100%;
+    background-color: red;
+}
 
 @media (max-width:500px) {
     .sidebar-menu {

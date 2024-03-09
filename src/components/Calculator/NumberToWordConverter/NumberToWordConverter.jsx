@@ -24,8 +24,8 @@ const NumberToWordConverter = () => {
         let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
         // Add commas to the input value
         input = input.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        if (input.length > 9) {
-            input = input.slice(0, 9); // Truncate to the first nine digits
+        if (input.length > 11) {
+            input = input.slice(0, 11); // Truncate to the first nine digits
         }
         setNumberValue(input);
         const words = input === '0' ? 'zero' : inWords(input.replace(/,/g, '')); // Remove commas before converting

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { Modal } from "react-bootstrap";
 
 const SidebarToggle = ({ openHistoryModal }) => {
     const [visible, setVisible] = useState(false);
     const [historyButtonShow, setHistoryButtonShow] = useState(false);
-    var selectedTheme = localStorage.getItem('selectedTheme');
-
-    // Check if the current URL is "/"
-    const isRootHome = location.pathname === "/";
-    const navigate = useNavigate()
+    const location = useLocation();
 
     useEffect(() => {
         if (location.pathname === "/financeAndInvestment/tvmAdvancedCalculator" || location.pathname === "/loanMortgage/loanCalculator" || location.pathname === "/" || location.pathname === "/financeAndInvestment/tvmCalculator") {
@@ -20,18 +17,41 @@ const SidebarToggle = ({ openHistoryModal }) => {
         }
     }, [location.pathname]);
 
+    const [show, setShow] = useState(false);
+    const [selectedTheme, setSelectedTheme] = useState('light');
+
+    useEffect(() => {
+        const storedTheme = localStorage.getItem('selectedTheme');
+        if (storedTheme) {
+            setSelectedTheme(storedTheme);
+        }
+    }, []);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const handleThemeSelect = (theme) => {
+        setSelectedTheme(theme);
+        localStorage.setItem('selectedTheme', theme);
+        handleClose();
+    };
+
+    useEffect(() => {
+        if (selectedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    }, [selectedTheme]);
+
     return (
         <nav className="navbar bg-light navbar-expand-xl navbar-light sticky-top">
             <div className="container-fluid">
-                {isRootHome
-                    ?
-                    <button className="btn btn-sm btn-light menu-button" onClick={() => setVisible(true)}><strong>☰</strong></button >
-                    :
-                    <button onClick={() => navigate(-1)} className="btn btn-sm btn-light menu-button" >
-                        <strong>🡨</strong>
-                    </button>
-                }
-                {historyButtonShow ?
+                <button className="btn btn-sm btn-light menu-button" onClick={() => setVisible(true)}>
+                    <strong>☰</strong>
+                </button>
+
+                {historyButtonShow &&
                     <button className="btn btn-sm btn-light" onClick={openHistoryModal}>
                         {selectedTheme === 'light' ? (
                             <svg width="20" height="20" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,34 +78,277 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                 </defs>
                             </svg>
                         )}
-                    </button> : <div></div>
+                    </button>
                 }
+
                 <Offcanvas className="bg-light text-dark" show={visible} onHide={() => setVisible(false)} placement="start">
-                    <Offcanvas.Header closeButton>
+                    <Offcanvas.Header >
                         <h5 className="offcanvas-title">Calculator</h5>
+                        <button className='card-text btn-light' onClick={() => {
+                            setVisible(false)
+                        }} ><strong>⛌</strong></button>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <div className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <Link className='redirect-link text-dark border-bottom' to={'/allCategory'}>
-                                <li className="nav-item nav-link">All by Category</li>
-                            </Link>
-                            <Link className='redirect-link text-dark border-bottom' to={'/setting'}>
-                                <li className="nav-item nav-link">Setting</li>
+                            <div className='mb-4'>
+                                <li className="nav-item nav-link"><strong>All By Category</strong> </li>
+                                <div className="accordion sidebar-menu bg-light card-text" id="accordionExample">
+                                    <div className="card">
+                                        <div className="card-header bg-light card-text " id="headingOne">
+                                            <div role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                ▼ General
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div className="accordion" id="accordionExample">
+                                                <div className="card border-0">
+                                                    <Link className='redirect-link' to={'/'} >
+                                                        <div className="card-header bg-light text-primary" >
+                                                            <div>
+                                                                &nbsp; &nbsp;  Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/calculator/percentageCalculator'}>
+                                                        <div className="card-header bg-light text-primary" role="button">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Percentage Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/calculator/bmiCalculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  BMI Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/calculator/numberToWordConverter'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Number To Word Converter
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/calculator/unitConverter'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Unit Converter
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/calculator/cashCounter'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Cash Counter
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <div className="card-header bg-light card-text" id="headingTwo">
+                                            <div role="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                ▼ Loan And Mortgage
+                                            </div>
+                                        </div>
+                                        <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                            <div className="accordion" id="accordionExample">
+                                                <div className="card border-0">
+                                                    <Link className='redirect-link' to={'/loanMortgage/loanCalculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Loan Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <div className="card-header bg-light card-text" id="headingThree">
+                                            <div role="button" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree" aria-controls="collapseThree">
+                                                ▼  Finance and Investment
+                                            </div>
+                                        </div>
+                                        <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                            <div className="accordion" id="accordionExample">
+                                                <div className="card border-0">
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/currencyConverter'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Currency Converter
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/roiCalculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Return on Investment (ROI) Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/tvmCalculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  TVM Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/tvmAdvancedCalculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  TVM Advanced Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <div role="button" className="card-header bg-light card-text" id="headingFour">
+                                            <div data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                ▼ Retirement
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <div className="card-header bg-light card-text" id="headingFive">
+                                            <div role="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                                ▼ Bond
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <div className="card-header bg-light card-text" id="headingSix">
+                                            <div role="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                                                ▼ Business Accounting
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <div className="card-header bg-light card-text" id="headingSeven">
+                                            <div role="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                                                ▼  Date and Time
+                                            </div>
+                                        </div>
+                                        <div id="collapseSeven" className="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                                            <div className="accordion" id="accordionExample">
+                                                <div className="card border-0">
+                                                    <Link className='redirect-link' to={'/dateAndTime/durationBetweenTwoDates'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Duration Between Two Dates
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/dateAndTime/dateAddSubtract'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Date Add And Subtract
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/dateAndTime/weekDayCalculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  WeekDay Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/dateAndTime/ageCaculator'}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Age Caculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='mb-4'>
+                                <li className="nav-item nav-link"><strong>Setting</strong> </li>
+                                <div className="accordion sidebar-menu bg-light">
+                                    <div className="card" role="button">
+                                        <div className="card-header bg-light card-text">
+                                            <div onClick={handleShow} className='d-flex justify-content-between'>
+                                                Theme
+                                                <div className='setting-inner-menu-value'>
+                                                    {selectedTheme || 'Select Theme'}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card" role="button">
+                                        <div className="card-header bg-light card-text">
+                                            <div className='d-flex justify-content-between'>
+                                                Currency Format
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card" role="button">
+                                        <div className="card-header bg-light card-text">
+                                            <div className='d-flex justify-content-between'>
+                                                Set up Calculator Shortcut
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card" role="button">
+                                        <div className="card-header bg-light card-text">
+                                            <div className='d-flex justify-content-between'>
+                                                Confirm before exit app
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <Link className='redirect-link text-dark border-bottom' to={'/'}>
+                                <li className="nav-item nav-link"> <strong>Shortcut Calculator</strong></li>
                             </Link>
                             <Link className='redirect-link text-dark border-bottom' to={'/'}>
-                                <li className="nav-item nav-link">Shortcut Calculator</li>
-                            </Link>
-                            <Link className='redirect-link text-dark border-bottom' to={'/'}>
-                                <li className="nav-item nav-link">About</li>
+                                <li className="nav-item nav-link"> <strong>About</strong></li>
                             </Link>
                         </div>
                     </Offcanvas.Body>
                 </Offcanvas>
+
+                <Modal show={show} onHide={handleClose} dialogClassName="modal-dialog-centered  bd-example-modal-sm">
+                    <Modal.Header >
+                        <Modal.Title>Theme</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className='setting-inner-menu'>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="light"
+                                    checked={selectedTheme === 'light'}
+                                    onChange={() => handleThemeSelect('light')}
+                                />
+                                &nbsp;  Light Mode
+                            </label>
+                            <label className='ms-5'>
+                                <input
+                                    type="radio"
+                                    value="dark"
+                                    checked={selectedTheme === 'dark'}
+                                    onChange={() => handleThemeSelect('dark')}
+                                />
+                                &nbsp; Dark Mode
+                            </label>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </div>
         </nav>
     );
 }
 
 export default SidebarToggle;
-
-

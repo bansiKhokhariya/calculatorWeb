@@ -10,32 +10,33 @@ const PercentageCalculator = () => {
     const [result2, setResult2] = useState('');
 
     const addCommas = (amount) => {
-        return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const parts = amount.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join('.');
     };
 
     const handleChangeOriginalValue1 = (event) => {
-        const { value } = event.target;
-        if (/^\d*\.?\d*$/.test(value)) {
-            setOriginalValue1(addCommas(value));
-        }
+        let { value } = event.target;
+        // Strip out non-numeric characters
+        value = value.replace(/[^0-9.]/g, '');
+        setOriginalValue1(addCommas(value));
     };
 
     const handleChangePercentage1 = (event) => {
-        const { value } = event.target;
-        if (/^\d*\.?\d*$/.test(value)) {
-            setPercentage1(addCommas(value));
-        }
+        let { value } = event.target;
+        // Strip out non-numeric characters
+        value = value.replace(/[^0-9.]/g, '');
+        setPercentage1(addCommas(value));
     };
 
     const calculatePercentage1 = () => {
         const originalValue = originalValue1.trim().replace(/,/g, "");
-        
+
         if (originalValue !== '' && percentage1.trim() !== '') {
             const resultValue = (parseFloat(originalValue) * parseFloat(percentage1)) / 100;
             setResult1(resultValue.toFixed(2));
         }
     };
-    
 
     const resetInputs1 = () => {
         setOriginalValue1('');
@@ -44,30 +45,29 @@ const PercentageCalculator = () => {
     };
 
     const handleChangeOriginalValue2 = (event) => {
-        const { value } = event.target;
-        if (/^\d*\.?\d*$/.test(value)) {
-            setOriginalValue2(value);
-        }
+        let { value } = event.target;
+        // Strip out non-numeric characters
+        value = value.replace(/[^0-9.]/g, '');
+        setOriginalValue2(addCommas(value));
     };
 
     const handleChangePercentage2 = (event) => {
-        const { value } = event.target;
-        if (/^\d*\.?\d*$/.test(value)) {
-            setPercentage2(value);
-        }
+        let { value } = event.target;
+        // Strip out non-numeric characters
+        value = value.replace(/[^0-9.]/g, '');
+        setPercentage2(addCommas(value));
     };
 
     const calculatePercentage2 = () => {
         // Parse originalValue2 and percentage2 as numbers
         const originalValue = parseFloat(originalValue2.trim());
         const percentage = parseFloat(percentage2.trim());
-        
+
         if (!isNaN(originalValue) && !isNaN(percentage) && percentage !== 0) {
             const resultValue = (originalValue / percentage) * 100;
             setResult2(resultValue.toFixed(2));
         }
     };
-    
 
     const resetInputs2 = () => {
         setOriginalValue2('');

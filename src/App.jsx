@@ -1,8 +1,6 @@
 import { React, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import Home from './components/Home/Home'
-import Setting from './components/Setting/Setting'
-import AllCategory from './components/AllCategory/AllCategory'
 import Calculator from './components/Calculator/Calculator'
 import DateAndTime from './components/DateAndTime/DateAndTime'
 import FinanceAndInvestment from './components/FinanceAndInvestment/FinanceAndInvestment'
@@ -36,12 +34,6 @@ const App = () => {
 
           <Route path="/" element={<Home />}></Route>
 
-          {/***************  setting section ***************/}
-          <Route path="/setting" element={<Setting />}></Route>
-
-
-          {/***************  category section ***************/}
-          <Route path="/allCategory" element={<AllCategory />}></Route>
 
           {/* general */}
           <Route path="/calculator/percentageCalculator" element={<Calculator />}></Route>

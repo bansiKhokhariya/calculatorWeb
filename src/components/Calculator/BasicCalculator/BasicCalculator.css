@@ -58,11 +58,10 @@
     cursor: pointer;
 }
 
-.calculator-button:hover {
+.calculator-button:active {
     box-shadow: -3px -3px 0.2rem 0 black,
         0px -3px 0 0 rgb(109, 109, 109) inset,
         0px 2px 0 0 rgb(70, 70, 70) inset;
-    ;
 }
 
 
@@ -84,7 +83,7 @@
         0px 3px 0 0 #fff inset;
 }
 
-.calculator-button-gray:hover {
+.calculator-button-gray:active {
     box-shadow: -3px -3px 0.2rem 0 black,
         0px -5px 0 0 #fff inset,
         0px 3px 0 0 #fff inset;
@@ -109,7 +108,7 @@
         0px 3px 0 0 rgba(255, 255, 255, 0.3) inset;
 }
 
-.calculator-button-green:hover {
+.calculator-button-green:active {
     box-shadow: -3px -3px 0.2rem 0 black,
         0px -5px 0 0 rgba(255, 255, 255, 0.3) inset,
         0px 3px 0 0 rgba(255, 255, 255, 0.3) inset;

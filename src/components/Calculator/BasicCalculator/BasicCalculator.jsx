@@ -109,7 +109,7 @@ const BasicCalculator = (props) => {
     };
 
     const handleDeleteHistory = () => {
-        localStorage.removeItem('savedResults');
+        localStorage.removeItem('basicCalculatorHistory');
         setSavedResults([]);
     };
 

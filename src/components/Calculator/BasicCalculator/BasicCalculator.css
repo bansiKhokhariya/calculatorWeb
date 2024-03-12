@@ -4,13 +4,9 @@
     src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff") format("woff"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7") format("svg");
 }
 
-.basic-main-screen {
-    /* padding: 10px; */
-}
-
 .calculator-container {
     position: relative;
-    width: 430px;
+    width: 100%;
     height: 575px;
     border-radius: 20px;
     background: #272727;
@@ -19,6 +15,7 @@
     flex-direction: column;
     gap: 10px;
     overflow: hidden;
+    padding: 0 10px 10px 10px;
 }
 
 .calculator-textArea-section {
@@ -117,8 +114,6 @@
         0px -5px 0 0 rgba(255, 255, 255, 0.3) inset,
         0px 3px 0 0 rgba(255, 255, 255, 0.3) inset;
 }
-
-
 
 .button-sidearea {
     padding-left: 6px;
@@ -286,6 +281,15 @@
     text-align: right;
     color: #FFFFFF;
     word-wrap: break-word;
+}
+
+@media (max-width:500px) {
+    .mypage {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+    }
 }
 
 @media (max-width:430px) {

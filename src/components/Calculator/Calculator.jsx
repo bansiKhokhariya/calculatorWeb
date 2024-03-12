@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import SidebarToogle from '../SidebarToogle/SidebarToogle'
 import BasicCalculator from './BasicCalculator/BasicCalculator'
@@ -32,31 +32,42 @@ const Calculator = () => {
 
     return (
         <>
-            <SidebarToogle openHistoryModal={openHistoryModal} />
 
-            {location.pathname == '/' && (
-                <BasicCalculator historyName={historyName} isModalOpen={isModalOpen} closeModal={closeModal} />
-            )}
 
-            {location.pathname == '/calculator/percentageCalculator' && (
-                <PercentageCalculator />
-            )}
 
-            {location.pathname == '/calculator/bmiCalculator' && (
-                <BMICalculator />
-            )}
+            {location.pathname == '/' ? <div className='mypage'>
+                <SidebarToogle openHistoryModal={openHistoryModal} />
 
-            {location.pathname == '/calculator/numberToWordConverter' && (
-                <NumberToWordConverter />
-            )}
+                {location.pathname == '/' && (
+                    <BasicCalculator historyName={historyName} isModalOpen={isModalOpen} closeModal={closeModal} />
+                )}
 
-            {location.pathname == '/calculator/unitConverter' && (
-                <UnitConverter />
-            )}
+            </div> :
+                <div>
+                    <SidebarToogle openHistoryModal={openHistoryModal} />
 
-            {location.pathname == '/calculator/cashCounter' && (
-                <CashCounter />
-            )}
+                    {location.pathname == '/calculator/percentageCalculator' && (
+                        <PercentageCalculator />
+                    )}
+
+                    {location.pathname == '/calculator/bmiCalculator' && (
+                        <BMICalculator />
+                    )}
+
+                    {location.pathname == '/calculator/numberToWordConverter' && (
+                        <NumberToWordConverter />
+                    )}
+
+                    {location.pathname == '/calculator/unitConverter' && (
+                        <UnitConverter />
+                    )}
+
+                    {location.pathname == '/calculator/cashCounter' && (
+                        <CashCounter />
+                    )}
+                </div>
+            }
+
 
         </>
     )

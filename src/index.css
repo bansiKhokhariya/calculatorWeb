@@ -39,6 +39,7 @@ html {
 
 body {
     transition: .35s all ease-out;
+    height: 100%;
 }
 
 ::-webkit-calendar-picker-indicator {

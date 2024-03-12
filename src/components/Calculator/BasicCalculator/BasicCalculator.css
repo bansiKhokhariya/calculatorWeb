@@ -13,7 +13,6 @@
     width: 430px;
     height: 575px;
     border-radius: 20px;
-    box-shadow: 0px 100px 250px 0px #00000080;
     background: #272727;
     display: flex;
     align-items: center;
@@ -32,7 +31,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px;
-
 }
 
 .calculator-button-area {
@@ -44,7 +42,6 @@
     border-radius: 5px;
     display: flex;
 }
-
 
 /* normal button */
 .calculator-button {
@@ -250,7 +247,6 @@
     background: #272727;
     padding: 0px 20px;
     scrollbar-width: none;
-    /* For Firefox */
 }
 
 .drawer.open {
@@ -291,7 +287,6 @@
     color: #FFFFFF;
     word-wrap: break-word;
 }
-
 
 @media (max-width:430px) {
 
@@ -385,7 +380,6 @@
         font-size: 8px;
     }
 }
-
 
 @media (max-width:350px) {
 

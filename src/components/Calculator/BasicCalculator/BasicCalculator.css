@@ -297,6 +297,19 @@
     }
 }
 
+/* Media query for iPhones X, XS, 11 Pro, and 12 Pro */
+@media only screen and (max-device-width: 375px) and (max-device-height: 812px),
+    only screen and (max-device-width: 812px) and (max-device-height: 375px) {
+    .mypage {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+        overflow-y: hidden; 
+    }
+}
+
+
 @media (max-width:427px) {
     .calculator-button-area {
         width: 395px;
@@ -465,141 +478,14 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* @media (max-width:395px) {
-    .calculator-button-area {
-        width: 350px;
+@media (max-width:299px) {
+    .bottom-small-text {
+        margin-top: -2px;
+        margin-bottom: 5px;
     }
-
-    .calculator-button,
-    .calculator-button-gray,
-    .calculator-button-green {
-        width: 56px;
-        height: 56px;
-    }
-
-    .last-button {
-        margin-left: 64px;
-        margin-top: -65px;
-    }
-
-    .long-button {
-        height: 120px;
-    }
-
-    .history-area {
-        width: 200px;
-    }
-
-    .clear-button {
-        margin-left: -130px;
-    }
-
-    .left-side-inner-row {
-        padding: 8px 6px;
-    }
-
-    .right-side-inner-row {
-        padding: 8px 2px;
-    }
-
-    .right-side-cal {
-        padding: 4px 4px 4px -2px;
-    }
-
-    .social-button-svg-plus-minues {
-        width: 20px;
-    }
-} */
-
-
-
-
-
-
-/* @media (max-width:320px) {
-
-    .calculator-textArea-section {
-        height: 100px;
-    }
-    .calculator-inputarea {
-        height: 90px;   
-    }
-
-    .calculator-input {
-        margin-top: -10px;
-    }
-
     .logo-section {
         right: 2%;
     }
-
-    .calculator-button-area {
-        width: 290px;
-    }
-
-    .calculator-button,
-    .calculator-button-gray,
-    .calculator-button-green {
-        width: 44px;
-        height: 44px;
-    }
-
-    .last-button {
-        margin-left: 52px;
-        margin-top: -52px;
-    }
-
-    .long-button {
-        height: 96px;
-    }
-
-    .button-text-size {
-        font-size: 18px;
-    }
-
-    .social-button-svg {
-        width: 18px;
-        height: 10px;
-    }
-
-    .bottom-small-text {
-        margin-top: -5px;
-        margin-bottom: 10px;
-        font-size: 8px;
-    }
-
-    .left-side-cal {
-        border-right: 2px solid #000000;
-    }
-
-    .right-side-inner-row,
-    .left-side-inner-row {
-        border-bottom: 2px solid black;
-    }
-
-    .history-area {
-        width: 150px;
-    }
-
-    .clear-button {
-        margin-left: -120px;
-    }
-
-}*/
-
-@media (max-width:299px) {
     .calculator-button-area {
         width: 270px;
     }

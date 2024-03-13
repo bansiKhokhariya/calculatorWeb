@@ -216,7 +216,7 @@ const BasicCalculator = (props) => {
                                 <input className='calculator-input-answer' value={resultCalculation} readOnly type="text" />
                             </div>
                         </div>
-                        <div className='d-flex flex-column align-items-center'>
+                        <div className='d-flex flex-column align-items-center logo-section'>
                             <div className='d-flex flex-column'>
                                 <svg className='ms-3 hk-logo' width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M15.3773 0.931263C15.3773 0.572306 15.3773 0.392827 15.4888 0.281313C15.6003 0.1698 15.7798 0.1698 16.1388 0.1698H22.0108C22.3697 0.1698 22.5492 0.1698 22.6607 0.281313C22.7722 0.392827 22.7722 0.572306 22.7722 0.931263V12.6436C22.7722 12.7915 22.7722 12.8654 22.7459 12.9325C22.7195 12.9997 22.6691 13.0538 22.5685 13.1621L17.4071 18.7145L13.0263 23.4544C12.9149 23.5749 12.8592 23.6352 12.7862 23.6671C12.7133 23.699 12.6312 23.699 12.4671 23.699H8.74372C8.38476 23.699 8.20528 23.699 8.09377 23.5875C7.98226 23.476 7.98226 23.2965 7.98226 22.9376L7.98226 17.0655C7.98226 16.7066 7.98226 16.5271 8.09377 16.4156C8.20528 16.3041 8.38476 16.3041 8.74372 16.3041L14.6158 16.3041C14.9748 16.3041 15.1543 16.3041 15.2658 16.1926C15.3773 16.081 15.3773 15.9016 15.3773 15.5426V0.931263ZM0.587219 8.7744C0.587219 8.41544 0.587219 8.23596 0.698733 8.12445C0.810247 8.01293 0.989725 8.01293 1.34868 8.01293H7.2207C7.57966 8.01293 7.75914 8.01293 7.87065 8.12445C7.98217 8.23596 7.98217 8.41544 7.98217 8.7744V31.3411C7.98217 31.7 7.98217 31.8795 7.87065 31.991C7.75914 32.1025 7.57966 32.1025 7.2207 32.1025H1.34868C0.989725 32.1025 0.810247 32.1025 0.698733 31.991C0.587219 31.8795 0.587219 31.7 0.587219 31.3411V8.7744Z" fill="#007B42" />
@@ -261,7 +261,7 @@ const BasicCalculator = (props) => {
                             </div>
                             <div className='right-side-inner-row-last'>
                                 <div className='d-flex flex-column'>
-                                    <div className='d-flex'>
+                                    <div className='d-flex '>
                                         <div onClick={() => handleClick('7')} className='calculator-button me-2'>
                                             <div className='button-text-size'>
                                                 7
@@ -272,7 +272,7 @@ const BasicCalculator = (props) => {
                                                 8
                                             </div>
                                         </div>
-                                        <div onClick={() => handleClick('9')} className='calculator-button me-2'>
+                                        <div onClick={() => handleClick('9')} className='calculator-button'>
                                             <div className='button-text-size'>
                                                 9
                                             </div>
@@ -289,7 +289,7 @@ const BasicCalculator = (props) => {
                                                 5
                                             </div>
                                         </div>
-                                        <div onClick={() => handleClick('6')} className='calculator-button me-2'>
+                                        <div onClick={() => handleClick('6')} className='calculator-button'>
                                             <div className='button-text-size'>
                                                 6
                                             </div>
@@ -306,7 +306,7 @@ const BasicCalculator = (props) => {
                                                 2
                                             </div>
                                         </div>
-                                        <div onClick={() => handleClick('3')} className='calculator-button me-2'>
+                                        <div onClick={() => handleClick('3')} className='calculator-button'>
                                             <div className='button-text-size'>
                                                 3
                                             </div>
@@ -323,7 +323,7 @@ const BasicCalculator = (props) => {
                                                 00
                                             </div>
                                         </div>
-                                        <div onClick={() => handleClick('.')} className='calculator-button me-2'>
+                                        <div onClick={() => handleClick('.')} className='calculator-button'>
                                             <div className='button-text-size'>
                                                 •
                                             </div>
@@ -345,7 +345,7 @@ const BasicCalculator = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div onClick={handleAC} className='calculator-button-green me-2' style={{ background: "#00A42B" }}>
+                                    <div onClick={handleAC} className='calculator-button-green' style={{ background: "#00A42B" }}>
                                         <div className='button-text-size'>
                                             AC
                                         </div>
@@ -359,9 +359,9 @@ const BasicCalculator = (props) => {
                                             <strong>÷</strong>
                                         </div>
                                     </div>
-                                    <div onClick={() => handleSquareRoot()} className='calculator-button me-2'>
+                                    <div onClick={() => handleSquareRoot()} className='calculator-button'>
                                         <div className='button-text-size'>
-                                            <svg width="34" height="19" viewBox="0 0 34 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className='social-button-svg-plus-minues' width="34" height="19" viewBox="0 0 34 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2 11L6.5 16L12.5 2H34" stroke="white" strokeWidth="3" />
                                             </svg>
                                         </div>
@@ -373,7 +373,7 @@ const BasicCalculator = (props) => {
                                             <strong> ×</strong>
                                         </div>
                                     </div>
-                                    <div onClick={() => handleClick('%')} className='calculator-button me-2'>
+                                    <div onClick={() => handleClick('%')} className='calculator-button'>
                                         <div className='button-text-size'>
                                             <strong> %</strong>
                                         </div>
@@ -385,14 +385,14 @@ const BasicCalculator = (props) => {
                                             <strong> +</strong>
                                         </div>
                                     </div>
-                                    <div onClick={() => handleClick('-')} className='calculator-button me-2'>
+                                    <div onClick={() => handleClick('-')} className='calculator-button'>
                                         <div className='button-text-size'>
                                             <strong> −</strong>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='d-flex mt-2'>
-                                    <div onClick={handleEqual} className='calculator-button me-2 last-button'>
+                                    <div onClick={handleEqual} className='calculator-button last-button'>
                                         <div className='button-text-size'>
                                             <strong> =</strong>
                                         </div>

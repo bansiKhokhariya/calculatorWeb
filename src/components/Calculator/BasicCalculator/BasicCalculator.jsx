@@ -56,6 +56,12 @@ const BasicCalculator = (props) => {
 
     const handleClick = (button) => {
         setResultCalculation('')
+
+        if (button === '+/-') {
+            changeSign();
+            return; // Exit early after toggling the sign
+        }
+
         if (equalPressed) {
             setInputValue(button);
             setEqualPressed(false);
@@ -69,6 +75,37 @@ const BasicCalculator = (props) => {
         }, 50); // Adjust the delay as needed
     };
 
+    // function changeSign() {
+    //     // Get the index of the last operator
+    //     const lastOperatorIndex = inputValue.search(/[-+*/]/g);
+    
+    //     // If there's an operator before the last number, toggle its sign
+    //     if (lastOperatorIndex !== -1) {
+    //         const lastNumber = inputValue.substring(lastOperatorIndex + 1);
+    //         console.log(lastNumber.substring(0, 1));
+    //         if (lastNumber.substring(0, 1) === "-") {
+    //             setInputValue(inputValue.substring(0, lastOperatorIndex + 1) + "+" + lastNumber.substring(1));
+    //         } else {
+    //             setInputValue(inputValue.substring(0, lastOperatorIndex + 1) + "-" + lastNumber);
+    //         }
+    //     } else {
+    //         // If there's no operator, toggle the sign of the entire input value
+    //         if (inputValue.substring(0, 1) === "-") {
+    //             setInputValue(inputValue.substring(1));
+    //         } else {
+    //             setInputValue("-" + inputValue);
+    //         }
+    //     }
+    // }
+
+    function changeSign() {
+        if (inputValue.substring(0, 1) === "-") {
+            setInputValue("+" + inputValue.substring(1));
+        } else {
+            setInputValue("-" + inputValue);
+        }
+    }
+    
     const handleDelete = () => {
         setInputValue(inputValue.slice(0, -1));
     };
@@ -239,7 +276,7 @@ const BasicCalculator = (props) => {
                                                 CE
                                             </div>
                                         </div>
-                                        <div className='calculator-button-gray me-2' style={{ background: "#CBCBCB" }}>
+                                        <div onClick={() => handleClick('+/-')} className='calculator-button-gray me-2' style={{ background: "#CBCBCB" }}>
                                             <div className='text-white'>
                                                 <svg className='social-button-svg-plus-minues' width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fillRule="evenodd" clipRule="evenodd" d="M9.299 27.4808L24.299 1.5L21.7009 0L6.70093 25.9808L9.299 27.4808ZM4.5 9.23076V13.7308H7.5V9.23076H12V6.23076H7.5V1.73076H4.5V6.23076H0V9.23076H4.5ZM32 21.7308H20V18.7308H32V21.7308Z" fill="black" />
@@ -404,7 +441,7 @@ const BasicCalculator = (props) => {
                     <div className={`drawer ${drawerOpen ? 'open' : ''}`}>
                         <div className='text-center'>
                             <svg width="44" height="5" viewBox="0 0 44 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 2.5H42" stroke="white" stroke-width="4" stroke-linecap="round" />
+                                <path d="M2 2.5H42" stroke="white" strokeWidth="4" strokeLinecap="round" />
                             </svg>
                         </div>
                         <div className='d-flex justify-content-between'>

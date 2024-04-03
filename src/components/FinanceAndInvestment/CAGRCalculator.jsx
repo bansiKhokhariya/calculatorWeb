@@ -85,4 +85,4 @@ const CAGRCalculator = () => {
     );
 };
 
-export default CAGRCalculator;
+export default CAGRCalculator; 

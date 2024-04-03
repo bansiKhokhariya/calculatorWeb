@@ -13,10 +13,10 @@ const ROICalculator = () => {
 
     const calculateROI = () => {
         // Convert input values to numbers
-        const invested = parseFloat(amountInvested.replace(/,/g, ''));
-        const returned = parseFloat(amountReturned.replace(/,/g, ''));
+        const invested = parseFloat(amountInvested);
+        const returned = parseFloat(amountReturned);
         const years = parseFloat(term);
-    
+
         // Check if term input is empty or not a number
         if (isNaN(years) || years <= 0) {
             setTermError('Please enter a valid positive number for the term (year).');
@@ -24,27 +24,26 @@ const ROICalculator = () => {
         } else {
             setTermError('');
         }
-    
+
         // Calculate gain or loss
         const gainLoss = returned - invested;
-    
+
         // Calculate return on investment
         const roi = ((returned - invested) / invested) * 100;
-    
+
         // Calculate simple annual ROI
         const simpleROI = roi / years;
-    
+
         // Calculate compound annual ROI (assuming annually compounded)
         const compoundROI = (Math.pow((1 + roi / 100), (1 / years)) - 1) * 100;
-    
+
         // Update state with calculated values
         setInvestmentPeriod(`${years} yr`);
-        setGainOrLoss(addCommasAndDecimals(gainLoss));
-        setReturnOfInvestment(`${addCommasAndDecimals(roi.toFixed(2))}%`);
-        setSimpleAnnualROI(`${addCommasAndDecimals(simpleROI.toFixed(2))}%`);
-        setCompoundAnnualROI(`${addCommasAndDecimals(compoundROI.toFixed(2))}%`);
+        setGainOrLoss((gainLoss));
+        setReturnOfInvestment(`${(roi.toFixed(2))}%`);
+        setSimpleAnnualROI(`${(simpleROI.toFixed(2))}%`);
+        setCompoundAnnualROI(`${(compoundROI.toFixed(2))}%`);
     };
-    
 
     const resetInputs = () => {
         setAmountInvested('');
@@ -58,29 +57,18 @@ const ROICalculator = () => {
     };
 
     const handleChangeTerm = (e) => {
-        const input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-        setTerm(input.slice(0, 4)); // Limit to 4 digits
+        const input = e.target.value;
+        setTerm(input.slice(0, 4));
     };
 
     const handleChangeAmountInvested = (e) => {
-        const input = e.target.value.replace(/[^\d.]/g, ''); // Remove non-numeric and non-decimal characters
-        setAmountInvested(addCommasAndDecimals(input));
+        const input = e.target.value;
+        setAmountInvested((input));
     };
 
     const handleChangeAmountReturned = (e) => {
-        const input = e.target.value.replace(/[^\d.]/g, ''); // Remove non-numeric and non-decimal characters
-        setAmountReturned(addCommasAndDecimals(input));
-    };
-
-    const addCommasAndDecimals = (value) => {
-        if (typeof value === 'string') {
-            const parts = value.split('.');
-            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
-            return parts.join('.'); // Combine integer and decimal parts
-        } else {
-            // If the value is not a string, return it as is
-            return value;
-        }
+        const input = e.target.value;
+        setAmountReturned((input));
     };
 
     return (
@@ -96,7 +84,7 @@ const ROICalculator = () => {
                         <div className="input-group-prepend">
                             <span className="input-group-text">Amount Invested</span>
                         </div>
-                        <input type="text" className="form-control" placeholder="Enter Value"
+                        <input type="number" className="form-control" placeholder="Enter Value"
                             value={amountInvested}
                             onChange={handleChangeAmountInvested}
                             inputMode='numeric'
@@ -106,32 +94,32 @@ const ROICalculator = () => {
                         <div className="input-group-prepend">
                             <span className="input-group-text">Amount Returned</span>
                         </div>
-                        <input type="text" className="form-control" placeholder="Enter Value"
+                        <input type="number" className="form-control" placeholder="Enter Value"
                             value={amountReturned}
                             onChange={handleChangeAmountReturned}
                             inputMode='numeric'
                         />
                     </div>
                     <div className="input-group mb-3">
-                    <div className="input-group">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">Term(Year)</span>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">Term(Year)</span>
+                            </div>
+                            <input type="number" className="form-control" placeholder="Enter Value"
+                                value={term}
+                                onChange={handleChangeTerm}
+                                inputMode='numeric'
+                            />
                         </div>
-                        <input type="text" className="form-control" placeholder="Enter Value"
-                            value={term}
-                            onChange={handleChangeTerm}
-                            inputMode='numeric'
-                        />
-                    </div>
-                    {termError && (
-                        <div className="text-danger mb-3">{termError}</div>
-                    )}
+                        {termError && (
+                            <div className="text-danger mb-3">{termError}</div>
+                        )}
                     </div>
                     <div className='mb-3'>
                         <button className='btn btn-sm btn-success' onClick={calculateROI}>Calculate</button>
                         <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                     </div>
-                    <div >
+                    {investmentPeriod &&
                         <div>
                             <strong>
                                 Investment Period =
@@ -139,32 +127,28 @@ const ROICalculator = () => {
                                     &nbsp; {investmentPeriod}
                                 </span>
                             </strong>
-                        </div>
-                        <div>
+                            <br />
                             <strong>
                                 Gain or loss =
                                 <span className='text-success'>
                                     &nbsp; {gainOrLoss}
                                 </span>
                             </strong>
-                        </div>
-                        <div>
+                            <br />
                             <strong>
                                 Return of Investment =
                                 <span className='text-success'>
                                     &nbsp; {returnOfInvestment}
                                 </span>
                             </strong>
-                        </div>
-                        <div>
+                            <br />
                             <strong>
                                 Simple Annual ROI =
                                 <span className='text-success'>
                                     &nbsp; {simpleAnnualROI}
                                 </span>
                             </strong>
-                        </div>
-                        <div>
+                            <br />
                             <strong>
                                 Compound Annual ROI =
                                 <span className='text-success'>
@@ -172,11 +156,12 @@ const ROICalculator = () => {
                                 </span>
                             </strong>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div >
     );
+
 };
 
 export default ROICalculator;

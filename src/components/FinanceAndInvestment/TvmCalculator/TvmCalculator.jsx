@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Finance from 'tvm-financejs';
 import AmortizationModal from './AmortizationModal';
-import { Dropdown, Modal, Button, Table, Form } from 'react-bootstrap';
+import {  Modal, Button, Table, Form } from 'react-bootstrap';
 
 const TvmCalculator = (props) => {
     const [activeButton, setActiveButton] = useState('PV');
@@ -46,17 +46,6 @@ const TvmCalculator = (props) => {
             PERIOD: parseFloat(periods),
             PMT: parseFloat(payments),
             FV: parseFloat(futureValue)
-        };
-
-
-        const newCalculation = {
-            PV: presentValue,
-            PMT: payments,
-            FV: futureValue,
-            RATE: annualRate,
-            PERIOD: periods,
-            mode: mode === 0 ? 'End' : 'Beginning',
-            timestamp: new Date()
         };
 
         switch (activeButton) {
@@ -270,7 +259,7 @@ const TvmCalculator = (props) => {
                         {savedTVMHistory.length > 0 ? (
                             <>
                                 <button className='btn btn-danger mb-2 btn-sm' onClick={handleDeleteHistory}>Clear All history</button>
-                                <Table className={`${selectedTheme == 'light' ? 'table-light' : 'table-dark'}`} striped bordered hover>
+                                <Table className={`${selectedTheme === 'light' ? 'table-light' : 'table-dark'}`} striped bordered hover>
                                     <thead>
                                         <tr>
                                             <th>PV</th>

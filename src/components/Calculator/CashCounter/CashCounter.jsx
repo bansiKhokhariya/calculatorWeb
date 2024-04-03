@@ -59,7 +59,7 @@ const CashCounter = () => {
                                     <td className='card-text text-center'>{`₹${note}`}</td>
                                     <td>
                                         <div className="input-group mb-3">
-                                            <input type="text" className="form-control" placeholder="Enter Value" value={notes[note].count}
+                                            <input type="number" className="form-control" placeholder="Enter Value" value={notes[note].count}
                                                 onChange={(e) => handleNoteChange(e, note)}  inputMode='numeric'/>
                                         </div>
                                     </td>

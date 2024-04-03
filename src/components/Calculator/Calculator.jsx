@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
-import SidebarToogle from '../SidebarToogle/SidebarToogle'
-import BasicCalculator from './BasicCalculator/BasicCalculator'
-import PercentageCalculator from './PercentageCalculator/PercentageCalculator'
-import BMICalculator from './BMICalculator/BMICalculator'
-import NumberToWordConverter from './NumberToWordConverter/NumberToWordConverter'
-import UnitConverter from './UnitConverter/UnitConverter'
-import CashCounter from './CashCounter/CashCounter'
+import SidebarToogle from '../SidebarToogle/SidebarToogle';
+
+// Lazy load components
+const BasicCalculator = React.lazy(() => import('./BasicCalculator/BasicCalculator'));
+const PercentageCalculator = React.lazy(() => import('./PercentageCalculator/PercentageCalculator'));
+const BMICalculator = React.lazy(() => import('./BMICalculator/BMICalculator'));
+const NumberToWordConverter = React.lazy(() => import('./NumberToWordConverter/NumberToWordConverter'));
+const UnitConverter = React.lazy(() => import('./UnitConverter/UnitConverter'));
+const CashCounter = React.lazy(() => import('./CashCounter/CashCounter'));
 
 const Calculator = () => {
-    const [historyName, setHistoryName] = useState('')
+    const [historyName, setHistoryName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const location = useLocation();
 
     useEffect(() => {
@@ -30,47 +31,32 @@ const Calculator = () => {
         setIsModalOpen(false);
     };
 
+    const renderCalculatorComponent = () => {
+        switch (location.pathname) {
+            case '/calculator/percentageCalculator':
+                return <PercentageCalculator />;
+            case '/calculator/bmiCalculator':
+                return <BMICalculator />;
+            case '/calculator/numberToWordConverter':
+                return <NumberToWordConverter />;
+            case '/calculator/unitConverter':
+                return <UnitConverter />;
+            case '/calculator/cashCounter':
+                return <CashCounter />;
+            default:
+                return <BasicCalculator historyName={historyName} isModalOpen={isModalOpen} closeModal={closeModal} />;
+        }
+    };
+
     return (
-        <>
+        <div>
+            <SidebarToogle openHistoryModal={openHistoryModal} />
+            <Suspense fallback={<div>Loading...</div>}>
+                {renderCalculatorComponent()}
+            </Suspense>
+        </div>
+    );
+};
 
+export default Calculator;
 
-
-            {location.pathname == '/' ? <div className='mypage'>
-                <SidebarToogle openHistoryModal={openHistoryModal} />
-
-                {location.pathname == '/' && (
-                    <BasicCalculator historyName={historyName} isModalOpen={isModalOpen} closeModal={closeModal} />
-                )}
-
-            </div> :
-                <div>
-                    <SidebarToogle openHistoryModal={openHistoryModal} />
-
-                    {location.pathname == '/calculator/percentageCalculator' && (
-                        <PercentageCalculator />
-                    )}
-
-                    {location.pathname == '/calculator/bmiCalculator' && (
-                        <BMICalculator />
-                    )}
-
-                    {location.pathname == '/calculator/numberToWordConverter' && (
-                        <NumberToWordConverter />
-                    )}
-
-                    {location.pathname == '/calculator/unitConverter' && (
-                        <UnitConverter />
-                    )}
-
-                    {location.pathname == '/calculator/cashCounter' && (
-                        <CashCounter />
-                    )}
-                </div>
-            }
-
-
-        </>
-    )
-}
-
-export default Calculator

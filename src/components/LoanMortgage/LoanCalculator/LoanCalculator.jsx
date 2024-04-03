@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Dropdown, Modal, Button, Table } from 'react-bootstrap';
+import { Modal, Button, Table } from 'react-bootstrap';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import FullReportModal from './FullReportModal'
+import FullReportModal from './FullReportModal';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-
 function LoanCalculator(props) {
-
-    const [loanAmount, setLoanAmount] = useState(0);
-    const [interestRate, setInterestRate] = useState(0);
-    const [loanTermYears, setLoanTermYears] = useState(0);
+    const [loanAmount, setLoanAmount] = useState('');
+    const [interestRate, setInterestRate] = useState('');
+    const [loanTermYears, setLoanTermYears] = useState('');
     const [result, setResult] = useState({});
     const [showFullReportModal, setShowFullReportModal] = useState(false);
     const [savedLoans, setSavedLoans] = useState([]);
@@ -21,7 +17,6 @@ function LoanCalculator(props) {
     const [pieChartData, setPieChartData] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
 
-    // Function to retrieve saved loan data from local storage
     useEffect(() => {
         try {
             const savedData = JSON.parse(localStorage.getItem(props.historyName)) || [];
@@ -37,20 +32,17 @@ function LoanCalculator(props) {
             return;
         }
         setErrorMessage('');
-        
-        // Remove commas from the loanAmount
-        const loanAmountNum = parseFloat(loanAmount.replace(/,/g, ""));
+
+        const loanAmountNum = parseFloat(loanAmount);
         const interestRateNum = parseFloat(interestRate) / 100 / 12;
         const loanTermMonthsNum = parseInt(loanTermYears) * 12;
-    
-        // mortgage constant Calculations
+
         const mortgageConstant = (interestRateNum * Math.pow(1 + interestRateNum, loanTermMonthsNum)) /
             (Math.pow(1 + interestRateNum, loanTermMonthsNum) - 1) * 12;
-    
-        // monthly payment Calculations
-        var x = Math.pow(1 + interestRateNum, loanTermMonthsNum);
-        var monthlyPayment = (loanAmountNum * x * interestRateNum) / (x - 1);
-    
+
+        const x = Math.pow(1 + interestRateNum, loanTermMonthsNum);
+        const monthlyPayment = (loanAmountNum * x * interestRateNum) / (x - 1);
+
         setResult({
             mortgageConstant: (mortgageConstant * 100).toFixed(2) + '%',
             monthlyPayment: (monthlyPayment.toFixed(2)),
@@ -58,15 +50,12 @@ function LoanCalculator(props) {
             totalPayment: (monthlyPayment * loanTermMonthsNum).toFixed(2),
             totalInterest: ((monthlyPayment * loanTermMonthsNum) - loanAmountNum).toFixed(2)
         });
-    
+
         handleSave();
     };
-    
 
-    // Function to handle Save Loan
     const handleSave = () => {
         const newLoanDetails = {
-            // name: loanName,
             amount: loanAmount,
             interestRate,
             termYears: loanTermYears
@@ -74,10 +63,8 @@ function LoanCalculator(props) {
         const existingLoans = JSON.parse(localStorage.getItem(props.historyName)) || [];
         const updatedLoans = [newLoanDetails, ...existingLoans];
         localStorage.setItem(props.historyName, JSON.stringify(updatedLoans));
-        setShowSaveLoanModal(false);
     };
 
-    // Function to handle deleting a saved loan
     const handleDelete = (index) => {
         const updatedLoans = savedLoans.filter((loan, i) => i !== index);
         setSavedLoans(updatedLoans);
@@ -85,26 +72,21 @@ function LoanCalculator(props) {
     };
 
     const generateAmortizationSchedule = () => {
-
         const loanAmountNum = parseFloat(loanAmount);
         const interestRateNum = parseFloat(interestRate) / 100 / 12;
         const loanTermMonthsNum = parseInt(loanTermYears) * 12;
 
-        // Calculate monthly payment
         const x = Math.pow(1 + interestRateNum, loanTermMonthsNum);
         const monthlyPayment = (loanAmountNum * x * interestRateNum) / (x - 1);
 
-        // Initialize arrays to store the schedule data
         const schedule = [];
         let remainingBalance = loanAmountNum;
 
-        // Calculate payment details for each month
         for (let month = 1; month <= loanTermMonthsNum; month++) {
             const interestPayment = remainingBalance * interestRateNum;
             const principalPayment = monthlyPayment - interestPayment;
             remainingBalance -= principalPayment;
 
-            // Store payment details for the current month
             schedule.push({
                 month,
                 monthlyPayment: monthlyPayment.toFixed(2),
@@ -115,7 +97,6 @@ function LoanCalculator(props) {
         }
         setAmortizationSchedule(schedule);
 
-        // Calculate total interest and principal payments
         let totalInterest = 0;
         let totalPrincipal = 0;
         for (let i = 0; i < schedule.length; i++) {
@@ -123,7 +104,6 @@ function LoanCalculator(props) {
             totalPrincipal += parseFloat(schedule[i].principalPayment);
         }
 
-        // Set state for amortization schedule and pie chart data
         setAmortizationSchedule(schedule);
         setPieChartData({
             labels: [`Interest (${totalInterest.toFixed(2)})`, `Principal (${totalPrincipal.toFixed(2)})`],
@@ -152,38 +132,30 @@ function LoanCalculator(props) {
         setSavedLoans([])
     };
 
-
     const handleLoanAmountChange = (e) => {
-        const inputAmount = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-        setLoanAmount(addCommas(inputAmount)); // Format amount with commas
-    };
-
-    const addCommas = (amount) => {
-        return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const inputAmount = e.target.value;
+        setLoanAmount(inputAmount);
     };
 
     const handleRateChange = (e) => {
-        let input = e.target.value.replace(/[^\d.]/g, ''); // Remove non-numeric and non-decimal characters
-        input = input.substring(0, 5); // Limit to 5 digits
-        input = input.replace(/(\..*)\./g, '$1'); // Remove extra decimal points
+        let input = e.target.value;
+        input = input.substring(0, 5);
+        input = input.replace(/(\..*)\./g, '$1');
         setInterestRate(input);
     };
 
     const handleLoanTermChange = (e) => {
-        let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-        input = input.substring(0, 4); // Limit to 4 digits
+        let input = e.target.value;
+        input = input.substring(0, 4);
         setLoanTermYears(input);
     };
-
 
     return (
         <>
             <div className='bootstrap-card-section'>
                 <div className="card bootstrap-card">
                     <div className="card-header text-center card-text">
-                        <h1>
-                            Loan Calculator
-                        </h1>
+                        <h1>Loan Calculator</h1>
                     </div>
                     <div className="card-body card-text">
                         <div className="message text-danger mb-2">{errorMessage}</div>
@@ -191,7 +163,7 @@ function LoanCalculator(props) {
                             <div className="input-group-prepend">
                                 <span className="input-group-text">Loan Amount</span>
                             </div>
-                            <input type="text" className="form-control" placeholder="Enter Amount"
+                            <input type="number" className="form-control" placeholder="Enter Amount"
                                 value={loanAmount}
                                 onChange={handleLoanAmountChange}
                                 inputMode='numeric'
@@ -199,9 +171,9 @@ function LoanCalculator(props) {
                         </div>
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text">Interest Rate(%) </span>
+                                <span className="input-group-text">Interest Rate(%)</span>
                             </div>
-                            <input type="text" className="form-control" placeholder="Enter Interest Rate"
+                            <input type="number" className="form-control" placeholder="Enter Interest Rate"
                                 value={interestRate}
                                 onChange={handleRateChange}
                                 inputMode='numeric'
@@ -209,9 +181,9 @@ function LoanCalculator(props) {
                         </div>
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text">Years To Pay </span>
+                                <span className="input-group-text">Years To Pay</span>
                             </div>
-                            <input type="text" className="form-control" placeholder="Enter Year"
+                            <input type="number" className="form-control" placeholder="Enter Year"
                                 value={loanTermYears}
                                 onChange={handleLoanTermChange}
                                 inputMode='numeric'
@@ -221,62 +193,25 @@ function LoanCalculator(props) {
                             <button className='btn btn-sm btn-success' onClick={calculateLoan}>Calculate</button>
                             <button className='btn btn-sm btn-primary ms-2' onClick={resetInputs}>Reset</button>
                         </div>
-                        <div >
-                            <div>
-                                <strong>
-                                    Total Payment =
-                                    <span className='text-success'>
-                                        &nbsp; {result.totalPayment}
-                                    </span>
-                                </strong>
-                            </div>
-                            <div>
-                                <strong>
-                                    Annual Payment =
-                                    <span className='text-success'>
-                                        &nbsp; {result.annualPayment}
-                                    </span>
-                                </strong>
-                            </div>
-                            <div>
-                                <strong>
-                                    Monthly Payment =
-                                    <span className='text-success'>
-                                        &nbsp; {result.monthlyPayment}
-                                    </span>
-                                </strong>
-                            </div>
-                            <div>
-                                <strong>
-                                    Total Interest =
-                                    <span className='text-success'>
-                                        &nbsp; {result.totalInterest}
-                                    </span>
-                                </strong>
-                            </div>
-                            <div>
-                                <strong>
-                                    Mortgage Constant =
-                                    <span className='text-success'>
-                                        &nbsp; {result.mortgageConstant}
-                                    </span>
-                                </strong>
-                            </div>
+                        <div>
+                            {Object.keys(result).map((key, index) => (
+                                <div key={index}>
+                                    <strong>{key} = <span className='text-success'>&nbsp; {result[key]}</span></strong>
+                                </div>
+                            ))}
                         </div>
-
                         {result.totalPayment && (
                             <div className='mt-3'>
                                 <button className='btn btn-sm btn-outline-primary'
                                     onClick={() => {
-                                        generateAmortizationSchedule(),
-                                            setShowFullReportModal(true)
-                                    }}>
+                                        generateAmortizationSchedule();
+                                        setShowFullReportModal(true)
+                                    }}
+                                >
                                     View Full Report
                                 </button>
                             </div>
                         )}
-
-                        {/* view Loan Data */}
                         <Modal show={props.isModalOpen} onHide={props.closeModal} dialogClassName="modal-dialog-centered modal-lg modal-dialog-scrollable">
                             <Modal.Header closeButton>
                                 <Modal.Title>{savedLoans.length > 0 ? 'My Loans' : 'Save Loan'}</Modal.Title>
@@ -313,8 +248,6 @@ function LoanCalculator(props) {
                                 )}
                             </Modal.Body>
                         </Modal>
-
-                        {/* modal full report */}
                         <FullReportModal
                             show={showFullReportModal}
                             handleClose={() => setShowFullReportModal(false)}
@@ -327,7 +260,7 @@ function LoanCalculator(props) {
                         />
                     </div>
                 </div>
-            </div >
+            </div>
         </>
     );
 }

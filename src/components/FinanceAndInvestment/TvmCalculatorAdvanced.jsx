@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Finance from 'tvm-financejs';
-import { Dropdown, Modal, Button, Table, Form } from 'react-bootstrap';
+import {  Modal, Button, Table, Form } from 'react-bootstrap';
 
 const TvmCalculatorAdvanced = (props) => {
     const [activeButton, setActiveButton] = useState('PV');
@@ -119,15 +119,9 @@ const TvmCalculatorAdvanced = (props) => {
                 break;
             case 'quarterly':
                 tvmParams.RATE /= 4;
-                break;
-            case 'quarterly':
-                tvmParams.RATE /= 4;
-                break;
+                break;  
             case 'semiannually':
                 tvmParams.RATE /= 2;
-                break;
-            case 'quarterly':
-                tvmParams.RATE /= 4;
                 break;
             case 'semimonthly':
                 tvmParams.RATE /= 24;
@@ -159,9 +153,6 @@ const TvmCalculatorAdvanced = (props) => {
                 break;
             case 'semiannually':
                 tvmParams.PERIOD *= 2;
-                break;
-            case 'quarterly':
-                tvmParams.PERIOD *= 4;
                 break;
             case 'semimonthly':
                 tvmParams.PERIOD *= 24;
@@ -365,7 +356,7 @@ const TvmCalculatorAdvanced = (props) => {
                         {savedTVMHistory.length > 0 ? (
                             <>
                                 <button className='btn btn-danger mb-2 btn-sm' onClick={handleDeleteHistory}>Clear All history</button>
-                                <Table striped bordered hover className={`${selectedTheme == 'light' ? 'table-light' : 'table-dark'}`}>
+                                <Table striped bordered hover className={`${selectedTheme === 'light' ? 'table-light' : 'table-dark'}`}>
                                     <thead>
                                         <tr>
                                             <th>PV</th>

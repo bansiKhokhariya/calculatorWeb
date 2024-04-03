@@ -209,6 +209,125 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                                             </div>
                                                         </div>
                                                     </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/mutualFundCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Mutual Fund Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/SIPCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  SIP Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/PPFCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; PPF Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/compoundInterestCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Compound Interest Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/FDCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; FD Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/RDCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; RD Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/gratuityCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Gratuity Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/CAGRCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; CAGR Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/discountCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Discount Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/SWPCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; SWP Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/lumpsumInvestmentCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Lumpsum Investment Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/presentValueCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Present Value Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/savingsCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Savings Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/educationCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Education Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/downPaymentCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Down Payment Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link> 
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/leaseCalculatorIndia'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Lease Calculator India
+                                                            </div>
+                                                        </div>
+                                                    </Link> 
+                                                    <Link className='redirect-link' to={'/financeAndInvestment/paybackPeriodCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp; Payback Period Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link> 
                                                 </div>
                                             </div>
                                         </div>
@@ -231,6 +350,33 @@ const SidebarToggle = ({ openHistoryModal }) => {
                                         <div className="card-header bg-light card-text" id="headingSix">
                                             <div role="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
                                                 ▼ Business Accounting
+                                            </div>
+                                        </div>
+                                        <div id="collapseSix" className="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                                            <div className="accordion" id="accordionExample">
+                                                <div className="card border-0">
+                                                    <Link className='redirect-link' to={'/businessAccounting/depreciationCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Depreciation Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/businessAccounting/breakEvenPointCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Break Even Point Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                    <Link className='redirect-link' to={'/businessAccounting/marginMarkupCalculator'} onClick={handleDrawerClose}>
+                                                        <div className="card-header bg-light text-primary">
+                                                            <div>
+                                                                &nbsp; &nbsp;  Margin and Markup Calculator
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

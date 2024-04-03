@@ -59,21 +59,6 @@
     outline: none;
 }
 
-.calculator-input-answer {
-    position: absolute;
-    bottom: 6%;
-    background: #BDF0AB;
-    width: 97%;
-    height: 30px;
-    font-family: "Digital";
-    font-size: 30px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    text-align: right;
-    border: none;
-    outline: none;
-}
-
 .calculator-button-area {
     width: 410px;
     border: 2px;
@@ -87,7 +72,6 @@
     position: absolute;
     right: 4%;
 }
-
 
 /* normal button */
 .calculator-button {
@@ -299,13 +283,13 @@
 
 /* Media query for iPhones X, XS, 11 Pro, and 12 Pro */
 @media only screen and (max-device-width: 375px) and (max-device-height: 812px),
-    only screen and (max-device-width: 812px) and (max-device-height: 375px) {
+only screen and (max-device-width: 812px) and (max-device-height: 375px) {
     .mypage {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100vh;
-        overflow-y: hidden; 
+        overflow-y: hidden;
     }
 }
 
@@ -366,10 +350,6 @@
         font-size: 40px;
     }
 
-    .calculator-input-answer {
-        height: 20px;
-        font-size: 20px;
-    }
 
     .hk-logo {
         width: 20px;
@@ -411,25 +391,26 @@
     .calculator-button-area {
         width: 385px;
     }
+
     .calculator-button,
     .calculator-button-gray,
     .calculator-button-green {
         width: 62px;
         height: 62px;
     }
+
     .last-button {
         margin-left: 70px;
         margin-top: -70px;
     }
+
     .long-button {
         height: 132px;
-    } 
+    }
+
     .calculator-input {
         font-size: 40px;
     }
-    .calculator-input-answer {
-        font-size: 20px;
-    } 
 }
 
 @media (max-width:360px) {
@@ -483,32 +464,40 @@
         margin-top: -2px;
         margin-bottom: 5px;
     }
+
     .logo-section {
         right: 2%;
     }
+
     .calculator-button-area {
         width: 270px;
     }
+
     .calculator-button,
     .calculator-button-gray,
     .calculator-button-green {
         width: 41px;
         height: 41px;
     }
+
     .last-button {
         margin-left: 50px;
         margin-top: -50px;
     }
+
     .long-button {
         height: 89px;
     }
+
     .button-text-size {
         font-size: 16px;
     }
+
     .history-area {
         width: 140px;
     }
+
     .clear-button {
         margin-left: -110px;
     }
-} 
+}

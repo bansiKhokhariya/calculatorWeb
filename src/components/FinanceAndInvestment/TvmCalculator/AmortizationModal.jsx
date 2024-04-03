@@ -47,7 +47,7 @@ const AmortizationModal = ({ show, handleClose, presentValue, payments, futureVa
         };
         const schedule = calculateAmortization();
         setAmortizationSchedule(schedule);
-    }, [presentValue, payments, futureValue, periods]);
+    }, [presentValue, payments, futureValue, periods , annualRate]);
 
     const sharePDF = () => {
         const doc = new jsPDF();
@@ -83,7 +83,7 @@ const AmortizationModal = ({ show, handleClose, presentValue, payments, futureVa
                 </button>
             </Modal.Header>
             <Modal.Body>
-                <Table id="amortizationTable" className={`${selectedTheme == 'light' ? 'table-light' : 'table-dark'}`} striped bordered hover>
+                <Table id="amortizationTable" className={`${selectedTheme === 'light' ? 'table-light' : 'table-dark'}`} striped bordered hover>
                     <thead>
                         <tr>
                             <th>Period</th>

@@ -9,21 +9,6 @@ const DateAddSubtract = () => {
     const [dayValue, setDayValue] = useState(0);
     const [resultDate, setResultDate] = useState('');
 
-    const handleOperationChange = (e) => {
-        setOperation(e.target.value);
-        if (e.target.value === 'add') {
-            if (yearValue < 0) setYearValue(0);
-            if (monthValue < 0) setMonthValue(0);
-            if (weekValue < 0) setWeekValue(0);
-            if (dayValue < 0) setDayValue(0);
-        } else {
-            if (yearValue > 0) setYearValue(0);
-            if (monthValue > 0) setMonthValue(0);
-            if (weekValue > 0) setWeekValue(0);
-            if (dayValue > 0) setDayValue(0);
-        }
-    };
-
     const handleYearChange = (e) => {
         const value = e.target.value.replace(/\D/g, ''); // Allow only numbers
         if (value.length <= 4) { // Limit to 4 digits

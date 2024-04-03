@@ -47,6 +47,7 @@ const CurrencyConverter = () => {
                         <input type="number" className="form-control" placeholder="Enter amount"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
+                            inputMode='numeric'
                         />
                     </div>
                     <label className='card-text text-center mt-2 mb-2 ms-1'>From</label>

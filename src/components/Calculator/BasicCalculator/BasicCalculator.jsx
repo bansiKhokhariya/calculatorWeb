@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, Button } from 'react-bootstrap';
 import { jsPDF } from "jspdf";
-import BasicCalculatorPdf from '../../PDF/BasicCalculatorPdf'
-import html2canvas from 'html2canvas';
-import ReactDOM from 'react-dom';
-import { renderToString } from 'react-dom/server';
 import './BasicCalculator.css'
 
 const BasicCalculator = (props) => {
@@ -13,7 +8,6 @@ const BasicCalculator = (props) => {
     const [savedResults, setSavedResults] = useState([]);
     const [showShareButton, setShowShareButton] = useState(false);
     const [currentCalculation, setCurrentCalculation] = useState('');
-    const [resultCalculation, setResultCalculation] = useState('');
     const inputRef = useRef(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -55,13 +49,10 @@ const BasicCalculator = (props) => {
     }, [inputValue]);
 
     const handleClick = (button) => {
-        setResultCalculation('')
-
         if (button === '+/-') {
             changeSign();
             return; // Exit early after toggling the sign
         }
-
         if (equalPressed) {
             setInputValue(button);
             setEqualPressed(false);
@@ -75,28 +66,6 @@ const BasicCalculator = (props) => {
         }, 50); // Adjust the delay as needed
     };
 
-    // function changeSign() {
-    //     // Get the index of the last operator
-    //     const lastOperatorIndex = inputValue.search(/[-+*/]/g);
-    
-    //     // If there's an operator before the last number, toggle its sign
-    //     if (lastOperatorIndex !== -1) {
-    //         const lastNumber = inputValue.substring(lastOperatorIndex + 1);
-    //         console.log(lastNumber.substring(0, 1));
-    //         if (lastNumber.substring(0, 1) === "-") {
-    //             setInputValue(inputValue.substring(0, lastOperatorIndex + 1) + "+" + lastNumber.substring(1));
-    //         } else {
-    //             setInputValue(inputValue.substring(0, lastOperatorIndex + 1) + "-" + lastNumber);
-    //         }
-    //     } else {
-    //         // If there's no operator, toggle the sign of the entire input value
-    //         if (inputValue.substring(0, 1) === "-") {
-    //             setInputValue(inputValue.substring(1));
-    //         } else {
-    //             setInputValue("-" + inputValue);
-    //         }
-    //     }
-    // }
 
     function changeSign() {
         if (inputValue.substring(0, 1) === "-") {
@@ -105,14 +74,13 @@ const BasicCalculator = (props) => {
             setInputValue("-" + inputValue);
         }
     }
-    
+
     const handleDelete = () => {
         setInputValue(inputValue.slice(0, -1));
     };
 
     const handleAC = () => {
         setInputValue('');
-        setResultCalculation('');
         setShowShareButton(false)
     };
 
@@ -131,8 +99,7 @@ const BasicCalculator = (props) => {
                 expression = expression.slice(0, -1);
             }
             const result = eval(expression);
-            // setInputValue(result.toString());
-            setResultCalculation(result.toString());
+            setInputValue(result.toString());
             setEqualPressed(true);
 
             setShowShareButton(true)
@@ -165,12 +132,6 @@ const BasicCalculator = (props) => {
             return [`Calculation ${index + 1}`, result];
         });
 
-        // Add autoTable plugin options
-        const options = {
-            startY: y,
-            margin: { top: 20 },
-        };
-
         // Generate table using autoTable
         doc.autoTable({
             head: [headers],
@@ -200,6 +161,10 @@ const BasicCalculator = (props) => {
 
     const SingleCalculationShare = (current) => {
         if (current) {
+
+            // Define blob here
+            const blob = new Blob([current], { type: "text/plain" });
+
             if (navigator.share) {
                 navigator.share({
                     title: "Calculation",
@@ -223,8 +188,7 @@ const BasicCalculator = (props) => {
         let expression = inputValue;
         let result = Math.sqrt(expression);
 
-        // setInputValue(result.toString());
-        setResultCalculation(result.toString());
+        setInputValue(result.toString());
         setEqualPressed(true);
 
         setShowShareButton(true)
@@ -250,7 +214,6 @@ const BasicCalculator = (props) => {
                                     readOnly
                                     type="text"
                                 />
-                                <input className='calculator-input-answer' value={resultCalculation} readOnly type="text" />
                             </div>
                         </div>
                         <div className='d-flex flex-column align-items-center logo-section'>
